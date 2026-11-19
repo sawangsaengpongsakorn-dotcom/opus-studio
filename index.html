@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d62839">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>ดึงชื่อคลิปและชื่อช่อง YouTube</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#1b2433;--muted:#667085;--line:#d9dfea;--accent:#d62839;--ok:#1a7f4b}
+@media (prefers-color-scheme:dark){:root{--bg:#12151c;--card:#1c212b;--text:#eef1f6;--muted:#9aa4b5;--line:#2f3745;--accent:#ff5a68;--ok:#4cc38a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans Thai","Sarabun",system-ui,sans-serif;line-height:1.6;padding:24px 16px}
+main{max-width:560px;margin:0 auto}
+h1{font-size:1.4rem;margin:0 0 4px}
+p.sub{color:var(--muted);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+label{font-weight:600;display:block;margin-bottom:6px}
+input{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;font:inherit;background:var(--bg);color:var(--text)}
+input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button{font:inherit;cursor:pointer;border-radius:8px;border:0;padding:10px 16px}
+.go{background:var(--accent);color:#fff;font-weight:600;width:100%;margin-top:10px}
+.copy{background:transparent;border:1px solid var(--line);color:var(--text);padding:6px 12px;margin-top:8px}
+.k{color:var(--muted);font-size:.85rem}
+.v{font-size:1.05rem;word-break:break-word}
+#msg{color:var(--accent);margin-top:10px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>ดึงชื่อคลิปและชื่อช่อง YouTube</h1>
+<p class="sub">วางลิงก์ YouTube แล้วกดปุ่ม จะได้ชื่อคลิปและชื่อช่องพร้อมคัดลอก</p>
+
+<div class="card">
+  <label for="url">ลิงก์ YouTube</label>
+  <input id="url" type="url" inputmode="url" placeholder="https://www.youtube.com/watch?v=...">
+  <button class="go" id="go">ดูข้อมูลคลิป</button>
+  <div id="msg" role="alert"></div>
+</div>
+
+<div id="out" class="hidden">
+  <div class="card">
+    <div class="k">ชื่อคลิป</div>
+    <div class="v" id="title"></div>
+    <button class="copy" data-t="title">คัดลอกชื่อคลิป</button>
+  </div>
+  <div class="card">
+    <div class="k">ชื่อช่อง</div>
+    <div class="v" id="channel"></div>
+    <button class="copy" data-t="channel">คัดลอกชื่อช่อง</button>
+  </div>
+  <div class="card">
+    <button class="copy" id="both" style="margin:0;width:100%">คัดลอกทั้งสองอย่าง</button>
+  </div>
+</div>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const sources = u => [
+  "https://www.youtube.com/oembed?format=json&url=" + encodeURIComponent(u),
+  "https://noembed.com/embed?url=" + encodeURIComponent(u)
+];
+
+async function lookup(u){
+  for (const s of sources(u)){
+    try{
+      const r = await fetch(s);
+      if(!r.ok) continue;
+      const d = await r.json();
+      if(d.title) return {title:d.title, channel:d.author_name};
+    }catch(e){}
+  }
+  return null;
+}
+
+$("go").addEventListener("click", async () => {
+  const u = $("url").value.trim();
+  $("msg").textContent = "";
+  $("out").classList.add("hidden");
+  if(!/^https?:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\//.test(u)){
+    $("msg").textContent = "กรุณาวางลิงก์ YouTube ที่ขึ้นต้นด้วย https://";
+    return;
+  }
+  $("go").disabled = true; $("go").textContent = "กำลังดึงข้อมูล...";
+  const info = await lookup(u);
+  $("go").disabled = false; $("go").textContent = "ดูข้อมูลคลิป";
+  if(!info){
+    $("msg").textContent = "ดึงข้อมูลไม่สำเร็จ ลองตรวจลิงก์ หรือคลิปอาจตั้งเป็นส่วนตัว";
+    return;
+  }
+  $("title").textContent = info.title;
+  $("channel").textContent = info.channel;
+  $("out").classList.remove("hidden");
+});
+
+async function copy(text, btn){
+  const old = btn.textContent;
+  try{ await navigator.clipboard.writeText(text); btn.textContent = "คัดลอกแล้ว"; }
+  catch(e){ btn.textContent = "คัดลอกไม่ได้ ลองกดค้างที่ข้อความ"; }
+  setTimeout(() => btn.textContent = old, 1500);
+}
+document.querySelectorAll("[data-t]").forEach(b =>
+  b.addEventListener("click", () => copy($(b.dataset.t).textContent, b)));
+$("both").addEventListener("click", e =>
+  copy($("title").textContent + " - " + $("channel").textContent, e.target));
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+</script>
+</body>
+</html>
