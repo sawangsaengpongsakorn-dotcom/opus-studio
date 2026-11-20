@@ -1,6 +1,6 @@
 {
   "name": "ดึงชื่อคลิปและชื่อช่อง YouTube",
-  "short_name": "YT Info",
+  "short_name": "Opus Studio",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
