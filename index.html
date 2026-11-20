@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#e5303f">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&family=Sarabun:wght@400;600&display=swap">
 <title>Opus Studio</title>
 <style>
@@ -42,7 +43,7 @@ button:disabled{opacity:.6;cursor:progress}
 label.drop{display:block;text-align:center;border:2px dashed var(--line);border-radius:14px;padding:22px 14px;cursor:pointer;color:var(--muted);transition:.2s}
 label.drop:hover,label.drop.over{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,transparent)}
 label.drop b{display:block;color:var(--text);font:600 .98rem Prompt,Sarabun,sans-serif}
-.nm{display:block;margin-top:4px;font-size:.88rem;word-break:break-all}
+.nm{display:block;margin-top:4px;font-size:.88rem;overflow-wrap:anywhere}
 .opts{display:flex;gap:8px;margin-top:8px}.opts label{flex:1;position:relative}
 .opts input{position:absolute;opacity:0;pointer-events:none}
 .opts span{display:block;text-align:center;padding:10px 0;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;font-size:.9rem;background:var(--field)}
@@ -71,7 +72,7 @@ details{margin-top:12px;font-size:.88rem;color:var(--muted)}summary{cursor:point
 .pane:not([hidden]){animation:up .3s ease-out both}
 #y-out:not(.hidden) .card{animation:up .35s ease-out both}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 .spres{margin-top:14px;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:var(--field)}
 .spres .copy{background:var(--card)}
 
@@ -166,6 +167,18 @@ progress::-moz-progress-bar{background:linear-gradient(90deg,var(--accent),var(-
 .drawer.on>:nth-child(12){animation-delay:0.42s}
 .drawer.on>:nth-child(13){animation-delay:0.46s}
 .cr .av{overflow:hidden}.cr .av img.pf{width:100%;height:100%;object-fit:cover}.cr .av img.lg{width:30px;height:30px;object-fit:contain}
+
+/* ---- fixes ---- */
+:root{color-scheme:light dark}
+.drawer:not(.on),.sheet:not(.on){visibility:hidden;transition:transform .28s ease,visibility 0s .3s}
+.drawer,.sbody{overscroll-behavior:contain}
+.pane:not([hidden]) .card,#y-out:not(.hidden) .card{animation-fill-mode:backwards}
+@media(hover:none){.card:hover{transform:none;border-color:var(--line)}}
+.tabs button{display:flex;align-items:center;justify-content:center;text-align:center}
+html[lang=en] .tabs button{font-size:.8rem;line-height:1.2}
+.tabs,.card{-webkit-backdrop-filter:blur(12px)}
+body::before,body::after{will-change:transform}
+@supports(height:1dvh){body{min-height:100dvh}.sheet{max-height:88dvh}}
 </style>
 </head>
 <body>
@@ -244,6 +257,12 @@ progress::-moz-progress-bar{background:linear-gradient(90deg,var(--accent),var(-
 </section>
 
 <script>
+window.flashBtn=(btn,text,ok)=>{
+  if(btn._t)clearTimeout(btn._t);else btn.dataset.o=btn.textContent;
+  btn.textContent=text;btn.classList.toggle('done',!!ok);
+  btn._t=setTimeout(()=>{btn.textContent=btn.dataset.o;btn.classList.remove('done');btn._t=0},1500);
+};
+window.flashReset=()=>document.querySelectorAll('button').forEach(b=>{if(b._t){clearTimeout(b._t);b._t=0;b.textContent=b.dataset.o;b.classList.remove('done')}});
 (()=>{
 const $=id=>document.getElementById(id);
 let file,url;
@@ -400,8 +419,7 @@ $('t-rm').onclick=()=>{newCover=null;showCover(null)};
 try{localStorage.removeItem('sp_id');localStorage.removeItem('sp_sec')}catch{}
 async function cp(t,b){
   try{await navigator.clipboard.writeText(t)}catch{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');x.remove()}
-  const o=b.classList.contains('done')?b.dataset.o:(b.dataset.o=b.textContent);b.textContent='คัดลอกแล้ว ✓';b.classList.add('done');
-  setTimeout(()=>{b.textContent=o;b.classList.remove('done')},1500);
+  flashBtn(b,'คัดลอกแล้ว ✓',true);
 }
 const un=s=>{const t=document.createElement('textarea');t.innerHTML=s;return t.value};
 const mt=(h,k)=>{const m=h.match(new RegExp('<meta[^>]+(?:property|name)="'+k+'"[^>]+content="([^"]*)"','i'))||h.match(new RegExp('<meta[^>]+content="([^"]*)"[^>]+(?:property|name)="'+k+'"','i'));return m?un(m[1]):''};
@@ -523,10 +541,8 @@ $("y-go").addEventListener("click", async () => {
 });
 
 async function copy(text, btn){
-  const old = btn.textContent;
-  try{ await navigator.clipboard.writeText(text); btn.textContent = "คัดลอกแล้ว ✓"; btn.classList.add("done"); }
-  catch(e){ btn.textContent = "คัดลอกไม่ได้ ลองกดค้างที่ข้อความ"; }
-  setTimeout(() => { btn.textContent = old; btn.classList.remove("done"); }, 1500);
+  try{ await navigator.clipboard.writeText(text); flashBtn(btn, "คัดลอกแล้ว ✓", true); }
+  catch(e){ flashBtn(btn, "คัดลอกไม่ได้ ลองกดค้างที่ข้อความ", false); }
 }
 document.querySelectorAll("[data-t]").forEach(b =>
   b.addEventListener("click", () => copy($("y-"+b.dataset.t).textContent, b)));
@@ -561,9 +577,9 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 const $=id=>document.getElementById(id);
 const drawer=$('m-drawer'),scrim=$('m-scrim'),burger=$('m-open');
 let openSheet=null;
-const setDrawer=on=>{drawer.classList.toggle('on',on);drawer.setAttribute('aria-hidden',!on);burger.setAttribute('aria-expanded',on);scrim.classList.toggle('on',on||!!openSheet)};
-const setSheet=(id,on)=>{const s=$('s-'+id);s.classList.toggle('on',on);s.setAttribute('aria-hidden',!on);openSheet=on?id:null;scrim.classList.toggle('on',on)};
-const closeAll=()=>{setDrawer(false);if(openSheet)setSheet(openSheet,false);scrim.classList.remove('on')};
+const setDrawer=on=>{drawer.classList.toggle('on',on);drawer.setAttribute('aria-hidden',!on);burger.setAttribute('aria-expanded',on);scrim.classList.toggle('on',on||!!openSheet);if(on)setTimeout(()=>drawer.querySelector('.x').focus({preventScroll:true}),60)};
+const setSheet=(id,on)=>{const s=$('s-'+id);s.classList.toggle('on',on);s.setAttribute('aria-hidden',!on);openSheet=on?id:null;scrim.classList.toggle('on',on);if(on&&id!=='faq')setTimeout(()=>s.querySelector('.x').focus({preventScroll:true}),60)};
+const closeAll=()=>{const was=drawer.classList.contains('on')||openSheet;setDrawer(false);if(openSheet)setSheet(openSheet,false);scrim.classList.remove('on');if(was)burger.focus({preventScroll:true})};
 burger.onclick=()=>setDrawer(true);
 scrim.onclick=closeAll;
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeAll);
@@ -671,8 +687,12 @@ const DICT={
 const PAT=[[/^เสร็จแล้ว • (.*)$/,x=>'Done • '+x],[/^บันทึกแล้ว • (.*)$/,x=>'Saved • '+x],[/^ผิดพลาด: (.*)$/,x=>'Error: '+(DICT[x]||x)]];
 let lang='th';try{lang=localStorage.getItem('lang')||'th'}catch{}
 const O=new WeakMap(),S=new WeakMap();
-const tr=t=>{if(DICT[t])return DICT[t];for(const[r,f]of PAT){const m=t.match(r);if(m)return f(m[1])}return null};
-const skip=n=>{const p=n.parentNode;return !p||p.nodeName==='SCRIPT'||p.nodeName==='STYLE'||(p.closest&&p.closest('#f-chat,#f-chips'))};
+const has=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+const REV={};for(const k in DICT)if(!has(REV,DICT[k]))REV[DICT[k]]=k;
+const PATR=[[/^Done • (.*)$/,x=>'เสร็จแล้ว • '+x],[/^Saved • (.*)$/,x=>'บันทึกแล้ว • '+x],[/^Error: (.*)$/,x=>'ผิดพลาด: '+(has(REV,x)?REV[x]:x)]];
+const tr=t=>{if(has(DICT,t))return DICT[t];for(const[r,f]of PAT){const m=t.match(r);if(m)return f(m[1])}return null};
+const trev=t=>{if(has(REV,t))return REV[t];for(const[r,f]of PATR){const m=t.match(r);if(m)return f(m[1])}return null};
+const skip=n=>{const p=n.parentNode;return !p||p.nodeName==='SCRIPT'||p.nodeName==='STYLE'||(p.closest&&p.closest('#f-chat,#f-chips,#y-title,#y-channel,#t-sa,#t-st'))};
 function doNode(n){
   if(lang!=='en'||skip(n))return;
   const v=n.nodeValue,t=v.trim();if(!t||S.get(n)===v)return;
@@ -680,7 +700,12 @@ function doNode(n){
   const nv=v.replace(t,e);O.set(n,v);S.set(n,nv);n.nodeValue=nv;
 }
 const walk=root=>{const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode())doNode(n)};
-const restore=()=>{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(O.has(n)&&S.get(n)===n.nodeValue){n.nodeValue=O.get(n);O.delete(n);S.delete(n)}}};
+const restore=()=>{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){
+  if(O.has(n)&&S.get(n)===n.nodeValue){n.nodeValue=O.get(n);O.delete(n);S.delete(n);continue}
+  if(skip(n))continue;
+  const v=n.nodeValue,t=v.trim();if(!t)continue;
+  const r=trev(t);if(r!=null)n.nodeValue=v.replace(t,r);
+}};
 const attrs=()=>document.querySelectorAll('[placeholder],[aria-label],[alt]').forEach(el=>['placeholder','aria-label','alt'].forEach(a=>{
   if(!el.hasAttribute(a))return;const k='o'+a.replace('-','');
   if(!(k in el.dataset)){if(/[\u0E00-\u0E7F]/.test(el.getAttribute(a)))el.dataset[k]=el.getAttribute(a);else return}
@@ -688,13 +713,14 @@ const attrs=()=>document.querySelectorAll('[placeholder],[aria-label],[alt]').fo
 }));
 new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData')doNode(m.target);else m.addedNodes.forEach(a=>a.nodeType===3?doNode(a):a.nodeType===1&&walk(a))}}).observe(document.body,{childList:true,subtree:true,characterData:true});
 function setLang(l,anim){
+  if(window.flashReset)flashReset();
   lang=l;try{localStorage.setItem('lang',l)}catch{}
   document.documentElement.lang=l;
   if(l==='en')walk(document.body);else restore();
   attrs();
   document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
   window.dispatchEvent(new Event('langchange'));
-  if(anim)document.querySelector('main').animate([{opacity:.15,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:320,easing:'ease-out'});
+  if(anim&&!matchMedia('(prefers-reduced-motion:reduce)').matches)document.querySelector('main').animate([{opacity:.15,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:320,easing:'ease-out'});
 }
 document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{if(b.dataset.lang!==lang)setLang(b.dataset.lang,true)});
 // sliding tab pill
