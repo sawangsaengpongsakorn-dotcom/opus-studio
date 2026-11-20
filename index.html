@@ -323,7 +323,8 @@ $('t-go').onclick=()=>{
     out.push(...tp);
     for(let k=tagEnd+1;k<pg.length;k++){const p=data.slice(pg[k].o,pg[k].o+pg[k].len);fix(p,seq++);out.push(p)}
     const blob=new Blob(out,{type:'audio/ogg'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;document.body.appendChild(a);a.click();a.remove();
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);const ext=(fname.match(/\.[^.]+$/)||['.opus'])[0],nm=set.TITLE.replace(/[\\\/:*?"<>|\x00-\x1f]/g,'').replace(/\s+/g,' ').trim().slice(0,120);
+    a.download=(nm||fname.replace(/\.[^.]+$/,''))+ext;document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(a.href),5000);
     msg('บันทึกแล้ว • '+(blob.size/1048576).toFixed(2)+' MB');
   }catch(err){msg('ผิดพลาด: '+err.message)}
