@@ -72,6 +72,8 @@ details{margin-top:12px;font-size:.88rem;color:var(--muted)}summary{cursor:point
 #y-out:not(.hidden) .card{animation:up .35s ease-out both}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.spres{margin-top:14px;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:var(--field)}
+.spres .copy{background:var(--card)}
 </style>
 </head>
 <body>
@@ -97,10 +99,11 @@ details{margin-top:12px;font-size:.88rem;color:var(--muted)}summary{cursor:point
 <label class="k">ศิลปิน<input type="text" id="t-artist"></label>
 <label class="k">อัลบั้ม<input type="text" id="t-album"></label>
 <div class="cv"><div class="cvbox">♪<img id="t-img" alt="ปกเพลง"></div><div class="cb"><label class="pick"><input type="file" id="t-cf" accept="image/*">เลือกรูปปก</label><button class="ghost" id="t-rm">ลบปก</button></div></div>
-<label class="k">ดึงปก/ชื่อเพลงจากลิงก์ Spotify (ไม่บังคับ)<div class="row"><input type="text" id="t-spurl" placeholder="https://open.spotify.com/track/..."><button class="ghost" id="t-sp">ดึง</button></div></label>
-<details><summary>ใส่ Client ID/Secret เพื่อดึงชื่อศิลปินด้วย</summary>
-<input type="text" id="t-cid" placeholder="Client ID"><input type="password" id="t-csec" placeholder="Client Secret">
-<p>สมัครฟรีที่ developer.spotify.com ค่าเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น</p></details>
+<label class="k">ดึงปก ชื่อเพลง และชื่อศิลปินจากลิงก์ Spotify (ไม่บังคับ)<div class="row"><input type="text" id="t-spurl" placeholder="https://open.spotify.com/track/..."><button class="ghost" id="t-sp">ดึง</button></div></label>
+<div class="spres" id="t-spres" style="display:none">
+<div id="t-ra"><div class="k" style="margin-top:0">ชื่อศิลปินใน Spotify</div><div class="v" id="t-sa"></div><button class="copy" id="t-sac">คัดลอกชื่อศิลปิน</button></div>
+<div id="t-rt"><div class="k">ชื่อเพลงใน Spotify</div><div class="v" id="t-st"></div><button class="copy" id="t-stc">คัดลอกชื่อเพลง</button></div>
+</div>
 <button class="go" id="t-go">บันทึกแท็กและดาวน์โหลด</button>
 </div>
 <div class="msg" id="t-msg"></div>
@@ -273,30 +276,44 @@ window.tagLoad=async f=>{
 };
 $('t-cf').onchange=async e=>{const f=e.target.files[0];if(f)try{await setCover(f)}catch{msg('อ่านรูปไม่ได้')}e.target.value=''};
 $('t-rm').onclick=()=>{newCover=null;showCover(null)};
-const ls={get:k=>{try{return localStorage.getItem(k)||''}catch{return ''}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
-$('t-cid').value=ls.get('sp_id');$('t-csec').value=ls.get('sp_sec');
-$('t-sp').onclick=async()=>{
-  const url=$('t-spurl').value.trim(),id=(url.match(/track\/([A-Za-z0-9]+)/)||[])[1];
-  const cid=$('t-cid').value.trim(),sec=$('t-csec').value.trim();
-  ls.set('sp_id',cid);ls.set('sp_sec',sec);
-  if(!id)return msg('ลิงก์ต้องเป็นลิงก์เพลงของ Spotify (…/track/…)');
-  msg('กำลังดึง...');
-  let why='';if(cid&&sec){
+try{localStorage.removeItem('sp_id');localStorage.removeItem('sp_sec')}catch{}
+async function cp(t,b){
+  try{await navigator.clipboard.writeText(t)}catch{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');x.remove()}
+  const o=b.dataset.o||(b.dataset.o=b.textContent);b.textContent='คัดลอกแล้ว ✓';b.classList.add('done');
+  setTimeout(()=>{b.textContent=o;b.classList.remove('done')},1500);
+}
+const un=s=>{const t=document.createElement('textarea');t.innerHTML=s;return t.value};
+const mt=(h,k)=>{const m=h.match(new RegExp('<meta[^>]+(?:property|name)="'+k+'"[^>]+content="([^"]*)"','i'))||h.match(new RegExp('<meta[^>]+content="([^"]*)"[^>]+(?:property|name)="'+k+'"','i'));return m?un(m[1]):''};
+async function spArtist(url){
+  const q=encodeURIComponent(url);
+  for(const r of ['https://api.allorigins.win/raw?url='+q,'https://corsproxy.io/?url='+q]){
     try{
-      const tr=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Authorization:'Basic '+btoa(cid+':'+sec)},body:'grant_type=client_credentials'});const t=await tr.json();if(!t.access_token)throw Error('ขอ token ไม่ได้: '+(t.error_description||t.error||tr.status));
-      const jr=await fetch('https://api.spotify.com/v1/tracks/'+id,{headers:{Authorization:'Bearer '+t.access_token}});const j=await jr.json();
-      if(!j.name)throw Error('ดึงข้อมูลเพลงไม่ได้ ('+jr.status+'): '+((j.error&&j.error.message)||''));
-      $('t-title').value=j.name;$('t-artist').value=j.artists.map(a=>a.name).join(', ');$('t-album').value=j.album.name;
-      const im=j.album.images[0];if(im)await setCover(await(await fetch(im.url)).blob());
-      return msg('ดึงชื่อเพลง ศิลปิน อัลบั้ม และปกแล้ว');
-    }catch(e){why=e instanceof TypeError?'เบราว์เซอร์เรียก Spotify API ตรงๆ ไม่ได้ (CORS)':e.message}
+      const h=await(await fetch(r)).text();
+      let a=mt(h,'music:musician_description')||mt(h,'og:description').split(' · ')[0];
+      if(!a){const m=un((h.match(/<title>([^<]*)<\/title>/i)||[])[1]||'').match(/by (.+?)(?: \| Spotify)?$/);a=m?m[1]:''}
+      if(a)return a.trim();
+    }catch{}
   }
-  try{
-    const j=await(await fetch('https://open.spotify.com/oembed?url='+encodeURIComponent(url))).json();
-    if(j.title)$('t-title').value=j.title;
-    await setCover(await(await fetch(j.thumbnail_url)).blob());
-    msg(why?'ดึงปกและชื่อเพลงแล้ว แต่ดึงศิลปินไม่ได้: '+why:'ดึงปกและชื่อเพลงแล้ว ส่วนชื่อศิลปินต้องใส่ Client ID/Secret ด้านล่าง หรือพิมพ์เอง');
-  }catch{msg('ดึงจาก Spotify ไม่ได้ ให้บันทึกรูปปกลงเครื่องแล้วกด "เลือกรูปปก" แทน')}
+  return '';
+}
+$('t-sac').onclick=e=>cp($('t-sa').textContent,e.target);
+$('t-stc').onclick=e=>cp($('t-st').textContent,e.target);
+$('t-sp').onclick=async()=>{
+  const url=$('t-spurl').value.trim();
+  if(!/open\.spotify\.com\/.*track\//.test(url))return msg('ลิงก์ต้องเป็นลิงก์เพลงของ Spotify (…/track/…)');
+  msg('กำลังดึง...');$('t-spres').style.display='none';
+  let j=null;
+  try{j=await(await fetch('https://open.spotify.com/oembed?url='+encodeURIComponent(url))).json()}catch{}
+  if(j&&j.title){
+    $('t-title').value=j.title;
+    try{await setCover(await(await fetch(j.thumbnail_url)).blob())}catch{}
+  }
+  const art=await spArtist(url.split('?')[0]);
+  $('t-ra').style.display=art?'':'none';$('t-rt').style.display=(j&&j.title)?'':'none';
+  if(art)$('t-sa').textContent=art;
+  if(j&&j.title)$('t-st').textContent=j.title;
+  if(art||(j&&j.title)){$('t-spres').style.display='block';msg(art?'ดึงข้อมูลแล้ว':'ดึงปกและชื่อเพลงแล้ว แต่หาชื่อศิลปินไม่เจอ พิมพ์เองได้')}
+  else msg('ดึงจาก Spotify ไม่ได้ ให้บันทึกรูปปกลงเครื่องแล้วกด "เลือกรูปปก" แทน');
 };
 
 $('t-go').onclick=()=>{
