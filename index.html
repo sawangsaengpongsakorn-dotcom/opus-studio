@@ -8,89 +8,331 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&family=Sarabun:wght@400;600&display=swap">
-<title>ดึงชื่อคลิปและชื่อช่อง YouTube</title>
+<title>Opus Studio</title>
 <style>
 :root{--bg:#f4f1f3;--card:#fff;--text:#1d1a22;--muted:#6e6877;--line:#e2dce6;--accent:#e5303f;--accent2:#ff7a45;--ok:#1a7f4b;--field:#f4f1f3;--shadow:0 10px 30px -12px rgba(60,20,40,.25)}
-@media (prefers-color-scheme:dark){:root{--bg:#14101a;--card:#1e1927;--text:#f3eef7;--muted:#a69db3;--line:#322a40;--accent:#ff4d5e;--accent2:#ff9a5c;--ok:#4cc38a;--field:#14101a;--shadow:0 10px 30px -12px rgba(0,0,0,.6)}}
+@media(prefers-color-scheme:dark){:root{--bg:#14101a;--card:#1e1927;--text:#f3eef7;--muted:#a69db3;--line:#322a40;--accent:#ff4d5e;--accent2:#ff9a5c;--ok:#4cc38a;--field:#14101a;--shadow:0 10px 30px -12px rgba(0,0,0,.6)}}
 *{box-sizing:border-box}
 html{-webkit-tap-highlight-color:transparent}
 body{margin:0;min-height:100vh;background:radial-gradient(120% 60% at 50% -10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),var(--bg);color:var(--text);font-family:"Sarabun","Noto Sans Thai",system-ui,sans-serif;line-height:1.6;padding:max(28px,env(safe-area-inset-top)) 16px max(28px,env(safe-area-inset-bottom))}
 main{max-width:520px;margin:0 auto}
-header{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-.logo{flex:none;width:52px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;box-shadow:0 8px 18px -6px var(--accent)}
-.logo::after{content:"";border-left:14px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
-h1{font:700 1.3rem/1.25 "Prompt","Sarabun",sans-serif;margin:0}
+header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.logo{flex:none;width:52px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font:700 1.6rem Prompt,sans-serif;box-shadow:0 8px 18px -6px var(--accent)}
+h1{font:700 1.35rem/1.25 Prompt,Sarabun,sans-serif;margin:0}
 p.sub{color:var(--muted);margin:2px 0 0;font-size:.92rem}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:15px;margin-bottom:14px;position:sticky;top:max(8px,env(safe-area-inset-top));z-index:5;box-shadow:var(--shadow)}
+.tabs button{flex:1;padding:10px 4px;background:none;color:var(--muted);font:600 .86rem Prompt,Sarabun,sans-serif;border-radius:11px}
+.tabs button[aria-selected=true]{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
 .card{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
-label{font:600 .95rem "Prompt","Sarabun",sans-serif;display:block;margin-bottom:8px}
-.row{display:flex;gap:8px}
-input{flex:1;min-width:0;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:var(--field);color:var(--text);transition:border-color .2s}
+.k{display:block;color:var(--muted);font-size:.85rem;margin-top:14px}
+.v{font-size:1.05rem;word-break:break-word;margin-top:2px}
+input[type=text],input[type=url],input[type=password]{width:100%;min-width:0;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:var(--field);color:var(--text);margin-top:4px;transition:border-color .2s}
 input:focus{border-color:var(--accent);outline:none}
+input[type=file]{display:none}
+.row{display:flex;gap:8px}.row input{flex:1;margin:0}
 button{font:inherit;cursor:pointer;border-radius:12px;border:0;padding:10px 16px;transition:transform .15s,opacity .2s}
 button:active{transform:scale(.97)}
 button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:progress}
 .ghost{background:var(--field);border:1.5px solid var(--line);color:var(--text);padding:0 14px;font-size:.9rem}
-.go{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font:600 1rem "Prompt","Sarabun",sans-serif;width:100%;margin-top:12px;padding:14px;box-shadow:0 10px 20px -10px var(--accent)}
-.go:disabled{opacity:.7;cursor:progress}
+.go{display:block;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font:600 1rem Prompt,Sarabun,sans-serif;width:100%;margin-top:16px;padding:14px;box-shadow:0 10px 20px -10px var(--accent)}
+.both{background:var(--text);color:var(--bg);font-weight:600;width:100%;padding:13px;margin-top:10px}
+.copy{background:var(--field);border:1.5px solid var(--line);color:var(--text);padding:8px 14px;margin-top:10px;font-size:.9rem}
+.copy.done{background:var(--ok);border-color:var(--ok);color:#fff}
+label.drop{display:block;text-align:center;border:2px dashed var(--line);border-radius:14px;padding:22px 14px;cursor:pointer;color:var(--muted);transition:.2s}
+label.drop:hover,label.drop.over{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,transparent)}
+label.drop b{display:block;color:var(--text);font:600 .98rem Prompt,Sarabun,sans-serif}
+.nm{display:block;margin-top:4px;font-size:.88rem;word-break:break-all}
+.opts{display:flex;gap:8px;margin-top:8px}.opts label{flex:1;position:relative}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:block;text-align:center;padding:10px 0;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;font-size:.9rem;background:var(--field)}
+.opts input:checked+span{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff;font-weight:600}
+.opts input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+progress{width:100%;height:8px;margin-top:14px;accent-color:var(--accent)}
+audio{width:100%;margin-top:14px}
+.dl{display:block;margin-top:10px;text-align:center;padding:12px;border-radius:12px;border:1.5px solid var(--accent);color:var(--accent);font-weight:600;text-decoration:none}
+.msg{color:var(--muted);margin-top:10px;font-size:.92rem;word-break:break-word}.msg:empty{display:none}
+#y-msg{color:var(--accent)}
+#t-ed{display:none}
+.cv{display:flex;gap:14px;align-items:center;margin-top:16px}
+.cvbox{position:relative;flex:none;width:104px;height:104px;border-radius:14px;border:1.5px solid var(--line);background:var(--field);display:grid;place-items:center;font-size:2rem;color:var(--muted);overflow:hidden}
+#t-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#t-img:not([src]){display:none}
+.cb{flex:1;display:flex;flex-direction:column;gap:8px}
+.pick{display:block;text-align:center;padding:10px;border-radius:12px;cursor:pointer;background:var(--field);border:1.5px solid var(--line);font-size:.9rem}
+.cb .ghost{padding:10px}
+details{margin-top:12px;font-size:.88rem;color:var(--muted)}summary{cursor:pointer}
 .bar{position:absolute;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 .loading .bar{animation:load 1.6s ease-out forwards}
 @keyframes load{0%{width:0}60%{width:70%}100%{width:92%}}
-#msg{color:var(--accent);margin-top:10px;font-size:.92rem}
-#msg:empty{display:none}
 .thumb{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;margin-bottom:14px}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45),transparent 45%)}
-.k{color:var(--muted);font-size:.85rem}
-.v{font-size:1.05rem;word-break:break-word;margin-top:2px}
-.copy{background:var(--field);border:1.5px solid var(--line);color:var(--text);padding:8px 14px;margin-top:10px;font-size:.9rem}
-.copy.done{background:var(--ok);border-color:var(--ok);color:#fff}
-.both{background:var(--text);color:var(--bg);font-weight:600;width:100%;padding:13px}
 .hidden{display:none}
-#out:not(.hidden) .card{animation:up .35s ease-out both}
-#out:not(.hidden) .card:nth-child(2){animation-delay:.06s}
-#out:not(.hidden) .card:nth-child(3){animation-delay:.12s}
+.pane:not([hidden]){animation:up .3s ease-out both}
+#y-out:not(.hidden) .card{animation:up .35s ease-out both}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <main>
-<header>
-  <div class="logo" aria-hidden="true"></div>
-  <div>
-    <h1>ดึงชื่อคลิปและชื่อช่อง YouTube</h1>
-    <p class="sub">วางลิงก์ แล้วคัดลอกไปใช้ต่อได้เลย</p>
-  </div>
-</header>
+<header><div class="logo" aria-hidden="true">♪</div><div><h1>Opus Studio</h1><p class="sub">แปลงเสียง แท็กเพลง และดึงข้อมูลคลิปในที่เดียว</p></div></header>
+<nav class="tabs"><button data-tab="conv" aria-selected="true">แปลงเป็น Opus</button><button data-tab="tag" aria-selected="false">แท็กเพลง</button><button data-tab="yt" aria-selected="false">ข้อมูล YouTube</button></nav>
 
-<div class="card" id="form">
-  <div class="bar"></div>
-  <label for="url">ลิงก์ YouTube</label>
-  <div class="row">
-    <input id="url" type="url" inputmode="url" placeholder="https://www.youtube.com/watch?v=...">
-    <button class="ghost" id="paste" type="button">วาง</button>
-  </div>
-  <button class="go" id="go">ดูข้อมูลคลิป</button>
-  <div id="msg" role="alert"></div>
-</div>
+<section class="pane" id="p-conv"><div class="card">
+<label class="drop"><input type="file" id="c-f" accept=".webm,video/webm,audio/webm"><b>ลากไฟล์ .webm มาวาง หรือแตะเพื่อเลือก</b><span class="nm" id="c-name">ถอดเสียงในเบราว์เซอร์ ไฟล์ไม่ถูกอัปโหลด</span></label>
+<span class="k">Bitrate</span>
+<div class="opts"><label><input type="radio" name="br" value="128" checked><span>128</span></label><label><input type="radio" name="br" value="160"><span>160</span></label><label><input type="radio" name="br" value="256"><span>256</span></label><label><input type="radio" name="br" value="320"><span>320</span></label></div>
+<span class="k">Sample rate 48000 Hz (คงที่) • หน่วย kbps • ไฟล์ Ogg Opus</span>
+<button class="go" id="c-go">แปลงเป็น .opus</button>
+<progress id="c-bar" value="0" max="1" hidden></progress>
+<div class="msg" id="c-msg"></div>
+<div id="c-res" style="display:none"><audio id="c-au" controls></audio><a id="c-dl" class="dl">ดาวน์โหลด .opus</a><button class="both" id="c-send">แก้แท็กไฟล์นี้ต่อ →</button></div>
+</div></section>
 
-<div id="out" class="hidden">
-  <div class="card">
-    <div class="thumb" id="thumbBox"><img id="thumb" alt="ภาพปกคลิป"></div>
-    <div class="k">ชื่อคลิป</div>
-    <div class="v" id="title"></div>
-    <button class="copy" data-t="title">คัดลอกชื่อคลิป</button>
-  </div>
-  <div class="card">
-    <div class="k">ชื่อช่อง</div>
-    <div class="v" id="channel"></div>
-    <button class="copy" data-t="channel">คัดลอกชื่อช่อง</button>
-  </div>
-  <button class="both" id="both">คัดลอกทั้งสองอย่าง</button>
+<section class="pane" id="p-tag" hidden><div class="card">
+<label class="drop"><input type="file" id="t-f" accept=".opus,.ogg,audio/ogg"><b>ลากไฟล์ .opus มาวาง หรือแตะเพื่อเลือก</b><span class="nm" id="t-name">แก้ชื่อเพลง ศิลปิน อัลบั้ม และปก</span></label>
+<div id="t-ed">
+<label class="k">ชื่อเพลง<input type="text" id="t-title"></label>
+<label class="k">ศิลปิน<input type="text" id="t-artist"></label>
+<label class="k">อัลบั้ม<input type="text" id="t-album"></label>
+<div class="cv"><div class="cvbox">♪<img id="t-img" alt="ปกเพลง"></div><div class="cb"><label class="pick"><input type="file" id="t-cf" accept="image/*">เลือกรูปปก</label><button class="ghost" id="t-rm">ลบปก</button></div></div>
+<label class="k">ดึงปก/ชื่อเพลงจากลิงก์ Spotify (ไม่บังคับ)<div class="row"><input type="text" id="t-spurl" placeholder="https://open.spotify.com/track/..."><button class="ghost" id="t-sp">ดึง</button></div></label>
+<details><summary>ใส่ Client ID/Secret เพื่อดึงชื่อศิลปินด้วย</summary>
+<input type="text" id="t-cid" placeholder="Client ID"><input type="password" id="t-csec" placeholder="Client Secret">
+<p>สมัครฟรีที่ developer.spotify.com ค่าเก็บในเบราว์เซอร์เครื่องนี้เท่านั้น</p></details>
+<button class="go" id="t-go">บันทึกแท็กและดาวน์โหลด</button>
 </div>
+<div class="msg" id="t-msg"></div>
+</div></section>
+
+<section class="pane" id="p-yt" hidden>
+<div class="card" id="y-form"><div class="bar"></div>
+<label class="k" for="y-url" style="margin-top:0">ลิงก์ YouTube</label>
+<div class="row"><input id="y-url" type="url" inputmode="url" placeholder="https://www.youtube.com/watch?v=..."><button class="ghost" id="y-paste" type="button">วาง</button></div>
+<button class="go" id="y-go">ดูข้อมูลคลิป</button>
+<div class="msg" id="y-msg" role="alert"></div></div>
+<div id="y-out" class="hidden">
+<div class="card"><div class="thumb" id="y-thumbBox"><img id="y-thumb" alt="ภาพปกคลิป"></div><div class="k" style="margin-top:0">ชื่อคลิป</div><div class="v" id="y-title"></div><button class="copy" data-t="title">คัดลอกชื่อคลิป</button></div>
+<div class="card"><div class="k" style="margin-top:0">ชื่อช่อง</div><div class="v" id="y-channel"></div><button class="copy" data-t="channel">คัดลอกชื่อช่อง</button></div>
+<button class="both" id="y-both">คัดลอกทั้งสองอย่าง</button>
+<button class="both" id="y-tag" style="margin-bottom:14px">ใช้เป็นชื่อเพลง/ศิลปินในแท็บแท็ก →</button>
+</div></section>
 </main>
-
 <script>
+(()=>{
+const $=id=>document.getElementById(id);
+let file,url;
+const msg=t=>$('c-msg').textContent=t;
+$('c-f').onchange=e=>{file=e.target.files[0];$('c-name').textContent=file?file.name:'แตะเพื่อเลือกไฟล์ .webm'};
+
+// Ogg CRC32 (poly 0x04C11DB7, no reflection)
+const T=new Uint32Array(256);
+for(let i=0;i<256;i++){let c=i<<24;for(let k=0;k<8;k++)c=(c&0x80000000)?(c<<1)^0x04C11DB7:c<<1;T[i]=c>>>0}
+const crc=b=>{let c=0;for(let i=0;i<b.length;i++)c=((c<<8)^T[((c>>>24)^b[i])&255])>>>0;return c};
+
+function page(pk,type,gran,seq,ser){
+  const segs=[];
+  for(const p of pk){let n=p.length;while(n>=255){segs.push(255);n-=255}segs.push(n)}
+  const dl=pk.reduce((a,p)=>a+p.length,0);
+  const out=new Uint8Array(27+segs.length+dl),v=new DataView(out.buffer);
+  out.set([79,103,103,83,0,type]);
+  v.setUint32(6,gran%4294967296,true);v.setUint32(10,Math.floor(gran/4294967296),true);
+  v.setUint32(14,ser,true);v.setUint32(18,seq,true);
+  out[26]=segs.length;out.set(segs,27);
+  let o=27+segs.length;for(const p of pk){out.set(p,o);o+=p.length}
+  v.setUint32(22,crc(out),true);
+  return out;
+}
+
+$('c-go').onclick=async()=>{
+  if(!file)return msg('เลือกไฟล์ก่อนครับ');
+  const SR=48000,br=+document.querySelector('input[name=br]:checked').value*1000;
+  $('c-go').disabled=true;$('c-res').style.display='none';$('c-bar').hidden=false;$('c-bar').value=0;
+  try{
+    if(!window.AudioEncoder)throw Error('เบราว์เซอร์ไม่รองรับ WebCodecs (ใช้ Chrome / Edge / Firefox ล่าสุด)');
+    msg('กำลังถอดเสียง...');
+    const ctx=new AudioContext({sampleRate:SR});
+    const ab=await ctx.decodeAudioData(await file.arrayBuffer());ctx.close();
+    const ch=Math.min(2,ab.numberOfChannels),N=ab.length;
+    const cfg={codec:'opus',sampleRate:SR,numberOfChannels:ch,bitrate:br};
+    if(!(await AudioEncoder.isConfigSupported(cfg)).supported)throw Error('เบราว์เซอร์นี้เข้ารหัส Opus ไม่ได้');
+    const pk=[];let pre=312,err=null;
+    const enc=new AudioEncoder({
+      output:(c,m)=>{
+        const b=new Uint8Array(c.byteLength);c.copyTo(b);
+        pk.push([b,Math.round(c.duration*SR/1e6)||960]);
+        const d=m&&m.decoderConfig&&m.decoderConfig.description;
+        if(d&&d.byteLength>=12)pre=new DataView(d.buffer||d,d.byteOffset||0).getUint16(10,true);
+      },
+      error:e=>err=e
+    });
+    enc.configure(cfg);
+    msg('กำลังเข้ารหัส Opus...');
+    const CH=48000;
+    for(let s=0;s<N;s+=CH){
+      if(err)throw err;
+      const n=Math.min(CH,N-s),data=new Float32Array(n*ch);
+      for(let c=0;c<ch;c++)data.set(ab.getChannelData(c).subarray(s,s+n),c*n);
+      const ad=new AudioData({format:'f32-planar',sampleRate:SR,numberOfFrames:n,numberOfChannels:ch,timestamp:Math.round(s/SR*1e6),data});
+      enc.encode(ad);ad.close();
+      $('c-bar').value=s/N;
+      await new Promise(r=>setTimeout(r));
+    }
+    await enc.flush();enc.close();
+    if(err)throw err;
+
+    // Mux into Ogg Opus
+    const head=new Uint8Array(19),hv=new DataView(head.buffer);
+    head.set([...'OpusHead'].map(x=>x.charCodeAt(0)));
+    head[8]=1;head[9]=ch;hv.setUint16(10,pre,true);hv.setUint32(12,SR,true);
+    const te=new TextEncoder(),vendor=te.encode('webm-to-opus');
+    const tags=new Uint8Array(16+vendor.length);
+    tags.set(te.encode('OpusTags'));
+    new DataView(tags.buffer).setUint32(8,vendor.length,true);tags.set(vendor,12);
+    const ser=(Math.random()*4294967295)>>>0;
+    const parts=[page([head],2,0,0,ser),page([tags],0,0,1,ser)];
+    let seq=2,gran=pre,i=0;
+    while(i<pk.length){
+      const grp=[];let segs=0;
+      while(i<pk.length&&grp.length<50&&segs+Math.floor(pk[i][0].length/255)+1<=255){
+        segs+=Math.floor(pk[i][0].length/255)+1;gran+=pk[i][1];grp.push(pk[i][0]);i++;
+      }
+      const last=i>=pk.length;
+      parts.push(page(grp,last?4:0,last?Math.min(gran,N+pre):gran,seq++,ser));
+    }
+    const blob=new Blob(parts,{type:'audio/ogg; codecs=opus'});
+    if(url)URL.revokeObjectURL(url);
+    url=URL.createObjectURL(blob);
+    $('c-au').src=url;$('c-dl').href=url;
+    $('c-dl').download=file.name.replace(/\.[^.]+$/,'')+'_'+(br/1000)+'k.opus';
+    $('c-res').style.display='block';$('c-bar').value=1;window.lastOpus={blob,name:$('c-dl').download};
+    msg('เสร็จแล้ว • '+(blob.size/1048576).toFixed(2)+' MB • '+ch+' ch • 48000 Hz • '+(br/1000)+' kbps');
+  }catch(e){msg('ผิดพลาด: '+(e.message||e))}
+  $('c-go').disabled=false;
+};
+})();
+(()=>{
+const $=id=>document.getElementById(id),te=new TextEncoder(),td=new TextDecoder();
+const msg=t=>$('t-msg').textContent=t;
+const T=new Uint32Array(256);
+for(let i=0;i<256;i++){let c=i<<24;for(let k=0;k<8;k++)c=(c&0x80000000)?(c<<1)^0x04C11DB7:c<<1;T[i]=c>>>0}
+const crc=b=>{let c=0;for(let i=0;i<b.length;i++)c=((c<<8)^T[((c>>>24)^b[i])&255])>>>0;return c};
+const fix=(p,seq)=>{const v=new DataView(p.buffer,p.byteOffset,p.length);v.setUint32(18,seq,true);v.setUint32(22,0,true);v.setUint32(22,crc(p),true)};
+const str=(b,o,n)=>td.decode(b.subarray(o,o+n));
+let data,pg,tagEnd,comments=[],vendor,serial,newCover,imgUrl,fname='tagged.opus';
+
+function showCover(blob){if(imgUrl)URL.revokeObjectURL(imgUrl);imgUrl=blob?URL.createObjectURL(blob):'';imgUrl?$('t-img').src=imgUrl:$('t-img').removeAttribute('src')}
+async function setCover(blob){
+  const im=await createImageBitmap(blob),s=Math.min(1,800/Math.max(im.width,im.height));
+  const w=Math.round(im.width*s),h=Math.round(im.height*s),cv=document.createElement('canvas');
+  cv.width=w;cv.height=h;cv.getContext('2d').drawImage(im,0,0,w,h);
+  const jb=await new Promise(r=>cv.toBlob(r,'image/jpeg',.9));
+  newCover={bytes:new Uint8Array(await jb.arrayBuffer()),w,h};showCover(jb);
+}
+const b64=b=>{let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s)};
+function picBlock(c){
+  const m=te.encode('image/jpeg'),A=new Uint8Array(32+m.length+c.bytes.length),v=new DataView(A.buffer);
+  v.setUint32(0,3);v.setUint32(4,m.length);A.set(m,8);let o=8+m.length;
+  v.setUint32(o,0);v.setUint32(o+4,c.w);v.setUint32(o+8,c.h);v.setUint32(o+12,24);v.setUint32(o+16,0);o+=20;
+  v.setUint32(o,c.bytes.length);A.set(c.bytes,o+4);return A;
+}
+function picFromComment(s){
+  const b=Uint8Array.from(atob(s),c=>c.charCodeAt(0)),v=new DataView(b.buffer);
+  let o=4;const ml=v.getUint32(o);o+=4;const mime=str(b,o,ml);o+=ml;
+  const dl=v.getUint32(o);o+=4+dl+16;const n=v.getUint32(o);o+=4;
+  return new Blob([b.subarray(o,o+n)],{type:mime});
+}
+const getC=k=>{const c=comments.find(x=>x.toUpperCase().startsWith(k+'='));return c?c.slice(k.length+1):''};
+
+window.tagLoad=async f=>{
+  if(!f)return;
+  try{
+    data=new Uint8Array(await f.arrayBuffer());fname=f.name;pg=[];
+    for(let o=0;o<data.length;){
+      if(str(data,o,4)!=='OggS')throw Error('ไม่ใช่ไฟล์ Ogg/Opus');
+      const ns=data[o+26];let dl=0;for(let i=0;i<ns;i++)dl+=data[o+27+i];
+      pg.push({o,ns,hl:27+ns,len:27+ns+dl,last:data[o+26+ns]});o+=27+ns+dl;
+    }
+    if(str(data,pg[0].o+pg[0].hl,8)!=='OpusHead')throw Error('ไม่ใช่ไฟล์ Opus');
+    serial=data.slice(pg[0].o+14,pg[0].o+18);
+    let k=1,parts=[];
+    for(;k<pg.length;k++){const p=pg[k];parts.push(data.subarray(p.o+p.hl,p.o+p.len));if(p.last<255)break}
+    tagEnd=k;
+    const pk=new Uint8Array(parts.reduce((a,x)=>a+x.length,0));let q=0;for(const x of parts){pk.set(x,q);q+=x.length}
+    if(str(pk,0,8)!=='OpusTags')throw Error('ไม่พบ OpusTags');
+    const v=new DataView(pk.buffer);let o=8;const vl=v.getUint32(o,true);o+=4;
+    vendor=pk.slice(o,o+vl);o+=vl;const n=v.getUint32(o,true);o+=4;comments=[];
+    for(let i=0;i<n;i++){const l=v.getUint32(o,true);o+=4;comments.push(str(pk,o,l));o+=l}
+    $('t-title').value=getC('TITLE');$('t-artist').value=getC('ARTIST');$('t-album').value=getC('ALBUM');if(window.pend){$('t-title').value=pend.title;$('t-artist').value=pend.artist;window.pend=null}
+    newCover=undefined;showCover(null);
+    const pc=getC('METADATA_BLOCK_PICTURE');
+    if(pc){try{showCover(picFromComment(pc))}catch{}}
+    $('t-name').textContent=f.name;$('t-ed').style.display='block';msg('');
+  }catch(err){msg('ผิดพลาด: '+err.message);$('t-ed').style.display='none'}
+};
+$('t-cf').onchange=async e=>{const f=e.target.files[0];if(f)try{await setCover(f)}catch{msg('อ่านรูปไม่ได้')}e.target.value=''};
+$('t-rm').onclick=()=>{newCover=null;showCover(null)};
+const ls={get:k=>{try{return localStorage.getItem(k)||''}catch{return ''}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
+$('t-cid').value=ls.get('sp_id');$('t-csec').value=ls.get('sp_sec');
+$('t-sp').onclick=async()=>{
+  const url=$('t-spurl').value.trim(),id=(url.match(/track\/([A-Za-z0-9]+)/)||[])[1];
+  const cid=$('t-cid').value.trim(),sec=$('t-csec').value.trim();
+  ls.set('sp_id',cid);ls.set('sp_sec',sec);
+  if(!id)return msg('ลิงก์ต้องเป็นลิงก์เพลงของ Spotify (…/track/…)');
+  msg('กำลังดึง...');
+  if(cid&&sec){
+    try{
+      const t=await(await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Authorization:'Basic '+btoa(cid+':'+sec)},body:'grant_type=client_credentials'})).json();
+      const j=await(await fetch('https://api.spotify.com/v1/tracks/'+id,{headers:{Authorization:'Bearer '+t.access_token}})).json();
+      if(!j.name)throw Error('x');
+      $('t-title').value=j.name;$('t-artist').value=j.artists.map(a=>a.name).join(', ');$('t-album').value=j.album.name;
+      const im=j.album.images[0];if(im)await setCover(await(await fetch(im.url)).blob());
+      return msg('ดึงชื่อเพลง ศิลปิน อัลบั้ม และปกแล้ว');
+    }catch{msg('ดึงผ่าน Spotify API ไม่ได้ (ตรวจ Client ID/Secret) ลองวิธีสำรอง...')}
+  }
+  try{
+    const j=await(await fetch('https://open.spotify.com/oembed?url='+encodeURIComponent(url))).json();
+    if(j.title)$('t-title').value=j.title;
+    await setCover(await(await fetch(j.thumbnail_url)).blob());
+    msg('ดึงปกและชื่อเพลงแล้ว ส่วนชื่อศิลปินต้องใส่ Client ID/Secret ด้านล่าง หรือพิมพ์เอง');
+  }catch{msg('ดึงจาก Spotify ไม่ได้ ให้บันทึกรูปปกลงเครื่องแล้วกด "เลือกรูปปก" แทน')}
+};
+
+$('t-go').onclick=()=>{
+  try{
+    const set={TITLE:$('t-title').value.trim(),ARTIST:$('t-artist').value.trim(),ALBUM:$('t-album').value.trim()};
+    let cs=comments.filter(c=>{const k=c.split('=')[0].toUpperCase();return !(k in set)&&!(k==='METADATA_BLOCK_PICTURE'&&newCover!==undefined)});
+    for(const k in set)if(set[k])cs.push(k+'='+set[k]);
+    if(newCover)cs.push('METADATA_BLOCK_PICTURE='+b64(picBlock(newCover)));
+    const enc=cs.map(c=>te.encode(c));
+    const len=8+4+vendor.length+4+enc.reduce((a,x)=>a+4+x.length,0),pk=new Uint8Array(len),v=new DataView(pk.buffer);
+    pk.set(te.encode('OpusTags'));let o=8;v.setUint32(o,vendor.length,true);o+=4;pk.set(vendor,o);o+=vendor.length;
+    v.setUint32(o,enc.length,true);o+=4;for(const x of enc){v.setUint32(o,x.length,true);o+=4;pk.set(x,o);o+=x.length}
+    // lacing and paging for the tags packet
+    const segs=[];let n=len;while(n>=255){segs.push(255);n-=255}segs.push(n);
+    const out=[data.subarray(pg[0].o,pg[0].o+pg[0].len)],tp=[];let seq=1,pos=0;
+    for(let i=0;i<segs.length;i+=255){
+      const s=segs.slice(i,i+255),dl=s.reduce((a,b)=>a+b,0),p=new Uint8Array(27+s.length+dl),pv=new DataView(p.buffer);
+      p.set([79,103,103,83,0,i?1:0]);
+      const lastP=i+255>=segs.length;
+      if(!lastP){pv.setUint32(6,0xFFFFFFFF,true);pv.setUint32(10,0xFFFFFFFF,true)}
+      p.set(serial,14);p[26]=s.length;p.set(s,27);p.set(pk.subarray(pos,pos+dl),27+s.length);pos+=dl;
+      fix(p,seq++);tp.push(p);
+    }
+    out.push(...tp);
+    for(let k=tagEnd+1;k<pg.length;k++){const p=data.slice(pg[k].o,pg[k].o+pg[k].len);fix(p,seq++);out.push(p)}
+    const blob=new Blob(out,{type:'audio/ogg'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+    msg('บันทึกแล้ว • '+(blob.size/1048576).toFixed(2)+' MB');
+  }catch(err){msg('ผิดพลาด: '+err.message)}
+};
+
+$('t-f').onchange=e=>{const f=e.target.files[0];e.target.value='';tagLoad(f)};
+$('t-spurl').onkeydown=e=>{if(e.key==='Enter')$('t-sp').click()};
+})();
+(()=>{
 const $ = id => document.getElementById(id);
 const sources = u => [
   "https://www.youtube.com/oembed?format=json&url=" + encodeURIComponent(u),
@@ -110,35 +352,35 @@ async function lookup(u){
   return null;
 }
 
-$("paste").addEventListener("click", async () => {
-  try{ $("url").value = await navigator.clipboard.readText(); $("url").focus(); }
-  catch(e){ $("msg").textContent = "วางอัตโนมัติไม่ได้ ลองกดค้างที่ช่องแล้วเลือกวาง"; }
+$("y-paste").addEventListener("click", async () => {
+  try{ $("y-url").value = await navigator.clipboard.readText(); $("y-url").focus(); }
+  catch(e){ $("y-msg").textContent = "วางอัตโนมัติไม่ได้ ลองกดค้างที่ช่องแล้วเลือกวาง"; }
 });
 
-$("go").addEventListener("click", async () => {
-  const u = $("url").value.trim();
-  $("msg").textContent = "";
-  $("out").classList.add("hidden");
-  if(!/^https?:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\//.test(u)){
-    $("msg").textContent = "กรุณาวางลิงก์ YouTube ที่ขึ้นต้นด้วย https://";
+$("y-go").addEventListener("click", async () => {
+  const u = $("y-url").value.trim();
+  $("y-msg").textContent = "";
+  $("y-out").classList.add("hidden");
+  if(!/^https?:\/\/(www\.|m\.|music\.)?(youtube\.com|youtu\.be)\//.test(u)){
+    $("y-msg").textContent = "กรุณาวางลิงก์ YouTube ที่ขึ้นต้นด้วย https://";
     return;
   }
-  $("go").disabled = true; $("go").textContent = "กำลังดึงข้อมูล...";
-  $("form").classList.remove("loading"); void $("form").offsetWidth; $("form").classList.add("loading");
+  $("y-go").disabled = true; $("y-go").textContent = "กำลังดึงข้อมูล...";
+  $("y-form").classList.remove("loading"); void $("y-form").offsetWidth; $("y-form").classList.add("loading");
   const info = await lookup(u);
-  $("go").disabled = false; $("go").textContent = "ดูข้อมูลคลิป";
-  $("form").classList.remove("loading");
+  $("y-go").disabled = false; $("y-go").textContent = "ดูข้อมูลคลิป";
+  $("y-form").classList.remove("loading");
   if(!info){
-    $("msg").textContent = "ดึงข้อมูลไม่สำเร็จ ลองตรวจลิงก์ หรือคลิปอาจตั้งเป็นส่วนตัว";
+    $("y-msg").textContent = "ดึงข้อมูลไม่สำเร็จ ลองตรวจลิงก์ หรือคลิปอาจตั้งเป็นส่วนตัว";
     return;
   }
-  $("title").textContent = info.title;
-  $("channel").textContent = info.channel;
+  $("y-title").textContent = info.title;
+  $("y-channel").textContent = info.channel;
   const id = videoId(u);
-  $("thumbBox").classList.toggle("hidden", !id);
-  if(id){ $("thumb").onerror = () => $("thumbBox").classList.add("hidden"); $("thumb").src = "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg"; }
-  $("out").classList.remove("hidden");
-  $("out").scrollIntoView({behavior:"smooth", block:"nearest"});
+  $("y-thumbBox").classList.toggle("hidden", !id);
+  if(id){ $("y-thumb").onerror = () => $("y-thumbBox").classList.add("hidden"); $("y-thumb").src = "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg"; }
+  $("y-out").classList.remove("hidden");
+  $("y-out").scrollIntoView({behavior:"smooth", block:"nearest"});
 });
 
 async function copy(text, btn){
@@ -148,10 +390,31 @@ async function copy(text, btn){
   setTimeout(() => { btn.textContent = old; btn.classList.remove("done"); }, 1500);
 }
 document.querySelectorAll("[data-t]").forEach(b =>
-  b.addEventListener("click", () => copy($(b.dataset.t).textContent, b)));
-$("both").addEventListener("click", e =>
-  copy($("title").textContent + " - " + $("channel").textContent, e.target));
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+  b.addEventListener("click", () => copy($("y-"+b.dataset.t).textContent, b)));
+$("y-both").addEventListener("click", e =>
+  copy($("y-title").textContent + " - " + $("y-channel").textContent, e.target));
+
+})();
+const G=id=>document.getElementById(id);
+const showTab=n=>{document.querySelectorAll('.pane').forEach(p=>p.hidden=p.id!=='p-'+n);document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===n));scrollTo({top:0,behavior:'smooth'})};
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+G('c-send').onclick=()=>{const l=window.lastOpus;if(l){tagLoad(new File([l.blob],l.name,{type:'audio/ogg'}));showTab('tag')}};
+const NOISE=/[\(\[【\{][^\)\]】\}]*(official|video|mv|m\/v|lyric|audio|visualizer|hd|4k|live|music|เนื้อเพลง|ซับ|เอ็มวี)[^\)\]】\}]*[\)\]】\}]/gi;
+G('y-tag').onclick=()=>{
+  const t=G('y-title').textContent.replace(NOISE,'').replace(/\s+/g,' ').trim(),
+    ch=G('y-channel').textContent.replace(/\s*-\s*Topic$/i,'').replace(/VEVO$/i,'').trim(),
+    p=t.split(/\s+[-–—|]\s+/).filter(Boolean),
+    g=p.length>1?{artist:p[0],title:p.slice(1).join(' - ')}:{artist:ch,title:t};
+  showTab('tag');
+  if(G('t-ed').style.display==='block'){G('t-title').value=g.title;G('t-artist').value=g.artist;G('t-msg').textContent='ใส่ชื่อเพลงและศิลปินจากคลิปแล้ว'}
+  else{window.pend=g;G('t-msg').textContent='เก็บชื่อเพลง/ศิลปินจากคลิปไว้แล้ว จะเติมให้เมื่อเลือกไฟล์ .opus'}
+};
+document.querySelectorAll('label.drop').forEach(l=>{
+  ['dragenter','dragover'].forEach(e=>l.addEventListener(e,ev=>{ev.preventDefault();l.classList.add('over')}));
+  ['dragleave','drop'].forEach(e=>l.addEventListener(e,ev=>{ev.preventDefault();l.classList.remove('over')}));
+  l.addEventListener('drop',ev=>{const i=l.querySelector('input');i.files=ev.dataTransfer.files;i.dispatchEvent(new Event('change'))});
+});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>
