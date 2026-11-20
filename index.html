@@ -281,21 +281,21 @@ $('t-sp').onclick=async()=>{
   ls.set('sp_id',cid);ls.set('sp_sec',sec);
   if(!id)return msg('ลิงก์ต้องเป็นลิงก์เพลงของ Spotify (…/track/…)');
   msg('กำลังดึง...');
-  if(cid&&sec){
+  let why='';if(cid&&sec){
     try{
-      const t=await(await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Authorization:'Basic '+btoa(cid+':'+sec)},body:'grant_type=client_credentials'})).json();
-      const j=await(await fetch('https://api.spotify.com/v1/tracks/'+id,{headers:{Authorization:'Bearer '+t.access_token}})).json();
-      if(!j.name)throw Error('x');
+      const tr=await fetch('https://accounts.spotify.com/api/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded',Authorization:'Basic '+btoa(cid+':'+sec)},body:'grant_type=client_credentials'});const t=await tr.json();if(!t.access_token)throw Error('ขอ token ไม่ได้: '+(t.error_description||t.error||tr.status));
+      const jr=await fetch('https://api.spotify.com/v1/tracks/'+id,{headers:{Authorization:'Bearer '+t.access_token}});const j=await jr.json();
+      if(!j.name)throw Error('ดึงข้อมูลเพลงไม่ได้ ('+jr.status+'): '+((j.error&&j.error.message)||''));
       $('t-title').value=j.name;$('t-artist').value=j.artists.map(a=>a.name).join(', ');$('t-album').value=j.album.name;
       const im=j.album.images[0];if(im)await setCover(await(await fetch(im.url)).blob());
       return msg('ดึงชื่อเพลง ศิลปิน อัลบั้ม และปกแล้ว');
-    }catch{msg('ดึงผ่าน Spotify API ไม่ได้ (ตรวจ Client ID/Secret) ลองวิธีสำรอง...')}
+    }catch(e){why=e instanceof TypeError?'เบราว์เซอร์เรียก Spotify API ตรงๆ ไม่ได้ (CORS)':e.message}
   }
   try{
     const j=await(await fetch('https://open.spotify.com/oembed?url='+encodeURIComponent(url))).json();
     if(j.title)$('t-title').value=j.title;
     await setCover(await(await fetch(j.thumbnail_url)).blob());
-    msg('ดึงปกและชื่อเพลงแล้ว ส่วนชื่อศิลปินต้องใส่ Client ID/Secret ด้านล่าง หรือพิมพ์เอง');
+    msg(why?'ดึงปกและชื่อเพลงแล้ว แต่ดึงศิลปินไม่ได้: '+why:'ดึงปกและชื่อเพลงแล้ว ส่วนชื่อศิลปินต้องใส่ Client ID/Secret ด้านล่าง หรือพิมพ์เอง');
   }catch{msg('ดึงจาก Spotify ไม่ได้ ให้บันทึกรูปปกลงเครื่องแล้วกด "เลือกรูปปก" แทน')}
 };
 
