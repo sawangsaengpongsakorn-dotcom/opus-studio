@@ -16746,9 +16746,89 @@ function App() {
     src: null, playing: false, manual: false,
     startAt: 0, offset: 0, raf: 0,
     recording: false, lameLoading: null,
-    eq: { bass: 0, vocal: 0, treble: 0 }
+    eq: { bass: 0, vocal: 0, treble: 0 },
+    fnameMode: 'empty', fnameDuration: null
   };
   var FREQ = { bass: 180, vocal: 1500, treble: 8000 };
+
+  var DICT = {
+    th: {
+      docTitle: 'Opus Studio — แท็กเพลงและข้อมูลคลิป YouTube',
+      ariaCard: 'ปรับแต่งเสียง EQ และดาวน์โหลด',
+      title: 'ปรับแต่งเสียง EQ <small style="font-weight:500;color:#94a3b8">/ Equalizer</small>',
+      sub: 'ปรับเบส เสียงร้อง และเสียงแหลม แล้วเลือกดาวน์โหลดได้ 3 รูปแบบ',
+      pickFile: 'เลือกไฟล์เพลง',
+      useLoaded: 'ใช้ไฟล์ล่าสุดจากแท็บแท็ก',
+      noFile: 'ยังไม่เลือกไฟล์ — เลือก .opus .ogg หรือ .mp3',
+      playPause: 'เล่น/หยุดชั่วคราว',
+      bass: 'เบส', vocal: 'เสียงร้อง', treble: 'เสียงแหลม',
+      fxBass: '~180 Hz', fxVocal: '~1.5 kHz', fxTreble: '~8 kHz',
+      ariaBass: 'ปรับเบส', ariaVocal: 'ปรับเสียงร้อง', ariaTreble: 'ปรับเสียงแหลม',
+      reset: 'รีเซ็ตค่าทั้งหมดเป็น 0',
+      dlTitle: 'ดาวน์โหลดเพลงหลังปรับเสียงแล้ว — เลือกรูปแบบได้',
+      capMp3: 'ไฟล์ .mp3', capOgg: 'ไฟล์ .ogg', capOpus: 'ไฟล์ .opus',
+      tagFileLabel: 'ไฟล์ล่าสุดจากแท็บแท็ก',
+      note: 'หมายเหตุ: เสียงที่ดาวน์โหลดผ่านส่วนนี้คือไฟล์เสียงใหม่ที่ผ่านการปรับ EQ แล้ว (ไม่รวมแท็กเดิม) MP3 เข้ารหัสแบบ LAME ในเบราว์เซอร์ส่วนฝั่งผู้ใช้ ส่วน OGG/OPUS จะใช้การบันทึก Opus ตามรูปแบบที่เบราว์เซอร์รองรับ (Chrome/Edge ใช้คอนเทนเนอร์ WebM Opus ซึ่งเปิดเล่นได้กับ VLC และเบราว์เซอร์ทั่วไป) ทุกอย่างประมวลผลบนเครื่องผู้ใช้ ไม่มีการอัปโหลดไฟล์',
+      readingFile: 'กำลังอ่านไฟล์เสียง…',
+      ready: 'พร้อมแล้ว — ปรับเบส เสียงร้อง เสียงแหลม แล้วกดดาวน์โหลดได้เลย',
+      fileOpenErr: 'ไม่สามารถเปิดไฟล์นี้ได้: ',
+      noLoaded: 'ยังไม่มีไฟล์ในแท็บแท็ก — โหลดเพลงในแท็ก "แท็กเพลง" ก่อน',
+      importing: 'กำลังนำไฟล์จากแท็บแท็กมาใช้…',
+      tagReady: 'พร้อมแล้ว — ปรับเสียงแล้วกดดาวน์โหลดได้เลย',
+      tagImportErr: 'อ่านไฟล์จากแท็บแท็กไม่สำเร็จ: ',
+      pickFirst: 'กรุณาเลือกไฟล์เพลงก่อน',
+      resetDone: 'รีเซ็ตค่า EQ เป็น 0 ทั้งหมดแล้ว',
+      recUnsupported: 'เบราว์เซอร์นี้ไม่รองรับการบันทึก {0} — ลอง Chrome, Edge หรือ Firefox',
+      encoding: 'กำลังเข้ารหัส {0} — รอจนจบเพลง…',
+      downloaded: 'ดาวน์โหลด {0} แล้ว ({1} MB)',
+      encodeFail: 'เข้ารหัสไม่สำเร็จ: ',
+      pickFirstDl: 'กรุณาเลือกไฟล์เพลงก่อนกดดาวน์โหลด',
+      mp3Busy: 'กำลังโหลดตัวเข้ารหัสและเข้ารหัส MP3…',
+      mp3Done: 'ดาวน์โหลด MP3 แล้ว ({0} MB)',
+      mp3Fail: 'MP3 ใช้งานไม่ได้ในเบราว์เซอร์นี้ (ต้องเชื่อมต่ออินเทอร์เน็ตครั้งแรกเพื่อโหลดตัวเข้ารหัส): '
+    },
+    en: {
+      docTitle: 'Opus Studio — Music Tags & YouTube Clip Info',
+      ariaCard: 'Adjust sound EQ and download',
+      title: 'Sound EQ <small style="font-weight:500;color:#94a3b8">/ Equalizer</small>',
+      sub: 'Tweak bass, vocal, and treble, then choose from 3 download formats',
+      pickFile: 'Choose song file',
+      useLoaded: 'Use latest file from Tag tab',
+      noFile: 'No file yet — pick .opus, .ogg, or .mp3',
+      playPause: 'Play / pause',
+      bass: 'Bass', vocal: 'Vocal', treble: 'Treble',
+      fxBass: '~180 Hz', fxVocal: '~1.5 kHz', fxTreble: '~8 kHz',
+      ariaBass: 'Adjust bass', ariaVocal: 'Adjust vocal', ariaTreble: 'Adjust treble',
+      reset: 'Reset all values to 0',
+      dlTitle: 'Download the tuned track below — pick a format',
+      capMp3: 'MP3 file', capOgg: 'OGG file', capOpus: 'OPUS file',
+      tagFileLabel: 'Latest file from Tag tab',
+      note: 'Note: audio exported from this section is a new file processed through EQ (original tags are not included). MP3 is encoded with LAME in your browser; OGG/OPUS use Opus recording in the container your browser supports (Chrome/Edge use WebM Opus, playable in VLC and common browsers). Everything runs on your device; nothing is uploaded.',
+      readingFile: 'Reading audio file…',
+      ready: 'Ready — adjust bass, vocal, and treble, then download',
+      fileOpenErr: 'Could not open this file: ',
+      noLoaded: 'No file in the Tag tab yet — load a song in the Tag Music tab first',
+      importing: 'Importing the latest file from the Tag tab…',
+      tagReady: 'Ready — adjust the sound, then press download',
+      tagImportErr: 'Failed to read the file from the Tag tab: ',
+      pickFirst: 'Please choose a song file first',
+      resetDone: 'All EQ values reset to 0',
+      recUnsupported: 'This browser does not support recording {0} — try Chrome, Edge, or Firefox',
+      encoding: 'Encoding {0} — waiting for the track to finish…',
+      downloaded: '{0} downloaded ({1} MB)',
+      encodeFail: 'Encoding failed: ',
+      pickFirstDl: 'Please choose a song file before downloading',
+      mp3Busy: 'Loading encoder and encoding MP3…',
+      mp3Done: 'MP3 downloaded ({0} MB)',
+      mp3Fail: 'MP3 is unavailable in this browser (online connection required once to load the encoder): '
+    }
+  };
+
+  function langNow() { return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'th'; }
+  function t(key) {
+    var d = DICT[langNow()] || DICT.th;
+    return (d[key] !== undefined ? d[key] : DICT.th[key]) || key;
+  }
 
   var ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
   var ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>';
@@ -16756,43 +16836,42 @@ function App() {
 
   var card = document.createElement('section');
   card.id = 'opusEqCard';
-  card.setAttribute('aria-label', 'ปรับแต่งเสียง EQ และดาวน์โหลด');
   card.innerHTML =
     '<div class="eq-wrap"><div class="eq-card">' +
       '<div class="eq-head">' +
         '<div class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
-        '<div><div class="eq-title">ปรับแต่งเสียง EQ <span style="font-weight:500;color:#94a3b8">/ Equalizer</span></div>' +
-        '<div class="eq-sub">ปรับเบส เสียงร้อง และเสียงแหลม แล้วเลือกดาวน์โหลดได้ 3 รูปแบบ</div></div>' +
+        '<div><div class="eq-title" id="eqTitle"></div>' +
+        '<div class="eq-sub" id="eqSub"></div></div>' +
       '</div>' +
       '<div class="eq-file-row">' +
-        '<button type="button" class="eq-btn eq-btn-primary" id="eqPickFile">' + ICON_PICK + '<span>เลือกไฟล์เพลง</span></button>' +
-        '<button type="button" class="eq-btn eq-btn-ghost eq-hidden" id="eqUseLoaded"><span>ใช้ไฟล์ล่าสุดจากแท็บแท็ก</span></button>' +
-        '<span class="eq-fname" id="eqFname">ยังไม่เลือกไฟล์ — เลือก .opus .ogg หรือ .mp3</span>' +
+        '<button type="button" class="eq-btn eq-btn-primary" id="eqPickFile">' + ICON_PICK + '<span id="eqPickLabel"></span></button>' +
+        '<button type="button" class="eq-btn eq-btn-ghost eq-hidden" id="eqUseLoaded"><span id="eqUseLabel"></span></button>' +
+        '<span class="eq-fname" id="eqFname"></span>' +
         '<input type="file" id="eqFileInput" accept=".opus,.ogg,.mp3,audio/ogg,audio/mpeg,audio/*" class="eq-hidden" />' +
       '</div>' +
       '<div class="eq-transport eq-hidden" id="eqTransport">' +
-        '<button type="button" class="eq-play" id="eqPlay" aria-label="เล่น/หยุดชั่วคราว">' + ICON_PLAY + '</button>' +
+        '<button type="button" class="eq-play" id="eqPlay">' + ICON_PLAY + '</button>' +
         '<div class="eq-track" id="eqProgTrack"><div class="eq-fill" id="eqProgFill"></div></div>' +
         '<span class="eq-time" id="eqTime">0:00 / 0:00</span>' +
       '</div>' +
       '<div class="eq-sliders">' +
-        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label">เบส <small>Bass · ~180 Hz</small></span><span class="eq-val" id="eqValBass">0.0 dB</span></div>' +
-          '<input type="range" class="eq-slider" id="eqBass" min="-12" max="12" step="0.5" value="0" aria-label="ปรับเบส" /></div>' +
-        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label">เสียงร้อง <small>Vocal · ~1.5 kHz</small></span><span class="eq-val" id="eqValVocal">0.0 dB</span></div>' +
-          '<input type="range" class="eq-slider" id="eqVocal" min="-12" max="12" step="0.5" value="0" aria-label="ปรับเสียงร้อง" /></div>' +
-        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label">เสียงแหลม <small>Treble · ~8 kHz</small></span><span class="eq-val" id="eqValTreble">0.0 dB</span></div>' +
-          '<input type="range" class="eq-slider" id="eqTreble" min="-12" max="12" step="0.5" value="0" aria-label="ปรับเสียงแหลม" /></div>' +
-        '<div class="eq-row-actions"><button type="button" class="eq-mini" id="eqReset">รีเซ็ตค่าทั้งหมดเป็น 0</button></div>' +
+        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label"><span id="eqLabBass"></span> <small id="eqFxBass"></small></span><span class="eq-val" id="eqValBass">0.0 dB</span></div>' +
+          '<input type="range" class="eq-slider" id="eqBass" min="-12" max="12" step="0.5" value="0" /></div>' +
+        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label"><span id="eqLabVocal"></span> <small id="eqFxVocal"></small></span><span class="eq-val" id="eqValVocal">0.0 dB</span></div>' +
+          '<input type="range" class="eq-slider" id="eqVocal" min="-12" max="12" step="0.5" value="0" /></div>' +
+        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label"><span id="eqLabTreble"></span> <small id="eqFxTreble"></small></span><span class="eq-val" id="eqValTreble">0.0 dB</span></div>' +
+          '<input type="range" class="eq-slider" id="eqTreble" min="-12" max="12" step="0.5" value="0" /></div>' +
+        '<div class="eq-row-actions"><button type="button" class="eq-mini" id="eqReset"></button></div>' +
       '</div>' +
       '<div class="eq-dl">' +
-        '<div class="eq-dl-title">ดาวน์โหลดเพลงหลังปรับเสียงแล้ว — เลือกรูปแบบได้</div>' +
+        '<div class="eq-dl-title" id="eqDlTitle"></div>' +
         '<div class="eq-dl-grid">' +
-          '<button type="button" class="eq-dl-btn" data-fmt="mp3"><span class="eq-ext">MP3</span><span class="eq-cap">ไฟล์ .mp3</span></button>' +
-          '<button type="button" class="eq-dl-btn" data-fmt="ogg"><span class="eq-ext">OGG</span><span class="eq-cap">ไฟล์ .ogg</span></button>' +
-          '<button type="button" class="eq-dl-btn" data-fmt="opus"><span class="eq-ext">OPUS</span><span class="eq-cap">ไฟล์ .opus</span></button>' +
+          '<button type="button" class="eq-dl-btn" data-fmt="mp3"><span class="eq-ext">MP3</span><span class="eq-cap" id="eqCapMp3"></span></button>' +
+          '<button type="button" class="eq-dl-btn" data-fmt="ogg"><span class="eq-ext">OGG</span><span class="eq-cap" id="eqCapOgg"></span></button>' +
+          '<button type="button" class="eq-dl-btn" data-fmt="opus"><span class="eq-ext">OPUS</span><span class="eq-cap" id="eqCapOpus"></span></button>' +
         '</div>' +
         '<p class="eq-status" id="eqStatus" data-kind="info"></p>' +
-        '<p class="eq-note">หมายเหตุ: เสียงที่ดาวน์โหลดผ่านส่วนนี้คือไฟล์เสียงใหม่ที่ผ่านการปรับ EQ แล้ว (ไม่รวมแท็กเดิม) MP3 เข้ารหัสแบบ LAME ในเบราว์เซอร์ส่วนฝั่งผู้ใช้ ส่วน OGG/OPUS จะใช้การบันทึก Opus ตามรูปแบบที่เบราว์เซอร์รองรับ (Chrome/Edge ใช้คอนเทนเนอร์ WebM Opus ซึ่งเปิดเล่นได้กับ VLC และเบราว์เซอร์ทั่วไป) ทุกอย่างประมวลผลบนเครื่องผู้ใช้ ไม่มีการอัปโหลดไฟล์</p>' +
+        '<p class="eq-note" id="eqNote"></p>' +
       '</div>' +
     '</div></div>';
   root.appendChild(card);
@@ -16805,10 +16884,51 @@ function App() {
   var sliders = { bass: $('eqBass'), vocal: $('eqVocal'), treble: $('eqTreble') };
   var valEls = { bass: $('eqValBass'), vocal: $('eqValVocal'), treble: $('eqValTreble') };
   var dlBtns = Array.prototype.slice.call(document.querySelectorAll('.eq-dl-btn'));
+  var lastStatus = null;
+
+  function renderFname() {
+    if (state.fnameMode === 'tag') {
+      fname.textContent = t('tagFileLabel') + (state.fnameDuration != null ? ' · ' + fmtTime(state.fnameDuration) : '');
+    } else if (state.fnameMode === 'file') {
+      fname.textContent = state.displayName || t('noFile');
+    } else {
+      fname.textContent = t('noFile');
+    }
+  }
+  function applyLang() {
+    card.setAttribute('aria-label', t('ariaCard'));
+    $('eqTitle').innerHTML = t('title');
+    $('eqSub').textContent = t('sub');
+    $('eqPickLabel').textContent = t('pickFile');
+    $('eqUseLabel').textContent = t('useLoaded');
+    renderFname();
+    playBtn.setAttribute('aria-label', t('playPause'));
+    $('eqLabBass').textContent = t('bass'); $('eqFxBass').textContent = t('fxBass');
+    $('eqLabVocal').textContent = t('vocal'); $('eqFxVocal').textContent = t('fxVocal');
+    $('eqLabTreble').textContent = t('treble'); $('eqFxTreble').textContent = t('fxTreble');
+    sliders.bass.setAttribute('aria-label', t('ariaBass'));
+    sliders.vocal.setAttribute('aria-label', t('ariaVocal'));
+    sliders.treble.setAttribute('aria-label', t('ariaTreble'));
+    resetBtn.textContent = t('reset');
+    $('eqDlTitle').textContent = t('dlTitle');
+    $('eqCapMp3').textContent = t('capMp3');
+    $('eqCapOgg').textContent = t('capOgg');
+    $('eqCapOpus').textContent = t('capOpus');
+    $('eqNote').textContent = t('note');
+    if (lastStatus) setT(lastStatus.key, lastStatus.kind, lastStatus.vars, true);
+    var dt = t('docTitle');
+    if (dt && document.title.indexOf('Opus Studio') === 0) document.title = dt;
+  }
 
   function setStatus(msg, kind) {
     statusEl.textContent = msg || '';
     statusEl.dataset.kind = kind || 'info';
+  }
+  function setT(key, kind, vars, silent) {
+    var msg = t(key);
+    if (vars) for (var i = 0; i < vars.length; i++) msg = msg.replace('{' + i + '}', vars[i]);
+    setStatus(msg, kind);
+    if (!silent) lastStatus = { key: key, kind: kind, vars: vars || null };
   }
   function setBusy(busy) {
     dlBtns.forEach(function (b) { b.disabled = busy; });
@@ -16857,7 +16977,7 @@ function App() {
       valEls[k].textContent = '0.0 dB';
     });
     applyGains();
-    setStatus('รีเซ็ตค่า EQ เป็น 0 ทั้งหมดแล้ว', 'ok');
+    setT('resetDone', 'ok');
   });
 
   /* ---------- file loading ---------- */
@@ -16868,20 +16988,21 @@ function App() {
   }
   async function loadFile(file) {
     if (!file) return;
-    setBusy(true); setStatus('กำลังอ่านไฟล์เสียง...', 'info');
+    setBusy(true); setT('readingFile', 'info');
     try {
       var ab = await file.arrayBuffer();
       var buf = await decodeBuffer(ab);
       stopSource();
-      state.buf = buf; state.name = safeName(file.name);
+      state.buf = buf; state.name = safeName(file.name); state.displayName = file.name;
+      state.fnameMode = 'file'; state.fnameDuration = null;
       state.offset = 0;
-      fname.textContent = file.name;
+      renderFname();
       transport.classList.remove('eq-hidden');
       progFill.style.width = '0%';
       timeLab.textContent = '0:00 / ' + fmtTime(buf.duration);
-      setStatus('พร้อมแล้ว — ลากปรับเบส เสียงร้อง เสียงแหลม แล้วกดดาวน์โหลดได้เลย', 'ok');
+      setT('ready', 'ok');
     } catch (err) {
-      setStatus('ไม่สามารถเปิดไฟล์นี้ได้: ' + (err && err.message ? err.message : 'รูปแบบไม่รองรับ'), 'err');
+      setT('fileOpenErr', 'err', [err && err.message ? err.message : '']);
     }
     setBusy(false);
   }
@@ -16890,20 +17011,21 @@ function App() {
 
   useLoadedBtn.addEventListener('click', async function () {
     var a = document.querySelector('audio[controls]');
-    if (!a || !a.src) { setStatus('ยังไม่มีไฟล์ในแท็บแท็ก — โหลดเพลงในแท็บ "แท็กเพลง" ก่อน', 'err'); return; }
-    setBusy(true); setStatus('กำลังนำไฟล์จากแท็บแท็กมาใช้...', 'info');
+    if (!a || !a.src) { setT('noLoaded', 'err'); return; }
+    setBusy(true); setT('importing', 'info');
     try {
       var ab = await (await fetch(a.src)).arrayBuffer();
       var buf = await decodeBuffer(ab);
       stopSource();
       state.buf = buf; state.name = 'tag-editor-song'; state.offset = 0;
-      fname.textContent = 'ไฟล์ล่าสุดจากแท็บแท็ก' + (isFinite(a.duration) ? ' · ' + fmtTime(a.duration) : '');
+      state.fnameMode = 'tag'; state.fnameDuration = isFinite(a.duration) ? a.duration : null;
+      renderFname();
       transport.classList.remove('eq-hidden');
       progFill.style.width = '0%';
       timeLab.textContent = '0:00 / ' + fmtTime(buf.duration);
-      setStatus('พร้อมแล้ว — ปรับเสียงแล้วกดดาวน์โหลดได้เลย', 'ok');
+      setT('tagReady', 'ok');
     } catch (err) {
-      setStatus('อ่านไฟล์จากแท็บแท็กไม่สำเร็จ: ' + (err && err.message ? err.message : 'ลองเลือกไฟล์ตรง ๆ'), 'err');
+      setT('tagImportErr', 'err', [err && err.message ? err.message : '']);
     }
     setBusy(false);
   });
@@ -16953,7 +17075,7 @@ function App() {
     updatePlayIcon(); tick();
   }
   playBtn.addEventListener('click', function () {
-    if (!state.buf) { setStatus('กรุณาเลือกไฟล์เพลงก่อน', 'err'); return; }
+    if (!state.buf) { setT('pickFirst', 'err'); return; }
     if (state.playing) {
       state.offset = currentPos();
       stopSource(); updatePlayIcon(); tick();
@@ -16977,8 +17099,8 @@ function App() {
     var src = off.createBufferSource(); src.buffer = state.buf;
     var b = off.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
     var v = off.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
-    var t = off.createBiquadFilter(); t.type = 'highshelf'; t.frequency.value = FREQ.treble; t.gain.value = state.eq.treble;
-    src.connect(b); b.connect(v); v.connect(t); t.connect(off.destination);
+    var tr = off.createBiquadFilter(); tr.type = 'highshelf'; tr.frequency.value = FREQ.treble; tr.gain.value = state.eq.treble;
+    src.connect(b); b.connect(v); v.connect(tr); tr.connect(off.destination);
     src.start(0);
     return await off.startRendering();
   }
@@ -17039,19 +17161,19 @@ function App() {
   }
   async function exportRecorded(kind) {
     var mime = pickMime();
-    if (!mime) { setStatus('เบราว์เซอร์นี้ไม่รองรับการบันทึก ' + kind.toUpperCase() + ' — ลอง Chrome, Edge หรือ Firefox', 'err'); return; }
+    if (!mime) { setT('recUnsupported', 'err', [kind.toUpperCase()]); return; }
     if (state.recording) return;
     stopSource();
     state.recording = true; setBusy(true);
-    setStatus('กำลังเข้ารหัส ' + kind.toUpperCase() + ' — รอจนจบเพลง...', 'info');
+    setT('encoding', 'info', [kind.toUpperCase()]);
     try {
       var recCtx = new (window.AudioContext || window.webkitAudioContext)();
       var src = recCtx.createBufferSource(); src.buffer = state.buf;
       var b = recCtx.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
       var v = recCtx.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
-      var t = recCtx.createBiquadFilter(); t.type = 'highshelf'; t.frequency.value = FREQ.treble; t.gain.value = state.eq.treble;
+      var tr = recCtx.createBiquadFilter(); tr.type = 'highshelf'; tr.frequency.value = FREQ.treble; tr.gain.value = state.eq.treble;
       var out = recCtx.createMediaStreamDestination();
-      src.connect(b); b.connect(v); v.connect(t); t.connect(out); t.connect(recCtx.destination);
+      src.connect(b); b.connect(v); v.connect(tr); tr.connect(out); tr.connect(recCtx.destination);
       var rec = new MediaRecorder(out.stream, { mimeType: mime, audioBitsPerSecond: 128000 });
       var chunks = [];
       rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
@@ -17066,10 +17188,10 @@ function App() {
       var isOgg = mime.indexOf('ogg') >= 0;
       var ext = kind === 'opus' ? 'opus' : (isOgg ? 'ogg' : 'ogg');
       downloadBlob(blob, safeName(state.name) + '.eq.' + ext, 'audio/' + ext);
-      setStatus('ดาวน์โหลด ' + kind.toUpperCase() + ' แล้ว (' + (blob.size / 1048576).toFixed(2) + ' MB)', 'ok');
+      setT('downloaded', 'ok', [kind.toUpperCase(), (blob.size / 1048576).toFixed(2)]);
     } catch (err) {
       state.recording = false; setBusy(false);
-      setStatus('เข้ารหัสไม่สำเร็จ: ' + (err && err.message ? err.message : 'ลองอีกครั้ง'), 'err');
+      setT('encodeFail', 'err', [err && err.message ? err.message : '']);
     }
   }
 
@@ -17084,18 +17206,18 @@ function App() {
   dlBtns.forEach(function (btn) {
     btn.addEventListener('click', async function () {
       var kind = btn.dataset.fmt;
-      if (!state.buf) { setStatus('กรุณาเลือกไฟล์เพลงก่อนกดดาวน์โหลด', 'err'); return; }
+      if (!state.buf) { setT('pickFirstDl', 'err'); return; }
       if (kind === 'mp3') {
         stopSource(); setBusy(true);
-        setStatus('กำลังโหลดตัวเข้ารหัสและเข้ารหัส MP3...', 'info');
+        setT('mp3Busy', 'info');
         try {
           await ensureLame();
           var rb = await renderEqBuffer();
           var blob = encodeMp3(rb, 192);
           downloadBlob(blob, safeName(state.name) + '.eq.mp3');
-          setStatus('ดาวน์โหลด MP3 แล้ว (' + (blob.size / 1048576).toFixed(2) + ' MB)', 'ok');
+          setT('mp3Done', 'ok', [(blob.size / 1048576).toFixed(2)]);
         } catch (err) {
-          setStatus('MP3 ใช้งานไม่ได้ในเบราว์เซอร์นี้ (ต้องเชื่อมต่ออินเทอร์เน็ตครั้งแรกเพื่อโหลดตัวเข้ารหัส): ' + (err && err.message ? err.message : ''), 'err');
+          setT('mp3Fail', 'err', [err && err.message ? err.message : '']);
         }
         setBusy(false);
       } else {
@@ -17126,8 +17248,12 @@ function App() {
     useLoadedBtn.classList.toggle('eq-hidden', !visible);
   }
   new MutationObserver(refreshVisibility).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] });
+
+  new MutationObserver(function () { applyLang(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  applyLang();
   refreshVisibility();
 })();
+
 </script>
 
 </body>
