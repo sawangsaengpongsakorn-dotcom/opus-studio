@@ -2350,7 +2350,84 @@
   }
 }
 </style>
-  </head>
+  
+<style id="opus-polish">
+:root{--opus-brand:#e5303f;--opus-brand-2:#ff7a45;--opus-ease:cubic-bezier(.22,1,.36,1)}
+html{scroll-behavior:smooth}
+::selection{background:rgba(229,48,63,.22)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#e5303f,#ff7a45);border:3px solid transparent;background-clip:padding-box;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#ff5d6c,#ff9d6b);background-clip:padding-box}
+
+@keyframes opus-hairline{from{background-position:0% 0}to{background-position:220% 0}}
+header{position:sticky}
+header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(229,48,63,.65),rgba(255,122,69,.85),rgba(229,48,63,.65),transparent);background-size:220% 100%;animation:opus-hairline 7s linear infinite}
+
+@keyframes opus-breathe{0%,100%{transform:translateY(0) rotate(0);box-shadow:0 6px 16px -10px rgba(229,48,63,.75)}50%{transform:translateY(-1px) rotate(-4deg);box-shadow:0 14px 28px -10px rgba(255,122,69,.9)}}
+header button span[class*="from-[#e5303f]"]{animation:opus-breathe 6s ease-in-out infinite}
+
+nav[aria-label="Main navigation"] button{position:relative;border-bottom-color:transparent!important}
+nav[aria-label="Main navigation"] button::after{content:"";position:absolute;left:8px;right:8px;bottom:0;height:2px;border-radius:99px;pointer-events:none;background:linear-gradient(90deg,#e5303f,#ff7a45);transform:scaleX(0);transform-origin:center;transition:transform .42s var(--opus-ease)}
+nav[aria-label="Main navigation"] button:hover::after{transform:scaleX(.5)}
+nav[aria-label="Main navigation"] button[class*="border-[#e5303f]"]::after{transform:scaleX(1)}
+
+[role="tablist"]{position:relative;isolation:isolate}
+@keyframes opus-sheen{0%{background-position:190% 0}60%,100%{background-position:-90% 0}}
+html.opus-anim [role="tablist"]>.opus-pill{position:absolute;top:0;left:0;z-index:0;overflow:hidden;border-radius:.75rem;pointer-events:none;background:linear-gradient(120deg,#e5303f,#ff7a45 58%,#ff9d6b);box-shadow:0 12px 26px -12px rgba(229,48,63,.95),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .5s var(--opus-ease),width .5s var(--opus-ease),height .5s var(--opus-ease),opacity .3s ease}
+html.opus-anim [role="tablist"]>.opus-pill::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.38) 48%,transparent 74%);background-size:260% 100%;animation:opus-sheen 3.6s ease-in-out infinite}
+html.opus-anim [role="tab"]{position:relative;z-index:1;background-image:none!important;background-color:transparent!important;box-shadow:none!important;transition:color .3s ease,transform .3s var(--opus-ease)}
+html.opus-anim [role="tab"][aria-selected="true"]{color:#fff!important}
+html.opus-anim [role="tab"][aria-selected="false"]:hover{transform:translateY(-1px)}
+
+@keyframes opus-drift{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-16px,20px,0) scale(1.14)}}
+@keyframes opus-drift2{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(26px,-18px,0) scale(1.1)}}
+main section>div[class*="rounded-3xl"]>div[class*="blur-2xl"]{animation:opus-drift 16s ease-in-out infinite}
+main section>div[class*="rounded-3xl"]::before{content:"";position:absolute;left:-7rem;bottom:-9rem;width:24rem;height:24rem;border-radius:999px;pointer-events:none;background:radial-gradient(circle at 35% 35%,rgba(255,122,69,.2),transparent 68%);filter:blur(30px);animation:opus-drift2 22s ease-in-out infinite}
+
+@keyframes opus-text{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+main h1{background-image:linear-gradient(102deg,#101828 0%,#4a2530 42%,#e5303f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;background-size:170% 100%;animation:opus-text 14s ease-in-out infinite}
+.dark main h1{background-image:linear-gradient(102deg,#ffffff 0%,#ffd9c7 42%,#ff7a45 100%)}
+}
+
+main div[class*="rounded-2xl"][class*="shadow-xs"]{transition:transform .38s var(--opus-ease),box-shadow .38s var(--opus-ease),border-color .3s ease}
+main div[class*="rounded-2xl"][class*="shadow-xs"]:hover{transform:translateY(-3px);box-shadow:0 22px 48px -30px rgba(229,48,63,.55)}
+
+main button[class*="bg-gradient-to-r"]{position:relative;overflow:hidden}
+main button[class*="bg-gradient-to-r"]::after{content:"";position:absolute;top:0;bottom:0;left:0;width:45%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-170%) skewX(-16deg);transition:transform .7s var(--opus-ease)}
+main button[class*="bg-gradient-to-r"]:hover::after{transform:translateX(330%) skewX(-16deg)}
+
+@keyframes opus-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+main>div[class*="max-w-5xl"],main>section[class*="max-w-5xl"]{animation:opus-rise .6s var(--opus-ease) both}
+
+@keyframes opus-slide{from{transform:translateX(-102%)}to{transform:none}}
+aside[class*="w-[min(82vw,320px)]"]{animation:opus-slide .42s var(--opus-ease) both}
+@keyframes opus-pop{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+[role="dialog"]{animation:opus-pop .38s var(--opus-ease) both}
+
+#opus-scroll{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;pointer-events:none;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,#e5303f,#ff7a45,#ffb27a);box-shadow:0 0 14px rgba(255,122,69,.7);transition:transform .12s linear}
+
+input,textarea,select{transition:border-color .25s ease,box-shadow .25s ease}
+input:focus,textarea:focus,select:focus{border-color:rgba(229,48,63,.55)!important;box-shadow:0 0 0 4px rgba(229,48,63,.1)!important;outline:none}
+:where(button,a):focus-visible{outline:2px solid rgba(229,48,63,.7);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){
+  header::after,header button span[class*="from-[#e5303f]"],main section>div[class*="rounded-3xl"]::before,main section>div[class*="rounded-3xl"]>div[class*="blur-2xl"],main h1,html.opus-anim [role="tablist"]>.opus-pill::after,aside[class*="w-[min(82vw,320px)]"],[role="dialog"],main>div[class*="max-w-5xl"],main>section[class*="max-w-5xl"]{animation:none!important}
+  html.opus-anim [role="tablist"]>.opus-pill{transition:none!important}
+}
+
+/* narrow phones: header (menu + brand + language + theme) must fit */
+@media (max-width:389px){
+  header>div{padding-left:.75rem;padding-right:.75rem;gap:.5rem}
+  header>div>div:first-child{gap:.5rem}
+}
+@media (max-width:359px){header button span.font-display{display:none}}
+/* no sticky hover-lift on touch, and no movement while typing inside a card */
+@media (hover:none){main div[class*="rounded-2xl"][class*="shadow-xs"]:hover{transform:none}}
+main div[class*="rounded-2xl"][class*="shadow-xs"]:focus-within:hover{transform:none}
+</style>
+</head>
   <body>
     <div id="root"></div>
   <script type="module">// \0rolldown/runtime.js
@@ -14317,7 +14394,7 @@ var FAQ_TH = [
 			"upload",
 			"privacy"
 		],
-		a: "การแก้แท็กทำในเบราว์เซอร์ของคุณทั้งหมด ไฟล์เสียงที่เลือกไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์\n\nเฉพาะฟีเจอร์ดึงข้อมูลจากลิงก์ YouTube หรือ Spotify เท่านั้นที่จะส่งลิงก์ที่คุณวางออกไปเพื่อดึงชื่อและภาพปกกลับมาให้"
+		a: "การแก้แท็กทำในเบราว์เซอร์ของคุณทั้งหมด ไฟล์เสียงที่เลือกไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์\n\nเฉพาะฟีเจอร์ดึงข้อมูลจากลิงก์ YouTube หรือ Spotify เท่านั้นที่จะส่งลิงก์ที่คุณวางออกไปเพื่อดึงชื่อและภาพปกกลับมาให้ (บางครั้งผ่านบริการตัวกลางสาธารณะ เช่น allorigins / corsproxy)"
 	},
 	{
 		q: "Opus คืออะไร",
@@ -14388,7 +14465,7 @@ var FAQ_EN = [
 			"secure",
 			"private"
 		],
-		a: "Tag editing happens entirely in your browser; the audio files you pick are never uploaded.\n\nOnly YouTube and Spotify link lookups send the pasted URL to retrieve public metadata and cover thumbnails."
+		a: "Tag editing happens entirely in your browser; the audio files you pick are never uploaded.\n\nOnly YouTube and Spotify link lookups send the pasted URL to retrieve public metadata and cover thumbnails (sometimes through public relay services such as allorigins / corsproxy)."
 	},
 	{
 		q: "What is Opus?",
@@ -15011,7 +15088,7 @@ function encodeId3TextFrame(id, val) {
 	payload.set(txt, 1);
 	const frame = new Uint8Array(10 + payload.length);
 	frame.set(te.encode(id), 0);
-	frame.set(u32be(payload.length), 4);
+	frame.set(synchsafeEncode(payload.length), 4);
 	frame.set(payload, 10);
 	return frame;
 }
@@ -15052,10 +15129,52 @@ function encodeApicFrame(cover) {
 	payload.set(cover.bytes, pos);
 	const frame = new Uint8Array(10 + payload.length);
 	frame.set(te.encode("APIC"), 0);
-	frame.set(u32be(payload.length), 4);
+	frame.set(synchsafeEncode(payload.length), 4);
 	frame.set(payload, 10);
 	return frame;
 }
+function undoUnsync(b) {
+	const out = new Uint8Array(b.length);
+	let n = 0;
+	for (let i = 0; i < b.length; i++) {
+		out[n++] = b[i];
+		if (b[i] === 255 && i + 1 < b.length && b[i + 1] === 0) i++;
+	}
+	return out.slice(0, n);
+}
+function parsePic22(raw) {
+	if (!raw || raw.length < 6) return null;
+	const enc = raw[0];
+	const fmt = readAscii(raw, 1, 3).toUpperCase();
+	let p = 5;
+	if (enc === 1 || enc === 2) {
+		while (p + 1 < raw.length && !(raw[p] === 0 && raw[p + 1] === 0)) p += 2;
+		p = Math.min(p + 2, raw.length);
+	} else {
+		const z = raw.indexOf(0, p);
+		p = z >= 0 ? z + 1 : raw.length;
+	}
+	if (p >= raw.length) return null;
+	return {
+		bytes: raw.slice(p),
+		mime: fmt === "PNG" ? "image/png" : "image/jpeg"
+	};
+}
+var ID3V22_TO_V24 = {
+	TP2: "TPE2",
+	TP3: "TPE3",
+	TCM: "TCOM",
+	TCO: "TCON",
+	TRK: "TRCK",
+	TPA: "TPOS",
+	TYE: "TDRC",
+	TEN: "TENC",
+	TPB: "TPUB",
+	TT1: "TIT1",
+	TT3: "TIT3",
+	COM: "COMM",
+	ULT: "USLT"
+};
 function parseMp3File(buf) {
 	let tagSize = 0;
 	const tags = {
@@ -15068,23 +15187,51 @@ function parseMp3File(buf) {
 	if (buf.length >= 10 && readAscii(buf, 0, 3) === "ID3") {
 		const ver = buf[3];
 		const flags = buf[5];
-		tagSize = 10 + synchsafeDecode(buf.subarray(6, 10));
-		let pos = 10;
-		if ((flags & 64) !== 0 && pos + 4 <= tagSize) {
-			const extSize = ver === 4 ? synchsafeDecode(buf.subarray(pos, pos + 4)) : r32be(buf, pos);
-			pos += Math.min(extSize, tagSize - pos);
+		tagSize = 10 + synchsafeDecode(buf.subarray(6, 10)) + (ver === 4 && (flags & 16) !== 0 ? 10 : 0);
+		let body = buf.subarray(10, Math.min(tagSize, buf.length));
+		if ((flags & 128) !== 0 && ver <= 3) body = undoUnsync(body);
+		let pos = 0;
+		if ((flags & 64) !== 0 && ver >= 3 && body.length >= 4) {
+			const extSize = ver === 4 ? synchsafeDecode(body.subarray(0, 4)) : 4 + r32be(body, 0);
+			pos = Math.min(extSize, body.length);
 		}
-		const end = Math.min(tagSize, buf.length);
-		if (ver >= 3) while (pos + 10 <= end) {
-			const fid = readAscii(buf, pos, 4);
-			if (!/^[A-Z0-9]{4}$/.test(fid)) break;
-			const fsize = ver === 4 ? synchsafeDecode(buf.subarray(pos + 4, pos + 8)) : r32be(buf, pos + 4);
-			const fflags = buf[pos + 8] << 8 | buf[pos + 9];
-			pos += 10;
-			if (fsize <= 0 || pos + fsize > end) break;
-			let fdata = buf.subarray(pos, pos + fsize);
+		if (ver === 2) while (pos + 6 <= body.length) {
+			const fid = readAscii(body, pos, 3);
+			if (!/^[A-Z0-9]{3}$/.test(fid)) break;
+			const fsize = body[pos + 3] << 16 | body[pos + 4] << 8 | body[pos + 5];
+			pos += 6;
+			if (fsize <= 0 || pos + fsize > body.length) break;
+			const fdata = body.subarray(pos, pos + fsize);
 			pos += fsize;
-			if (ver === 4 && (fflags & 1) !== 0 && fdata.length >= 4) fdata = fdata.subarray(4);
+			if (fid === "TT2") tags.title = decodeId3Text(fdata);
+			else if (fid === "TP1") tags.artist = decodeId3Text(fdata);
+			else if (fid === "TAL") tags.album = decodeId3Text(fdata);
+			else if (fid === "PIC") {
+				const pc = parsePic22(fdata);
+				if (pc) cover = pc;
+			} else if (ID3V22_TO_V24[fid]) keptFrames.push({
+				id: ID3V22_TO_V24[fid],
+				raw: new Uint8Array(fdata)
+			});
+		}
+		else if (ver === 3 || ver === 4) while (pos + 10 <= body.length) {
+			const fid = readAscii(body, pos, 4);
+			if (!/^[A-Z0-9]{4}$/.test(fid)) break;
+			const fsize = ver === 4 ? synchsafeDecode(body.subarray(pos + 4, pos + 8)) : r32be(body, pos + 4);
+			const fflags = body[pos + 8] << 8 | body[pos + 9];
+			pos += 10;
+			if (fsize <= 0 || pos + fsize > body.length) break;
+			let fdata = body.subarray(pos, pos + fsize);
+			pos += fsize;
+			if (ver === 4) {
+				if ((fflags & 12) !== 0) continue;
+				if ((fflags & 64) !== 0 && fdata.length >= 1) fdata = fdata.subarray(1);
+				if ((fflags & 1) !== 0 && fdata.length >= 4) fdata = fdata.subarray(4);
+				if ((fflags & 2) !== 0) fdata = undoUnsync(fdata);
+			} else {
+				if ((fflags & 192) !== 0) continue;
+				if ((fflags & 32) !== 0 && fdata.length >= 1) fdata = fdata.subarray(1);
+			}
 			if (fid === "TIT2") tags.title = decodeId3Text(fdata);
 			else if (fid === "TPE1") tags.artist = decodeId3Text(fdata);
 			else if (fid === "TALB") tags.album = decodeId3Text(fdata);
@@ -15092,7 +15239,7 @@ function parseMp3File(buf) {
 				const parsedCover = parseApic(fdata);
 				if (parsedCover) cover = parsedCover;
 			} else keptFrames.push({
-				id: fid,
+				id: ver === 3 && fid === "TYER" ? "TDRC" : fid,
 				raw: new Uint8Array(fdata)
 			});
 		}
@@ -15129,7 +15276,7 @@ function buildMp3File(parsed, tags, cover) {
 	for (const kf of parsed.keptFrames) {
 		const fr = new Uint8Array(10 + kf.raw.length);
 		fr.set(te.encode(kf.id), 0);
-		fr.set(u32be(kf.raw.length), 4);
+		fr.set(synchsafeEncode(kf.raw.length), 4);
 		fr.set(kf.raw, 10);
 		frames.push(fr);
 	}
@@ -15138,7 +15285,7 @@ function buildMp3File(parsed, tags, cover) {
 	const totalTagBody = bodyLen + padLen;
 	const header = /* @__PURE__ */ new Uint8Array(10);
 	header.set(te.encode("ID3"), 0);
-	header[3] = 3;
+	header[3] = 4;
 	header[4] = 0;
 	header[5] = 0;
 	header.set(synchsafeEncode(totalTagBody), 6);
@@ -15158,6 +15305,17 @@ function sanitizeDownloadName(title, originalName, format) {
 	const cleanTitle = title.replace(/[\\/:*?"<>|\x00-\x1f]/g, "").replace(/\s+/g, " ").trim().slice(0, 120);
 	const ext = format === "mp3" ? ".mp3" : (originalName.match(/\.[^.]+$/) || [".opus"])[0];
 	return `${cleanTitle || originalName.replace(/\.[^.]+$/, "") || "tagged"}${ext}`;
+}
+function localizeAudioError(message, isEn) {
+	if (!isEn) return message;
+	const map = {
+		"ไม่ใช่ไฟล์ Ogg/Opus หรือ MP3": "Not an Ogg Opus or MP3 file",
+		"ไฟล์ Ogg/Opus เสียหายหรือไม่สมบูรณ์": "The Ogg Opus file is damaged or incomplete",
+		"ไม่ใช่ไฟล์ Opus": "Not an Opus file (Ogg Vorbis is not supported)",
+		"ไม่พบ OpusTags": "OpusTags header not found",
+		"ไม่พบข้อมูลเสียง MP3": "No MP3 audio data found"
+	};
+	return map[message] || message;
 }
 // src/utils/mediaHelpers.ts
 var NOISE_REGEX = /[\(\[【\{][^\)\]】\}]*(official|video|mv|m\/v|lyric|audio|visualizer|hd|4k|live|music|เนื้อเพลง|ซับ|เอ็มวี)[^\)\]】\}]*[\)\]】\}]/gi;
@@ -15200,6 +15358,32 @@ function parseYoutubeClipToTags(clipTitle, channelName) {
 		title: cleanedTitle
 	};
 }
+async function fetchT(url, opts = {}, ms = 8000) {
+	const ctrl = new AbortController();
+	const timer = setTimeout(() => ctrl.abort(), ms);
+	try {
+		return await fetch(url, {
+			...opts,
+			signal: ctrl.signal
+		});
+	} finally {
+		clearTimeout(timer);
+	}
+}
+async function fetchImageBlob(directUrl) {
+	const attempt = async (u) => {
+		const r = await fetchT(u, {}, 8000);
+		if (!r.ok) return null;
+		const ct = r.headers.get("content-type") || "";
+		if (ct && !ct.startsWith("image/")) return null;
+		return await r.blob();
+	};
+	if (window.location.protocol !== "file:") try {
+		const viaProxy = await attempt(`/api/image-proxy?url=${encodeURIComponent(directUrl)}`);
+		if (viaProxy) return viaProxy;
+	} catch {}
+	return await attempt(directUrl);
+}
 // src/components/TagEditorTab.tsx
 async function convertBlobToJpegCover(blob) {
 	const bitmap = await createImageBitmap(blob);
@@ -15211,6 +15395,8 @@ async function convertBlobToJpegCover(blob) {
 	canvas.height = height;
 	const ctx = canvas.getContext("2d");
 	if (!ctx) throw new Error("Canvas unavailable");
+	ctx.fillStyle = "#fff";
+	ctx.fillRect(0, 0, width, height);
 	ctx.drawImage(bitmap, 0, 0, width, height);
 	bitmap.close();
 	const jpegBlob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", .9));
@@ -15250,8 +15436,10 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 			if (audioUrl) URL.revokeObjectURL(audioUrl);
 		};
 	}, [audioUrl]);
+	const appliedPendingRef = (0, import_react.useRef)(null);
 	(0, import_react.useEffect)(() => {
-		if (pendingTags && parsedFile) {
+		if (pendingTags && parsedFile && appliedPendingRef.current !== pendingTags) {
+			appliedPendingRef.current = pendingTags;
 			setTitle(pendingTags.title);
 			setArtist(pendingTags.artist);
 			setStatusMsg(isEn ? "Title and artist from the YouTube clip filled in." : "ใส่ชื่อเพลงและศิลปินจากคลิป YouTube แล้ว");
@@ -15303,7 +15491,7 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 			setFileName("");
 			updateCoverPreview(null);
 			setIsError(true);
-			const message = err instanceof Error ? err.message : "Unknown error";
+			const message = localizeAudioError(err instanceof Error ? err.message : "Unknown error", isEn);
 			setStatusMsg(isEn ? `Error: ${message}` : `ผิดพลาด: ${message}`);
 		}
 	};
@@ -15342,9 +15530,9 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 		setIsError(false);
 		setStatusMsg(isEn ? "Fetching YouTube thumbnail..." : "กำลังดึงภาพปกคลิป...");
 		try {
-			const res = await fetch(`/api/image-proxy?url=${encodeURIComponent(pendingTags.thumbnailUrl)}`);
-			if (!res.ok) throw new Error("Fetch failed");
-			const converted = await convertBlobToJpegCover(await res.blob());
+			const thumbBlob = await fetchImageBlob(pendingTags.thumbnailUrl);
+			if (!thumbBlob) throw new Error("Fetch failed");
+			const converted = await convertBlobToJpegCover(thumbBlob);
 			setCoverData(converted);
 			updateCoverPreview(converted.bytes, "image/jpeg");
 			setStatusMsg(isEn ? "YouTube thumbnail applied as cover." : "นำภาพปกคลิปมาใช้เป็นปกเพลงแล้ว");
@@ -15368,7 +15556,7 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 		try {
 			let data = null;
 			if (window.location.protocol !== "file:") try {
-				const res = await fetch(`/api/spotify-info?url=${encodeURIComponent(normalized)}`);
+				const res = await fetchT(`/api/spotify-info?url=${encodeURIComponent(normalized)}`);
 				if (res.ok && (res.headers.get("content-type") || "").includes("application/json")) data = await res.json();
 			} catch {}
 			if (!data) {
@@ -15376,7 +15564,7 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 				let spThumb = "";
 				let spArtist = "";
 				try {
-					const oe = await fetch(`https://open.spotify.com/oembed?url=${encodeURIComponent(normalized)}`);
+					const oe = await fetchT(`https://open.spotify.com/oembed?url=${encodeURIComponent(normalized)}`);
 					if (oe.ok) {
 						const j = await oe.json();
 						spTitle = j.title || "";
@@ -15384,7 +15572,9 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 					}
 				} catch {}
 				for (const relay of [`https://api.allorigins.win/raw?url=${encodeURIComponent(normalized)}`, `https://corsproxy.io/?url=${encodeURIComponent(normalized)}`]) try {
-					const html = await (await fetch(relay)).text();
+					const relayRes = await fetchT(relay, {}, 8000);
+					if (!relayRes.ok) continue;
+					const html = await relayRes.text();
 					const m = html.match(/<meta[^>]+property=["']music:musician_description["'][^>]+content=["']([^"']*)["']/i) || html.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']*)["']/i);
 					if (m?.[1]) {
 						spArtist = m[1].split(" · ")[0].trim();
@@ -15400,11 +15590,9 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 			if (!data) throw new Error("Spotify lookup failed");
 			if (data.title) setTitle(data.title);
 			if (data.thumbnailUrl) try {
-				const imgUrl = window.location.protocol !== "file:" ? `/api/image-proxy?url=${encodeURIComponent(data.thumbnailUrl)}` : data.thumbnailUrl;
-				let imgRes = await fetch(imgUrl);
-				if (!imgRes.ok && imgUrl !== data.thumbnailUrl) imgRes = await fetch(data.thumbnailUrl);
-				if (imgRes.ok) {
-					const converted = await convertBlobToJpegCover(await imgRes.blob());
+				const imgBlob = await fetchImageBlob(data.thumbnailUrl);
+				if (imgBlob) {
+					const converted = await convertBlobToJpegCover(imgBlob);
 					setCoverData(converted);
 					updateCoverPreview(converted.bytes, "image/jpeg");
 				}
@@ -15463,7 +15651,7 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 			setStatusMsg(isEn ? `Saved • ${sizeMb} MB` : `บันทึกแล้ว • ${sizeMb} MB`);
 		} catch (err) {
 			setIsError(true);
-			const message = err instanceof Error ? err.message : "Save error";
+			const message = localizeAudioError(err instanceof Error ? err.message : "Save error", isEn);
 			setStatusMsg(isEn ? `Error: ${message}` : `ผิดพลาด: ${message}`);
 		}
 	};
@@ -15743,6 +15931,14 @@ function TagEditorTab({ lang, pendingTags, onConsumePendingTags }) {
 // src/components/TopNav.tsx
 function TopNav({ activeView, onNavigate, onOpenSheet, lang, onChangeLang, darkMode, onToggleDark }) {
 	const [drawerOpen, setDrawerOpen] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => {
+		if (!drawerOpen) return;
+		const onKey = (e) => {
+			if (e.key === "Escape") setDrawerOpen(false);
+		};
+		window.addEventListener("keydown", onKey);
+		return () => window.removeEventListener("keydown", onKey);
+	}, [drawerOpen]);
 	const t = {
 		home: lang === "en" ? "Home" : "หน้าแรก",
 		tag: lang === "en" ? "Tag Music" : "แท็กเพลง",
@@ -16080,7 +16276,7 @@ function YoutubeInfoTab({ lang, onUseInTagEditor }) {
 		try {
 			let result = null;
 			if (window.location.protocol !== "file:") try {
-				const res = await fetch(`/api/youtube-info?url=${encodeURIComponent(normalized)}`);
+				const res = await fetchT(`/api/youtube-info?url=${encodeURIComponent(normalized)}`);
 				if (res.ok) {
 					if ((res.headers.get("content-type") || "").includes("application/json")) {
 						const data = await res.json();
@@ -16092,7 +16288,7 @@ function YoutubeInfoTab({ lang, onUseInTagEditor }) {
 				const videoId = normalized.match(/(?:youtu\.be\/|v=|shorts\/|embed\/|live\/)([\w-]{11})/)?.[1] || "";
 				const endpoints = [`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(normalized)}`, `https://noembed.com/embed?url=${encodeURIComponent(normalized)}`];
 				for (const ep of endpoints) try {
-					const r = await fetch(ep);
+					const r = await fetchT(ep, {}, 8000);
 					if (!r.ok) continue;
 					const d = await r.json();
 					if (d?.title) {
@@ -16329,12 +16525,13 @@ function App() {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
 				className: "flex-1",
-				children: activeView === "welcome" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WelcomeScreen, {
+				children: [activeView === "welcome" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(WelcomeScreen, {
 					lang,
 					onStart: () => navigateTo("tag"),
 					onOpenYoutube: () => navigateTo("yt"),
 					onOpenCredits: () => setOpenSheet("credit")
-				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					hidden: activeView === "welcome",
 					className: "max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4",
@@ -16364,15 +16561,21 @@ function App() {
 								children: isEn ? "YouTube Info" : "ข้อมูล YouTube"
 							})]
 						})]
-					}), activeView === "tag" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TagEditorTab, {
-						lang,
-						pendingTags,
-						onConsumePendingTags: () => setPendingTags(null)
-					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(YoutubeInfoTab, {
-						lang,
-						onUseInTagEditor: handleUseYoutubeInTags
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						hidden: activeView !== "tag",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TagEditorTab, {
+							lang,
+							pendingTags,
+							onConsumePendingTags: () => setPendingTags(null)
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						hidden: activeView !== "yt",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(YoutubeInfoTab, {
+							lang,
+							onUseInTagEditor: handleUseYoutubeInTags
+						})
 					})]
-				})
+				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
 				className: "border-t border-slate-200/80 dark:border-white/10 py-6 px-4 sm:px-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400",
@@ -16410,6 +16613,523 @@ function App() {
 // src/main.tsx
 (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}));
 </script>
+<script id="opus-motion">
+(function(){
+  var html=document.documentElement;
+  var frame=null;
+  function sync(){
+    frame=null;
+    var lists=document.querySelectorAll('[role="tablist"]');
+    for(var i=0;i<lists.length;i++){
+      var list=lists[i];
+      var active=list.querySelector('[role="tab"][aria-selected="true"]');
+      var pill=list.querySelector('.opus-pill');
+      if(!pill){
+        pill=document.createElement('span');
+        pill.className='opus-pill';
+        pill.setAttribute('aria-hidden','true');
+        list.appendChild(pill);
+      }
+      if(!active){pill.style.opacity='0';continue;}
+      pill.style.opacity='1';
+      pill.style.width=active.offsetWidth+'px';
+      pill.style.height=active.offsetHeight+'px';
+      pill.style.transform='translate('+(active.offsetLeft-list.clientLeft)+'px,'+(active.offsetTop-list.clientTop)+'px)';
+    }
+    html.classList.add('opus-anim');
+  }
+  function queue(){if(frame)return;frame=requestAnimationFrame(sync);}
+
+  var bar=document.createElement('div');
+  bar.id='opus-scroll';
+  document.body.appendChild(bar);
+  function onScroll(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+    bar.style.transform='scaleX('+p+')';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+
+  new MutationObserver(queue).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['aria-selected','class']});
+  window.addEventListener('resize',queue,{passive:true});
+  document.addEventListener('click',function(){setTimeout(sync,0);},true);
+  document.addEventListener('keydown',function(){setTimeout(sync,0);},true);
+  document.addEventListener('transitionend',queue,true);
+
+  function boot(){sync();onScroll();setTimeout(queue,500);setTimeout(queue,1500);}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+<style id="opus-eq-style">
+  #opusEqCard{--eq-accent:#e5303f;--eq-accent2:#ff7a45;}
+  .eq-hidden{display:none !important;}
+  .eq-wrap{max-width:64rem;margin:0 auto;padding:0 1rem 3rem;}
+  .eq-card{margin-top:1.5rem;border-radius:1rem;border:1px solid #e2e8f0;background:#fff;padding:1.25rem 1.25rem 1.5rem;box-shadow:0 1px 3px rgba(15,23,42,.06);}
+  html.dark .eq-card{background:#1a1522;border-color:rgba(255,255,255,.1);}
+  .eq-head{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;}
+  .eq-bars{display:flex;align-items:flex-end;gap:3px;height:26px;width:34px;}
+  .eq-bars span{width:4px;border-radius:2px;background:linear-gradient(180deg,var(--eq-accent2),var(--eq-accent));animation:eqb 1.1s ease-in-out infinite;}
+  .eq-bars span:nth-child(1){height:38%;animation-delay:0s;}
+  .eq-bars span:nth-child(2){height:80%;animation-delay:.18s;}
+  .eq-bars span:nth-child(3){height:55%;animation-delay:.36s;}
+  .eq-bars span:nth-child(4){height:95%;animation-delay:.54s;}
+  @keyframes eqb{0%,100%{transform:scaleY(.45);}50%{transform:scaleY(1);}}
+  .eq-title{font-family:Prompt,Sarabun,system-ui,sans-serif;font-weight:700;font-size:1.05rem;color:#1c1822;line-height:1.3;}
+  html.dark .eq-title{color:#f4eff8;}
+  .eq-sub{font-size:.78rem;color:#64748b;margin-top:1px;}
+  html.dark .eq-sub{color:#9aa3b2;}
+  .eq-file-row{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:.9rem;}
+  .eq-fname{font-size:.82rem;color:#64748b;word-break:break-all;flex:1;min-width:160px;}
+  html.dark .eq-fname{color:#aeb6c4;}
+  .eq-btn{display:inline-flex;align-items:center;gap:.45rem;min-height:40px;padding:.55rem 1rem;border-radius:.8rem;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid transparent;transition:transform .12s ease, box-shadow .12s ease, background .12s ease;}
+  .eq-btn:active{transform:scale(.98);}
+  .eq-btn-primary{background:linear-gradient(90deg,var(--eq-accent),var(--eq-accent2));color:#fff;box-shadow:0 6px 16px rgba(229,48,63,.25);}
+  .eq-btn-ghost{background:#f8fafc;border-color:#e2e8f0;color:#334155;}
+  html.dark .eq-btn-ghost{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#cbd5e1;}
+  .eq-btn:disabled{opacity:.55;cursor:not-allowed;}
+  .eq-transport{display:flex;align-items:center;gap:.8rem;margin:.4rem 0 1rem;}
+  .eq-play{width:42px;height:42px;flex:0 0 42px;border-radius:50%;border:1px solid rgba(229,48,63,.35);background:linear-gradient(135deg,#fff,#fff6f5);color:var(--eq-accent);display:grid;place-items:center;cursor:pointer;}
+  html.dark .eq-play{background:rgba(255,255,255,.06);color:#ff6b78;}
+  .eq-play svg{width:18px;height:18px;}
+  .eq-track{flex:1;height:8px;border-radius:999px;background:#eef1f5;cursor:pointer;position:relative;overflow:hidden;}
+  html.dark .eq-track{background:rgba(255,255,255,.1);}
+  .eq-fill{position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--eq-accent),var(--eq-accent2));}
+  .eq-time{font-size:.75rem;color:#64748b;font-variant-numeric:tabular-nums;min-width:86px;text-align:right;}
+  html.dark .eq-time{color:#aeb6c4;}
+  .eq-sliders{display:grid;gap:.85rem;border-top:1px solid #eef1f5;padding-top:1rem;}
+  html.dark .eq-sliders{border-top-color:rgba(255,255,255,.09);}
+  .eq-row{display:grid;grid-template-columns:1fr;gap:.35rem;}
+  .eq-row-head{display:flex;align-items:center;justify-content:space-between;gap:.6rem;}
+  .eq-label{font-size:.85rem;font-weight:600;color:#334155;}
+  html.dark .eq-label{color:#dbe3ee;}
+  .eq-label small{color:#94a3b8;font-weight:500;margin-left:.35rem;}
+  .eq-val{font-size:.78rem;font-weight:700;color:var(--eq-accent);font-variant-numeric:tabular-nums;min-width:58px;text-align:right;}
+  html.dark .eq-val{color:#ff8a94;}
+  .eq-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:999px;background:linear-gradient(90deg,rgba(229,48,63,.22),rgba(255,122,69,.22));outline:none;}
+  html.dark .eq-slider{background:rgba(255,255,255,.12);}
+  .eq-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--eq-accent);box-shadow:0 1px 4px rgba(0,0,0,.28);cursor:pointer;}
+  .eq-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--eq-accent);cursor:pointer;}
+  .eq-row-actions{display:flex;justify-content:flex-end;margin-top:.15rem;}
+  .eq-mini{font-size:.75rem;font-weight:600;color:#64748b;background:transparent;border:0;cursor:pointer;text-decoration:underline;}
+  html.dark .eq-mini{color:#aeb6c4;}
+  .eq-dl{margin-top:1.1rem;border-top:1px solid #eef1f5;padding-top:1rem;}
+  html.dark .eq-dl{border-top-color:rgba(255,255,255,.09);}
+  .eq-dl-title{font-size:.85rem;font-weight:700;color:#1c1822;margin-bottom:.6rem;}
+  html.dark .eq-dl-title{color:#f4eff8;}
+  .eq-dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;}
+  @media (max-width:560px){.eq-dl-grid{grid-template-columns:1fr;}}
+  .eq-dl-btn{display:flex;flex-direction:column;align-items:center;gap:.3rem;min-height:58px;padding:.7rem .6rem;border-radius:.85rem;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-weight:700;color:#334155;transition:border-color .12s,background .12s,transform .12s;}
+  .eq-dl-btn:hover{border-color:rgba(229,48,63,.55);}
+  .eq-dl-btn:active{transform:scale(.98);}
+  .eq-dl-btn:disabled{opacity:.55;cursor:not-allowed;}
+  html.dark .eq-dl-btn{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14);color:#dbe3ee;}
+  .eq-dl-btn .eq-ext{font-size:1rem;letter-spacing:.04em;}
+  .eq-dl-btn .eq-cap{font-size:.7rem;font-weight:500;color:#94a3b8;}
+  .eq-status{margin-top:.8rem;font-size:.82rem;min-height:1.2em;}
+  .eq-status[data-kind="err"]{color:var(--eq-accent);font-weight:600;}
+  .eq-status[data-kind="ok"]{color:#0f7a4d;font-weight:600;}
+  .eq-status[data-kind="info"]{color:#64748b;}
+  html.dark .eq-status[data-kind="info"]{color:#aeb6c4;}
+  .eq-note{margin-top:.55rem;font-size:.72rem;line-height:1.5;color:#94a3b8;}
+  html.dark .eq-note{color:#828d9e;}
+</style>
+<script id="opus-eq-app">
+(function () {
+  'use strict';
+  var root = document.getElementById('root');
+  if (!root) return;
+
+  var state = {
+    buf: null, name: 'song',
+    ctx: null, chain: null,
+    src: null, playing: false, manual: false,
+    startAt: 0, offset: 0, raf: 0,
+    recording: false, lameLoading: null,
+    eq: { bass: 0, vocal: 0, treble: 0 }
+  };
+  var FREQ = { bass: 180, vocal: 1500, treble: 8000 };
+
+  var ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
+  var ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>';
+  var ICON_PICK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l12 0 0 12"/><path d="M9 12h12"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/></svg>';
+
+  var card = document.createElement('section');
+  card.id = 'opusEqCard';
+  card.setAttribute('aria-label', 'ปรับแต่งเสียง EQ และดาวน์โหลด');
+  card.innerHTML =
+    '<div class="eq-wrap"><div class="eq-card">' +
+      '<div class="eq-head">' +
+        '<div class="eq-bars" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
+        '<div><div class="eq-title">ปรับแต่งเสียง EQ <span style="font-weight:500;color:#94a3b8">/ Equalizer</span></div>' +
+        '<div class="eq-sub">ปรับเบส เสียงร้อง และเสียงแหลม แล้วเลือกดาวน์โหลดได้ 3 รูปแบบ</div></div>' +
+      '</div>' +
+      '<div class="eq-file-row">' +
+        '<button type="button" class="eq-btn eq-btn-primary" id="eqPickFile">' + ICON_PICK + '<span>เลือกไฟล์เพลง</span></button>' +
+        '<button type="button" class="eq-btn eq-btn-ghost eq-hidden" id="eqUseLoaded"><span>ใช้ไฟล์ล่าสุดจากแท็บแท็ก</span></button>' +
+        '<span class="eq-fname" id="eqFname">ยังไม่เลือกไฟล์ — เลือก .opus .ogg หรือ .mp3</span>' +
+        '<input type="file" id="eqFileInput" accept=".opus,.ogg,.mp3,audio/ogg,audio/mpeg,audio/*" class="eq-hidden" />' +
+      '</div>' +
+      '<div class="eq-transport eq-hidden" id="eqTransport">' +
+        '<button type="button" class="eq-play" id="eqPlay" aria-label="เล่น/หยุดชั่วคราว">' + ICON_PLAY + '</button>' +
+        '<div class="eq-track" id="eqProgTrack"><div class="eq-fill" id="eqProgFill"></div></div>' +
+        '<span class="eq-time" id="eqTime">0:00 / 0:00</span>' +
+      '</div>' +
+      '<div class="eq-sliders">' +
+        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label">เบส <small>Bass · ~180 Hz</small></span><span class="eq-val" id="eqValBass">0.0 dB</span></div>' +
+          '<input type="range" class="eq-slider" id="eqBass" min="-12" max="12" step="0.5" value="0" aria-label="ปรับเบส" /></div>' +
+        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label">เสียงร้อง <small>Vocal · ~1.5 kHz</small></span><span class="eq-val" id="eqValVocal">0.0 dB</span></div>' +
+          '<input type="range" class="eq-slider" id="eqVocal" min="-12" max="12" step="0.5" value="0" aria-label="ปรับเสียงร้อง" /></div>' +
+        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label">เสียงแหลม <small>Treble · ~8 kHz</small></span><span class="eq-val" id="eqValTreble">0.0 dB</span></div>' +
+          '<input type="range" class="eq-slider" id="eqTreble" min="-12" max="12" step="0.5" value="0" aria-label="ปรับเสียงแหลม" /></div>' +
+        '<div class="eq-row-actions"><button type="button" class="eq-mini" id="eqReset">รีเซ็ตค่าทั้งหมดเป็น 0</button></div>' +
+      '</div>' +
+      '<div class="eq-dl">' +
+        '<div class="eq-dl-title">ดาวน์โหลดเพลงหลังปรับเสียงแล้ว — เลือกรูปแบบได้</div>' +
+        '<div class="eq-dl-grid">' +
+          '<button type="button" class="eq-dl-btn" data-fmt="mp3"><span class="eq-ext">MP3</span><span class="eq-cap">ไฟล์ .mp3</span></button>' +
+          '<button type="button" class="eq-dl-btn" data-fmt="ogg"><span class="eq-ext">OGG</span><span class="eq-cap">ไฟล์ .ogg</span></button>' +
+          '<button type="button" class="eq-dl-btn" data-fmt="opus"><span class="eq-ext">OPUS</span><span class="eq-cap">ไฟล์ .opus</span></button>' +
+        '</div>' +
+        '<p class="eq-status" id="eqStatus" data-kind="info"></p>' +
+        '<p class="eq-note">หมายเหตุ: เสียงที่ดาวน์โหลดผ่านส่วนนี้คือไฟล์เสียงใหม่ที่ผ่านการปรับ EQ แล้ว (ไม่รวมแท็กเดิม) MP3 เข้ารหัสแบบ LAME ในเบราว์เซอร์ส่วนฝั่งผู้ใช้ ส่วน OGG/OPUS จะใช้การบันทึก Opus ตามรูปแบบที่เบราว์เซอร์รองรับ (Chrome/Edge ใช้คอนเทนเนอร์ WebM Opus ซึ่งเปิดเล่นได้กับ VLC และเบราว์เซอร์ทั่วไป) ทุกอย่างประมวลผลบนเครื่องผู้ใช้ ไม่มีการอัปโหลดไฟล์</p>' +
+      '</div>' +
+    '</div></div>';
+  root.appendChild(card);
+
+  function $(id) { return document.getElementById(id); }
+  var fileBtn = $('eqPickFile'), useLoadedBtn = $('eqUseLoaded'), fileInput = $('eqFileInput'),
+      fname = $('eqFname'), transport = $('eqTransport'), playBtn = $('eqPlay'),
+      progTrack = $('eqProgTrack'), progFill = $('eqProgFill'), timeLab = $('eqTime'),
+      statusEl = $('eqStatus'), resetBtn = $('eqReset');
+  var sliders = { bass: $('eqBass'), vocal: $('eqVocal'), treble: $('eqTreble') };
+  var valEls = { bass: $('eqValBass'), vocal: $('eqValVocal'), treble: $('eqValTreble') };
+  var dlBtns = Array.prototype.slice.call(document.querySelectorAll('.eq-dl-btn'));
+
+  function setStatus(msg, kind) {
+    statusEl.textContent = msg || '';
+    statusEl.dataset.kind = kind || 'info';
+  }
+  function setBusy(busy) {
+    dlBtns.forEach(function (b) { b.disabled = busy; });
+    fileBtn.disabled = busy; useLoadedBtn.disabled = busy;
+  }
+  function fmtTime(s) {
+    if (!isFinite(s) || s < 0) s = 0;
+    var m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+  function safeName(n) {
+    return (n || 'song').replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]+/g, '').slice(0, 80) || 'song';
+  }
+
+  /* ---------- audio graph (preview) ---------- */
+  function ensureCtx() {
+    if (state.ctx) return state.ctx;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    var ctx = new AC();
+    var bass = ctx.createBiquadFilter(); bass.type = 'lowshelf'; bass.frequency.value = FREQ.bass; bass.Q.value = 0.7;
+    var vocal = ctx.createBiquadFilter(); vocal.type = 'peaking'; vocal.frequency.value = FREQ.vocal; vocal.Q.value = 1.1;
+    var treble = ctx.createBiquadFilter(); treble.type = 'highshelf'; treble.frequency.value = FREQ.treble; treble.Q.value = 0.7;
+    bass.connect(vocal); vocal.connect(treble); treble.connect(ctx.destination);
+    state.ctx = ctx; state.chain = { bass: bass, vocal: vocal, treble: treble };
+    applyGains();
+    return ctx;
+  }
+  function applyGains() {
+    if (!state.chain) return;
+    state.chain.bass.gain.value = state.eq.bass;
+    state.chain.vocal.gain.value = state.eq.vocal;
+    state.chain.treble.gain.value = state.eq.treble;
+  }
+
+  /* ---------- sliders ---------- */
+  Object.keys(sliders).forEach(function (k) {
+    sliders[k].addEventListener('input', function (e) {
+      state.eq[k] = parseFloat(e.target.value);
+      valEls[k].textContent = state.eq[k].toFixed(1) + ' dB';
+      applyGains();
+    });
+  });
+  resetBtn.addEventListener('click', function () {
+    Object.keys(sliders).forEach(function (k) {
+      sliders[k].value = 0; state.eq[k] = 0;
+      valEls[k].textContent = '0.0 dB';
+    });
+    applyGains();
+    setStatus('รีเซ็ตค่า EQ เป็น 0 ทั้งหมดแล้ว', 'ok');
+  });
+
+  /* ---------- file loading ---------- */
+  async function decodeBuffer(ab) {
+    var ctx = ensureCtx();
+    if (ctx.state === 'suspended') { try { await ctx.resume(); } catch (e) {} }
+    return await ctx.decodeAudioData(ab.slice(0));
+  }
+  async function loadFile(file) {
+    if (!file) return;
+    setBusy(true); setStatus('กำลังอ่านไฟล์เสียง...', 'info');
+    try {
+      var ab = await file.arrayBuffer();
+      var buf = await decodeBuffer(ab);
+      stopSource();
+      state.buf = buf; state.name = safeName(file.name);
+      state.offset = 0;
+      fname.textContent = file.name;
+      transport.classList.remove('eq-hidden');
+      progFill.style.width = '0%';
+      timeLab.textContent = '0:00 / ' + fmtTime(buf.duration);
+      setStatus('พร้อมแล้ว — ลากปรับเบส เสียงร้อง เสียงแหลม แล้วกดดาวน์โหลดได้เลย', 'ok');
+    } catch (err) {
+      setStatus('ไม่สามารถเปิดไฟล์นี้ได้: ' + (err && err.message ? err.message : 'รูปแบบไม่รองรับ'), 'err');
+    }
+    setBusy(false);
+  }
+  fileBtn.addEventListener('click', function () { fileInput.click(); });
+  fileInput.addEventListener('change', function (e) { loadFile(e.target.files && e.target.files[0]); e.target.value = ''; });
+
+  useLoadedBtn.addEventListener('click', async function () {
+    var a = document.querySelector('audio[controls]');
+    if (!a || !a.src) { setStatus('ยังไม่มีไฟล์ในแท็บแท็ก — โหลดเพลงในแท็บ "แท็กเพลง" ก่อน', 'err'); return; }
+    setBusy(true); setStatus('กำลังนำไฟล์จากแท็บแท็กมาใช้...', 'info');
+    try {
+      var ab = await (await fetch(a.src)).arrayBuffer();
+      var buf = await decodeBuffer(ab);
+      stopSource();
+      state.buf = buf; state.name = 'tag-editor-song'; state.offset = 0;
+      fname.textContent = 'ไฟล์ล่าสุดจากแท็บแท็ก' + (isFinite(a.duration) ? ' · ' + fmtTime(a.duration) : '');
+      transport.classList.remove('eq-hidden');
+      progFill.style.width = '0%';
+      timeLab.textContent = '0:00 / ' + fmtTime(buf.duration);
+      setStatus('พร้อมแล้ว — ปรับเสียงแล้วกดดาวน์โหลดได้เลย', 'ok');
+    } catch (err) {
+      setStatus('อ่านไฟล์จากแท็บแท็กไม่สำเร็จ: ' + (err && err.message ? err.message : 'ลองเลือกไฟล์ตรง ๆ'), 'err');
+    }
+    setBusy(false);
+  });
+
+  /* ---------- preview transport ---------- */
+  function stopSource() {
+    if (state.src) {
+      state.manual = true;
+      try { state.src.stop(); } catch (e) {}
+      state.src = null;
+    }
+    state.playing = false;
+  }
+  function updatePlayIcon() { playBtn.innerHTML = state.playing ? ICON_PAUSE : ICON_PLAY; }
+  function currentPos() {
+    if (!state.buf) return 0;
+    if (!state.playing) return state.offset;
+    return Math.min(state.buf.duration, state.offset + (state.ctx.currentTime - state.startAt));
+  }
+  function tick() {
+    cancelAnimationFrame(state.raf);
+    var loop = function () {
+      if (!state.buf) return;
+      var p = currentPos();
+      progFill.style.width = (p / state.buf.duration * 100) + '%';
+      timeLab.textContent = fmtTime(p) + ' / ' + fmtTime(state.buf.duration);
+      if (state.playing) state.raf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+  function startSource(off) {
+    var ctx = ensureCtx();
+    if (ctx.state === 'suspended') { try { ctx.resume(); } catch (e) {} }
+    stopSource();
+    var src = ctx.createBufferSource();
+    src.buffer = state.buf;
+    src.connect(state.chain.bass);
+    state.manual = false;
+    src.onended = function () {
+      if (state.manual) return;
+      state.playing = false; state.offset = 0;
+      updatePlayIcon(); tick();
+    };
+    src.start(0, off);
+    state.src = src; state.playing = true;
+    state.startAt = ctx.currentTime; state.offset = off;
+    updatePlayIcon(); tick();
+  }
+  playBtn.addEventListener('click', function () {
+    if (!state.buf) { setStatus('กรุณาเลือกไฟล์เพลงก่อน', 'err'); return; }
+    if (state.playing) {
+      state.offset = currentPos();
+      stopSource(); updatePlayIcon(); tick();
+    } else {
+      startSource(state.offset || 0);
+    }
+  });
+  progTrack.addEventListener('pointerdown', function (e) {
+    if (!state.buf) return;
+    var r = progTrack.getBoundingClientRect();
+    var frac = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+    state.offset = frac * state.buf.duration;
+    if (state.playing) { startSource(state.offset); }
+    else { progFill.style.width = (frac * 100) + '%'; }
+  });
+
+  /* ---------- offline EQ render ---------- */
+  async function renderEqBuffer() {
+    if (!state.buf) throw new Error('no audio buffer');
+    var off = new OfflineAudioContext(state.buf.numberOfChannels, state.buf.length, state.buf.sampleRate);
+    var src = off.createBufferSource(); src.buffer = state.buf;
+    var b = off.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
+    var v = off.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
+    var t = off.createBiquadFilter(); t.type = 'highshelf'; t.frequency.value = FREQ.treble; t.gain.value = state.eq.treble;
+    src.connect(b); b.connect(v); v.connect(t); t.connect(off.destination);
+    src.start(0);
+    return await off.startRendering();
+  }
+
+  /* ---------- MP3 (LAME) ---------- */
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src; s.dataset.lame = '1';
+      s.onload = resolve;
+      s.onerror = function () { reject(new Error('load failed')); };
+      document.head.appendChild(s);
+    });
+  }
+  async function ensureLame() {
+    if (window.lamejs) return;
+    if (!state.lameLoading) {
+      state.lameLoading = Promise.any([
+        loadScript('https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js'),
+        loadScript('https://unpkg.com/lamejs@1.2.0/lame.min.js')
+      ]);
+    }
+    await state.lameLoading;
+    if (!window.lamejs) throw new Error('LAME encoder unavailable');
+  }
+  function encodeMp3(ab, kbps) {
+    var ch = ab.numberOfChannels, sr = ab.sampleRate;
+    var enc = new lamejs.Mp3Encoder(ch, sr, kbps);
+    var chans = [];
+    for (var c = 0; c < ch; c++) {
+      var d = ab.getChannelData(c), a = new Int16Array(d.length);
+      for (var i = 0; i < d.length; i++) {
+        var s = Math.max(-1, Math.min(1, d[i]));
+        a[i] = s < 0 ? s * 32768 : s * 32767;
+      }
+      chans.push(a);
+    }
+    var block = 1152, parts = [];
+    for (var j = 0; j < chans[0].length; j += block) {
+      var l = chans[0].subarray(j, j + block);
+      var r = ch > 1 ? chans[1].subarray(j, j + block) : null;
+      var encBuf = enc.encodeBuffer(l, r);
+      if (encBuf && encBuf.length) parts.push(new Uint8Array(encBuf));
+    }
+    var tail = enc.flush();
+    if (tail && tail.length) parts.push(new Uint8Array(tail));
+    return new Blob(parts, { type: 'audio/mpeg' });
+  }
+
+  /* ---------- OGG / OPUS via MediaRecorder ---------- */
+  function pickMime() {
+    if (typeof MediaRecorder === 'undefined') return '';
+    var list = ['audio/ogg;codecs=opus', 'audio/webm;codecs=opus', 'audio/mp4;codecs=mp4a.40.2'];
+    for (var i = 0; i < list.length; i++) {
+      try { if (MediaRecorder.isTypeSupported(list[i])) return list[i]; } catch (e) {}
+    }
+    return '';
+  }
+  async function exportRecorded(kind) {
+    var mime = pickMime();
+    if (!mime) { setStatus('เบราว์เซอร์นี้ไม่รองรับการบันทึก ' + kind.toUpperCase() + ' — ลอง Chrome, Edge หรือ Firefox', 'err'); return; }
+    if (state.recording) return;
+    stopSource();
+    state.recording = true; setBusy(true);
+    setStatus('กำลังเข้ารหัส ' + kind.toUpperCase() + ' — รอจนจบเพลง...', 'info');
+    try {
+      var recCtx = new (window.AudioContext || window.webkitAudioContext)();
+      var src = recCtx.createBufferSource(); src.buffer = state.buf;
+      var b = recCtx.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
+      var v = recCtx.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
+      var t = recCtx.createBiquadFilter(); t.type = 'highshelf'; t.frequency.value = FREQ.treble; t.gain.value = state.eq.treble;
+      var out = recCtx.createMediaStreamDestination();
+      src.connect(b); b.connect(v); v.connect(t); t.connect(out); t.connect(recCtx.destination);
+      var rec = new MediaRecorder(out.stream, { mimeType: mime, audioBitsPerSecond: 128000 });
+      var chunks = [];
+      rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+      var done = new Promise(function (resolve) { rec.onstop = resolve; });
+      rec.start(250);
+      src.start(0);
+      src.onended = function () { setTimeout(function () { try { rec.stop(); } catch (e) {} }, 350); };
+      await done;
+      recCtx.close();
+      state.recording = false; setBusy(false);
+      var blob = new Blob(chunks, { type: mime.split(';')[0] });
+      var isOgg = mime.indexOf('ogg') >= 0;
+      var ext = kind === 'opus' ? 'opus' : (isOgg ? 'ogg' : 'ogg');
+      downloadBlob(blob, safeName(state.name) + '.eq.' + ext, 'audio/' + ext);
+      setStatus('ดาวน์โหลด ' + kind.toUpperCase() + ' แล้ว (' + (blob.size / 1048576).toFixed(2) + ' MB)', 'ok');
+    } catch (err) {
+      state.recording = false; setBusy(false);
+      setStatus('เข้ารหัสไม่สำเร็จ: ' + (err && err.message ? err.message : 'ลองอีกครั้ง'), 'err');
+    }
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+
+  dlBtns.forEach(function (btn) {
+    btn.addEventListener('click', async function () {
+      var kind = btn.dataset.fmt;
+      if (!state.buf) { setStatus('กรุณาเลือกไฟล์เพลงก่อนกดดาวน์โหลด', 'err'); return; }
+      if (kind === 'mp3') {
+        stopSource(); setBusy(true);
+        setStatus('กำลังโหลดตัวเข้ารหัสและเข้ารหัส MP3...', 'info');
+        try {
+          await ensureLame();
+          var rb = await renderEqBuffer();
+          var blob = encodeMp3(rb, 192);
+          downloadBlob(blob, safeName(state.name) + '.eq.mp3');
+          setStatus('ดาวน์โหลด MP3 แล้ว (' + (blob.size / 1048576).toFixed(2) + ' MB)', 'ok');
+        } catch (err) {
+          setStatus('MP3 ใช้งานไม่ได้ในเบราว์เซอร์นี้ (ต้องเชื่อมต่ออินเทอร์เน็ตครั้งแรกเพื่อโหลดตัวเข้ารหัส): ' + (err && err.message ? err.message : ''), 'err');
+        }
+        setBusy(false);
+      } else {
+        exportRecorded(kind);
+      }
+    });
+  });
+
+  /* ---------- show only inside the Tag (แท็กเพลง) view ---------- */
+  function findTagInput() {
+    var all = document.querySelectorAll('input[accept*=".opus"]');
+    for (var i = 0; i < all.length; i++) {
+      if (!all[i].closest('#opusEqCard')) return all[i];
+    }
+    return null;
+  }
+  function refreshVisibility() {
+    var pick = findTagInput();
+    var host = pick ? pick.closest('[hidden]') : null;
+    var visible = !!pick && !(host && host.hasAttribute('hidden'));
+    if (!document.getElementById('opusEqCard')) {
+      if (host && host.parentNode) host.parentNode.insertBefore(card, host.nextSibling);
+      else root.appendChild(card);
+    } else if (host && host.parentNode && card.parentNode !== host.parentNode) {
+      try { host.parentNode.insertBefore(card, host.nextSibling); } catch (e) {}
+    }
+    card.classList.toggle('eq-hidden', !visible);
+    useLoadedBtn.classList.toggle('eq-hidden', !visible);
+  }
+  new MutationObserver(refreshVisibility).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] });
+  refreshVisibility();
+})();
+</script>
+
 </body>
 </html>
 
