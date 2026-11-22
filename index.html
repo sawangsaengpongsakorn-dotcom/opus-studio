@@ -16664,7 +16664,7 @@ function App() {
 <style id="opus-eq-style">
   #opusEqCard{--eq-accent:#e5303f;--eq-accent2:#ff7a45;}
   .eq-hidden{display:none !important;}
-  .eq-wrap{max-width:64rem;margin:0 auto;padding:0 1rem 3rem;}
+  .eq-wrap{padding:0 0 1.5rem;}
   .eq-card{margin-top:1.5rem;border-radius:1rem;border:1px solid #e2e8f0;background:#fff;padding:1.25rem 1.25rem 1.5rem;box-shadow:0 1px 3px rgba(15,23,42,.06);}
   html.dark .eq-card{background:#1a1522;border-color:rgba(255,255,255,.1);}
   .eq-head{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;}
@@ -16717,7 +16717,7 @@ function App() {
   html.dark .eq-dl{border-top-color:rgba(255,255,255,.09);}
   .eq-dl-title{font-size:.85rem;font-weight:700;color:#1c1822;margin-bottom:.6rem;}
   html.dark .eq-dl-title{color:#f4eff8;}
-  .eq-dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;}
+  .eq-dl-grid{display:grid;grid-template-columns:minmax(0,24rem);gap:.6rem;}
   @media (max-width:560px){.eq-dl-grid{grid-template-columns:1fr;}}
   .eq-dl-btn{display:flex;flex-direction:column;align-items:center;gap:.3rem;min-height:58px;padding:.7rem .6rem;border-radius:.85rem;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-weight:700;color:#334155;transition:border-color .12s,background .12s,transform .12s;}
   .eq-dl-btn:hover{border-color:rgba(229,48,63,.55);}
@@ -16731,6 +16731,7 @@ function App() {
   .eq-status[data-kind="ok"]{color:#0f7a4d;font-weight:600;}
   .eq-status[data-kind="info"]{color:#64748b;}
   html.dark .eq-status[data-kind="info"]{color:#aeb6c4;}
+  @media (prefers-reduced-motion:reduce){.eq-bars span{animation:none;}}
   .eq-note{margin-top:.55rem;font-size:.72rem;line-height:1.5;color:#94a3b8;}
   html.dark .eq-note{color:#828d9e;}
 </style>
@@ -16743,9 +16744,9 @@ function App() {
   var state = {
     buf: null, name: 'song',
     ctx: null, chain: null,
-    src: null, playing: false, manual: false,
+    src: null, playing: false,
     startAt: 0, offset: 0, raf: 0,
-    recording: false, lameLoading: null,
+    lameLoading: null,
     eq: { bass: 0, vocal: 0, treble: 0 },
     fnameMode: 'empty', fnameDuration: null
   };
@@ -16756,7 +16757,7 @@ function App() {
       docTitle: 'Opus Studio — แท็กเพลงและข้อมูลคลิป YouTube',
       ariaCard: 'ปรับแต่งเสียง EQ และดาวน์โหลด',
       title: 'ปรับแต่งเสียง EQ <small style="font-weight:500;color:#94a3b8">/ Equalizer</small>',
-      sub: 'ปรับเบส เสียงร้อง และเสียงแหลม แล้วเลือกดาวน์โหลดได้ 3 รูปแบบ',
+      sub: 'ปรับเบส เสียงร้อง และเสียงแหลม แล้วดาวน์โหลดเป็นไฟล์ MP3',
       pickFile: 'เลือกไฟล์เพลง',
       useLoaded: 'ใช้ไฟล์ล่าสุดจากแท็บแท็ก',
       noFile: 'ยังไม่เลือกไฟล์ — เลือก .opus .ogg หรือ .mp3',
@@ -16765,10 +16766,10 @@ function App() {
       fxBass: '~180 Hz', fxVocal: '~1.5 kHz', fxTreble: '~8 kHz',
       ariaBass: 'ปรับเบส', ariaVocal: 'ปรับเสียงร้อง', ariaTreble: 'ปรับเสียงแหลม',
       reset: 'รีเซ็ตค่าทั้งหมดเป็น 0',
-      dlTitle: 'ดาวน์โหลดเพลงหลังปรับเสียงแล้ว — เลือกรูปแบบได้',
-      capMp3: 'ไฟล์ .mp3', capOgg: 'ไฟล์ .ogg', capOpus: 'ไฟล์ .opus',
+      dlTitle: 'ดาวน์โหลดเพลงหลังปรับเสียงแล้ว',
+      capMp3: 'ไฟล์ .mp3 · 192 kbps',
       tagFileLabel: 'ไฟล์ล่าสุดจากแท็บแท็ก',
-      note: 'หมายเหตุ: เสียงที่ดาวน์โหลดผ่านส่วนนี้คือไฟล์เสียงใหม่ที่ผ่านการปรับ EQ แล้ว (ไม่รวมแท็กเดิม) MP3 เข้ารหัสแบบ LAME ในเบราว์เซอร์ส่วนฝั่งผู้ใช้ ส่วน OGG/OPUS จะใช้การบันทึก Opus ตามรูปแบบที่เบราว์เซอร์รองรับ (Chrome/Edge ใช้คอนเทนเนอร์ WebM Opus ซึ่งเปิดเล่นได้กับ VLC และเบราว์เซอร์ทั่วไป) ทุกอย่างประมวลผลบนเครื่องผู้ใช้ ไม่มีการอัปโหลดไฟล์',
+      note: 'หมายเหตุ: ไฟล์ที่ดาวน์โหลดผ่านส่วนนี้คือ MP3 ใหม่ที่ผ่านการปรับ EQ แล้ว (ไม่รวมแท็กเดิม) เข้ารหัสด้วย LAME ในเบราว์เซอร์ของคุณ ต้องเชื่อมต่ออินเทอร์เน็ตในครั้งแรกเพื่อโหลดตัวเข้ารหัส และถ้าเสียงหลังปรับดังเกินระดับ ระบบจะลดระดับโดยรวมลงเล็กน้อยเพื่อไม่ให้เสียงแตก',
       readingFile: 'กำลังอ่านไฟล์เสียง…',
       ready: 'พร้อมแล้ว — ปรับเบส เสียงร้อง เสียงแหลม แล้วกดดาวน์โหลดได้เลย',
       fileOpenErr: 'ไม่สามารถเปิดไฟล์นี้ได้: ',
@@ -16778,12 +16779,9 @@ function App() {
       tagImportErr: 'อ่านไฟล์จากแท็บแท็กไม่สำเร็จ: ',
       pickFirst: 'กรุณาเลือกไฟล์เพลงก่อน',
       resetDone: 'รีเซ็ตค่า EQ เป็น 0 ทั้งหมดแล้ว',
-      recUnsupported: 'เบราว์เซอร์นี้ไม่รองรับการบันทึก {0} — ลอง Chrome, Edge หรือ Firefox',
-      encoding: 'กำลังเข้ารหัส {0} — รอจนจบเพลง…',
-      downloaded: 'ดาวน์โหลด {0} แล้ว ({1} MB)',
-      encodeFail: 'เข้ารหัสไม่สำเร็จ: ',
       pickFirstDl: 'กรุณาเลือกไฟล์เพลงก่อนกดดาวน์โหลด',
       mp3Busy: 'กำลังโหลดตัวเข้ารหัสและเข้ารหัส MP3…',
+      mp3Progress: 'กำลังเข้ารหัส MP3… {0}%',
       mp3Done: 'ดาวน์โหลด MP3 แล้ว ({0} MB)',
       mp3Fail: 'MP3 ใช้งานไม่ได้ในเบราว์เซอร์นี้ (ต้องเชื่อมต่ออินเทอร์เน็ตครั้งแรกเพื่อโหลดตัวเข้ารหัส): '
     },
@@ -16791,7 +16789,7 @@ function App() {
       docTitle: 'Opus Studio — Music Tags & YouTube Clip Info',
       ariaCard: 'Adjust sound EQ and download',
       title: 'Sound EQ <small style="font-weight:500;color:#94a3b8">/ Equalizer</small>',
-      sub: 'Tweak bass, vocal, and treble, then choose from 3 download formats',
+      sub: 'Tweak bass, vocal, and treble, then download as an MP3 file',
       pickFile: 'Choose song file',
       useLoaded: 'Use latest file from Tag tab',
       noFile: 'No file yet — pick .opus, .ogg, or .mp3',
@@ -16800,10 +16798,10 @@ function App() {
       fxBass: '~180 Hz', fxVocal: '~1.5 kHz', fxTreble: '~8 kHz',
       ariaBass: 'Adjust bass', ariaVocal: 'Adjust vocal', ariaTreble: 'Adjust treble',
       reset: 'Reset all values to 0',
-      dlTitle: 'Download the tuned track below — pick a format',
-      capMp3: 'MP3 file', capOgg: 'OGG file', capOpus: 'OPUS file',
+      dlTitle: 'Download the tuned track',
+      capMp3: 'MP3 file · 192 kbps',
       tagFileLabel: 'Latest file from Tag tab',
-      note: 'Note: audio exported from this section is a new file processed through EQ (original tags are not included). MP3 is encoded with LAME in your browser; OGG/OPUS use Opus recording in the container your browser supports (Chrome/Edge use WebM Opus, playable in VLC and common browsers). Everything runs on your device; nothing is uploaded.',
+      note: 'Note: the file exported from this section is a new MP3 processed through EQ (original tags are not included), encoded with LAME in your browser. An internet connection is needed the first time to load the encoder. If the adjusted sound would clip, the overall level is lowered slightly to avoid distortion.',
       readingFile: 'Reading audio file…',
       ready: 'Ready — adjust bass, vocal, and treble, then download',
       fileOpenErr: 'Could not open this file: ',
@@ -16813,12 +16811,9 @@ function App() {
       tagImportErr: 'Failed to read the file from the Tag tab: ',
       pickFirst: 'Please choose a song file first',
       resetDone: 'All EQ values reset to 0',
-      recUnsupported: 'This browser does not support recording {0} — try Chrome, Edge, or Firefox',
-      encoding: 'Encoding {0} — waiting for the track to finish…',
-      downloaded: '{0} downloaded ({1} MB)',
-      encodeFail: 'Encoding failed: ',
       pickFirstDl: 'Please choose a song file before downloading',
       mp3Busy: 'Loading encoder and encoding MP3…',
+      mp3Progress: 'Encoding MP3… {0}%',
       mp3Done: 'MP3 downloaded ({0} MB)',
       mp3Fail: 'MP3 is unavailable in this browser (online connection required once to load the encoder): '
     }
@@ -16867,8 +16862,6 @@ function App() {
         '<div class="eq-dl-title" id="eqDlTitle"></div>' +
         '<div class="eq-dl-grid">' +
           '<button type="button" class="eq-dl-btn" data-fmt="mp3"><span class="eq-ext">MP3</span><span class="eq-cap" id="eqCapMp3"></span></button>' +
-          '<button type="button" class="eq-dl-btn" data-fmt="ogg"><span class="eq-ext">OGG</span><span class="eq-cap" id="eqCapOgg"></span></button>' +
-          '<button type="button" class="eq-dl-btn" data-fmt="opus"><span class="eq-ext">OPUS</span><span class="eq-cap" id="eqCapOpus"></span></button>' +
         '</div>' +
         '<p class="eq-status" id="eqStatus" data-kind="info"></p>' +
         '<p class="eq-note" id="eqNote"></p>' +
@@ -16912,9 +16905,7 @@ function App() {
     resetBtn.textContent = t('reset');
     $('eqDlTitle').textContent = t('dlTitle');
     $('eqCapMp3').textContent = t('capMp3');
-    $('eqCapOgg').textContent = t('capOgg');
-    $('eqCapOpus').textContent = t('capOpus');
-    $('eqNote').textContent = t('note');
+        $('eqNote').textContent = t('note');
     if (lastStatus) setT(lastStatus.key, lastStatus.kind, lastStatus.vars, true);
     var dt = t('docTitle');
     if (dt && document.title.indexOf('Opus Studio') === 0) document.title = dt;
@@ -17017,7 +17008,8 @@ function App() {
       var ab = await (await fetch(a.src)).arrayBuffer();
       var buf = await decodeBuffer(ab);
       stopSource();
-      state.buf = buf; state.name = 'tag-editor-song'; state.offset = 0;
+      var tt = document.getElementById('t-title');
+      state.buf = buf; state.name = (tt && tt.value.trim()) || 'tag-editor-song'; state.offset = 0;
       state.fnameMode = 'tag'; state.fnameDuration = isFinite(a.duration) ? a.duration : null;
       renderFname();
       transport.classList.remove('eq-hidden');
@@ -17032,12 +17024,11 @@ function App() {
 
   /* ---------- preview transport ---------- */
   function stopSource() {
-    if (state.src) {
-      state.manual = true;
-      try { state.src.stop(); } catch (e) {}
-      state.src = null;
-    }
+    var s = state.src;
+    state.src = null;
+    if (s) { try { s.stop(); } catch (e) {} }
     state.playing = false;
+    updatePlayIcon();
   }
   function updatePlayIcon() { playBtn.innerHTML = state.playing ? ICON_PAUSE : ICON_PLAY; }
   function currentPos() {
@@ -17063,10 +17054,10 @@ function App() {
     var src = ctx.createBufferSource();
     src.buffer = state.buf;
     src.connect(state.chain.bass);
-    state.manual = false;
+    document.querySelectorAll('audio').forEach(function (a) { try { a.pause(); } catch (e) {} });
     src.onended = function () {
-      if (state.manual) return;
-      state.playing = false; state.offset = 0;
+      if (state.src !== src) return;
+      state.src = null; state.playing = false; state.offset = 0;
       updatePlayIcon(); tick();
     };
     src.start(0, off);
@@ -17092,10 +17083,16 @@ function App() {
     else { progFill.style.width = (frac * 100) + '%'; }
   });
 
+  document.addEventListener('play', function (e) {
+    if (e.target && e.target.tagName === 'AUDIO' && state.playing) { state.offset = currentPos(); stopSource(); tick(); }
+  }, true);
+
   /* ---------- offline EQ render ---------- */
   async function renderEqBuffer() {
     if (!state.buf) throw new Error('no audio buffer');
-    var off = new OfflineAudioContext(state.buf.numberOfChannels, state.buf.length, state.buf.sampleRate);
+    var chs = Math.min(2, state.buf.numberOfChannels);
+    var rate = Math.min(48000, state.buf.sampleRate);
+    var off = new OfflineAudioContext(chs, Math.max(1, Math.ceil(state.buf.duration * rate)), rate);
     var src = off.createBufferSource(); src.buffer = state.buf;
     var b = off.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
     var v = off.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
@@ -17111,7 +17108,7 @@ function App() {
       var s = document.createElement('script');
       s.src = src; s.dataset.lame = '1';
       s.onload = resolve;
-      s.onerror = function () { reject(new Error('load failed')); };
+      s.onerror = function () { s.remove(); reject(new Error('load failed')); };
       document.head.appendChild(s);
     });
   }
@@ -17121,78 +17118,48 @@ function App() {
       state.lameLoading = Promise.any([
         loadScript('https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js'),
         loadScript('https://unpkg.com/lamejs@1.2.0/lame.min.js')
-      ]);
+      ]).catch(function () { state.lameLoading = null; throw new Error('LAME encoder unavailable'); });
     }
     await state.lameLoading;
-    if (!window.lamejs) throw new Error('LAME encoder unavailable');
+    if (!window.lamejs) { state.lameLoading = null; throw new Error('LAME encoder unavailable'); }
   }
-  function encodeMp3(ab, kbps) {
-    var ch = ab.numberOfChannels, sr = ab.sampleRate;
-    var enc = new lamejs.Mp3Encoder(ch, sr, kbps);
-    var chans = [];
-    for (var c = 0; c < ch; c++) {
-      var d = ab.getChannelData(c), a = new Int16Array(d.length);
-      for (var i = 0; i < d.length; i++) {
-        var s = Math.max(-1, Math.min(1, d[i]));
-        a[i] = s < 0 ? s * 32768 : s * 32767;
-      }
-      chans.push(a);
+  function peakOf(ab) {
+    var p = 0;
+    for (var c = 0; c < ab.numberOfChannels; c++) {
+      var d = ab.getChannelData(c);
+      for (var i = 0; i < d.length; i++) { var v = d[i] < 0 ? -d[i] : d[i]; if (v > p) p = v; }
     }
-    var block = 1152, parts = [];
-    for (var j = 0; j < chans[0].length; j += block) {
-      var l = chans[0].subarray(j, j + block);
-      var r = ch > 1 ? chans[1].subarray(j, j + block) : null;
-      var encBuf = enc.encodeBuffer(l, r);
-      if (encBuf && encBuf.length) parts.push(new Uint8Array(encBuf));
+    return p;
+  }
+  function pcm16(d, from, n, gain) {
+    var a = new Int16Array(n);
+    for (var i = 0; i < n; i++) {
+      var s = d[from + i] * gain;
+      s = s > 1 ? 1 : (s < -1 ? -1 : s);
+      a[i] = s < 0 ? s * 32768 : s * 32767;
+    }
+    return a;
+  }
+  async function encodeMp3(ab, kbps, onProgress) {
+    var ch = ab.numberOfChannels, sr = ab.sampleRate;
+    var peak = peakOf(ab), gain = peak > 0.98 ? 0.98 / peak : 1;   /* boosted EQ must not hard-clip */
+    var enc = new lamejs.Mp3Encoder(ch, sr, kbps);
+    var data = [];
+    for (var c = 0; c < ch; c++) data.push(ab.getChannelData(c));
+    var block = 1152, parts = [], total = data[0].length, tickAt = Date.now();
+    for (var j = 0; j < total; j += block) {
+      var n = Math.min(block, total - j);
+      var out = enc.encodeBuffer(pcm16(data[0], j, n, gain), ch > 1 ? pcm16(data[1], j, n, gain) : null);
+      if (out && out.length) parts.push(new Uint8Array(out));
+      if (Date.now() - tickAt > 40) {                                /* keep the page responsive */
+        if (onProgress) onProgress(j / total);
+        await new Promise(function (r) { setTimeout(r, 0); });
+        tickAt = Date.now();
+      }
     }
     var tail = enc.flush();
     if (tail && tail.length) parts.push(new Uint8Array(tail));
     return new Blob(parts, { type: 'audio/mpeg' });
-  }
-
-  /* ---------- OGG / OPUS via MediaRecorder ---------- */
-  function pickMime() {
-    if (typeof MediaRecorder === 'undefined') return '';
-    var list = ['audio/ogg;codecs=opus', 'audio/webm;codecs=opus', 'audio/mp4;codecs=mp4a.40.2'];
-    for (var i = 0; i < list.length; i++) {
-      try { if (MediaRecorder.isTypeSupported(list[i])) return list[i]; } catch (e) {}
-    }
-    return '';
-  }
-  async function exportRecorded(kind) {
-    var mime = pickMime();
-    if (!mime) { setT('recUnsupported', 'err', [kind.toUpperCase()]); return; }
-    if (state.recording) return;
-    stopSource();
-    state.recording = true; setBusy(true);
-    setT('encoding', 'info', [kind.toUpperCase()]);
-    try {
-      var recCtx = new (window.AudioContext || window.webkitAudioContext)();
-      var src = recCtx.createBufferSource(); src.buffer = state.buf;
-      var b = recCtx.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
-      var v = recCtx.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
-      var tr = recCtx.createBiquadFilter(); tr.type = 'highshelf'; tr.frequency.value = FREQ.treble; tr.gain.value = state.eq.treble;
-      var out = recCtx.createMediaStreamDestination();
-      src.connect(b); b.connect(v); v.connect(tr); tr.connect(out); tr.connect(recCtx.destination);
-      var rec = new MediaRecorder(out.stream, { mimeType: mime, audioBitsPerSecond: 128000 });
-      var chunks = [];
-      rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
-      var done = new Promise(function (resolve) { rec.onstop = resolve; });
-      rec.start(250);
-      src.start(0);
-      src.onended = function () { setTimeout(function () { try { rec.stop(); } catch (e) {} }, 350); };
-      await done;
-      recCtx.close();
-      state.recording = false; setBusy(false);
-      var blob = new Blob(chunks, { type: mime.split(';')[0] });
-      var isOgg = mime.indexOf('ogg') >= 0;
-      var ext = kind === 'opus' ? 'opus' : (isOgg ? 'ogg' : 'ogg');
-      downloadBlob(blob, safeName(state.name) + '.eq.' + ext, 'audio/' + ext);
-      setT('downloaded', 'ok', [kind.toUpperCase(), (blob.size / 1048576).toFixed(2)]);
-    } catch (err) {
-      state.recording = false; setBusy(false);
-      setT('encodeFail', 'err', [err && err.message ? err.message : '']);
-    }
   }
 
   function downloadBlob(blob, filename) {
@@ -17205,24 +17172,20 @@ function App() {
 
   dlBtns.forEach(function (btn) {
     btn.addEventListener('click', async function () {
-      var kind = btn.dataset.fmt;
       if (!state.buf) { setT('pickFirstDl', 'err'); return; }
-      if (kind === 'mp3') {
-        stopSource(); setBusy(true);
-        setT('mp3Busy', 'info');
-        try {
-          await ensureLame();
-          var rb = await renderEqBuffer();
-          var blob = encodeMp3(rb, 192);
-          downloadBlob(blob, safeName(state.name) + '.eq.mp3');
-          setT('mp3Done', 'ok', [(blob.size / 1048576).toFixed(2)]);
-        } catch (err) {
-          setT('mp3Fail', 'err', [err && err.message ? err.message : '']);
-        }
-        setBusy(false);
-      } else {
-        exportRecorded(kind);
+      if (state.playing) state.offset = currentPos();
+      stopSource(); tick(); setBusy(true);
+      setT('mp3Busy', 'info');
+      try {
+        await ensureLame();
+        var rb = await renderEqBuffer();
+        var blob = await encodeMp3(rb, 192, function (f) { setT('mp3Progress', 'info', [Math.round(f * 100)]); });
+        downloadBlob(blob, safeName(state.name) + '.eq.mp3');
+        setT('mp3Done', 'ok', [(blob.size / 1048576).toFixed(2)]);
+      } catch (err) {
+        setT('mp3Fail', 'err', [err && err.message ? err.message : '']);
       }
+      setBusy(false);
     });
   });
 
@@ -17247,7 +17210,9 @@ function App() {
     card.classList.toggle('eq-hidden', !visible);
     useLoadedBtn.classList.toggle('eq-hidden', !visible);
   }
-  new MutationObserver(refreshVisibility).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] });
+  new MutationObserver(function (muts) {
+    for (var i = 0; i < muts.length; i++) if (!card.contains(muts[i].target)) { refreshVisibility(); return; }
+  }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden'] });
 
   new MutationObserver(function () { applyLang(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   applyLang();
