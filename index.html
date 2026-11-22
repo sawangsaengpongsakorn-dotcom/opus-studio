@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Opus Studio — แท็กเพลงและข้อมูลคลิป YouTube</title>
-    <meta name="description" content="แก้ไขแท็กเพลง .opus, .ogg, .mp3 และดึงข้อมูลคลิป YouTube ครบจบในที่เดียว ใช้ง่าย ฟรี และปลอดภัย" />
-    <meta property="og:title" content="Opus Studio — แท็กเพลงและข้อมูลคลิป YouTube" />
-    <meta property="og:description" content="แก้ไขแท็กเพลง .opus, .ogg, .mp3 และดึงข้อมูลคลิป YouTube ครบจบในที่เดียว ใช้ง่าย ฟรี และปลอดภัย" />
+    <title>Opus Studio — แท็กเพลง แปลงไฟล์ และข้อมูล YouTube</title>
+    <meta name="description" content="แก้ไขแท็กเพลง แปลงไฟล์วิดีโอและเสียงเป็น MP3, OGG หรือ Opus พร้อมปรับแต่ง EQ และดึงข้อมูล YouTube" />
+    <meta property="og:title" content="Opus Studio — แท็กเพลง แปลงไฟล์ และข้อมูล YouTube" />
+    <meta property="og:description" content="แก้ไขแท็กเพลง แปลงไฟล์วิดีโอและเสียงเป็น MP3, OGG หรือ Opus พร้อมปรับแต่ง EQ และดึงข้อมูล YouTube" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14359,10 +14359,10 @@ var WELCOME_FEATURES = [
 	},
 	{
 		num: "03",
-		titleTh: "ปลอดภัย ประมวลผลในเครื่อง",
-		titleEn: "Private & Browser-Based",
-		descTh: "ไฟล์เสียงของคุณไม่ถูกอัปโหลดขึ้นเซิร์ฟเวอร์ การแก้ไขแท็กและปกทำในเบราว์เซอร์โดยตรง",
-		descEn: "Your audio files stay on your device; all tag and cover editing runs locally in your browser."
+		titleTh: "แก้แท็กในเบราว์เซอร์",
+		titleEn: "Private Tag Editing",
+		descTh: "การแก้แท็กและปกเพลงทำในเบราว์เซอร์ ส่วนไฟล์ที่แปลงจะถูกส่งไปประมวลผลชั่วคราวและลบเมื่อเสร็จ",
+		descEn: "Tag and cover editing stays in your browser. Converter uploads are temporary and deleted when processing finishes."
 	},
 	{
 		num: "04",
@@ -14382,7 +14382,7 @@ var FAQ_TH = [
 			"ยังไง",
 			"how"
 		],
-		a: "กดปุ่ม \"เริ่มต้นใช้งาน\" แล้วเลือกใช้งานได้ 2 แท็บ:\n1) แท็กเพลง – เลือกไฟล์ .opus, .ogg หรือ .mp3 แก้ชื่อเพลง ศิลปิน อัลบั้ม ปก แล้วกดบันทึก\n2) ข้อมูล YouTube – วางลิงก์คลิปเพื่อดูและคัดลอกชื่อคลิป ชื่อช่อง หรือส่งเข้าแท็บแท็กเพลงได้ทันที"
+		a: "กดปุ่ม \"เริ่มต้นใช้งาน\" แล้วเลือกใช้งานได้ 3 แท็บ:\n1) แท็กเพลง – เลือกไฟล์ .opus, .ogg หรือ .mp3 แก้ชื่อเพลง ศิลปิน อัลบั้ม ปก แล้วกดบันทึก\n2) แปลงไฟล์ – เลือกไฟล์ MP4, WebM หรือไฟล์เสียง เลือกรูปแบบและบิตเรต แล้วแปลงและดาวน์โหลด\n3) ข้อมูล YouTube – วางลิงก์คลิปเพื่อดูและคัดลอกชื่อคลิป ชื่อช่อง หรือส่งเข้าแท็บแท็กเพลงได้ทันที"
 	},
 	{
 		q: "ไฟล์ของฉันถูกอัปโหลดไหม",
@@ -14394,7 +14394,7 @@ var FAQ_TH = [
 			"upload",
 			"privacy"
 		],
-		a: "การแก้แท็กทำในเบราว์เซอร์ของคุณทั้งหมด ไฟล์เสียงที่เลือกไม่ถูกอัปโหลดไปยังเซิร์ฟเวอร์\n\nเฉพาะฟีเจอร์ดึงข้อมูลจากลิงก์ YouTube หรือ Spotify เท่านั้นที่จะส่งลิงก์ที่คุณวางออกไปเพื่อดึงชื่อและภาพปกกลับมาให้ (บางครั้งผ่านบริการตัวกลางสาธารณะ เช่น allorigins / corsproxy)"
+		a: "การแก้แท็กและปกเพลงทำในเบราว์เซอร์ ไฟล์ที่เลือกในแท็บนี้ไม่ถูกอัปโหลด\n\nหากใช้ตัวแปลงไฟล์ ไฟล์จะถูกส่งไปยังเซิร์ฟเวอร์เพื่อแปลงชั่วคราวและลบออกเมื่อเสร็จ ส่วนการค้นหาข้อมูล YouTube หรือ Spotify จะส่งเฉพาะลิงก์ที่วางเพื่อดึงข้อมูลสาธารณะกลับมา"
 	},
 	{
 		q: "Opus คืออะไร",
@@ -14441,7 +14441,7 @@ var FAQ_TH = [
 			"ogg",
 			"mp3"
 		],
-		a: "• แท็กเพลง: รับไฟล์ .opus, .ogg และ .mp3\n• ปกเพลง: รับไฟล์รูปภาพทั่วไป (JPG, PNG, WebP)"
+		a: "• แท็กเพลง: รับไฟล์ .opus, .ogg และ .mp3\n• ตัวแปลง: รับไฟล์ MP4, WebM และไฟล์เสียงทั่วไป ส่งออกเป็น MP3, Opus หรือ OGG\n• ปกเพลง: รับไฟล์รูปภาพทั่วไป (JPG, PNG, WebP)"
 	}
 ];
 var FAQ_EN = [
@@ -14454,7 +14454,7 @@ var FAQ_EN = [
 			"guide",
 			"tutorial"
 		],
-		a: "Click \"Get Started\" and choose between 2 tabs:\n1) Tag Music – pick an .opus, .ogg, or .mp3 file, edit title, artist, album, and cover art, then save.\n2) YouTube Info – paste a video link to copy its title/channel or send them straight to the tag editor."
+		a: "Click \"Get Started\" and choose between 3 tabs:\n1) Tag Music – edit tags and cover art for .opus, .ogg, and .mp3 files.\n2) Convert – upload an MP4, WebM, or audio file, choose an output format and bitrate, then download it.\n3) YouTube Info – paste a video link to copy its title/channel or send them straight to the tag editor."
 	},
 	{
 		q: "Are my files uploaded?",
@@ -14465,7 +14465,7 @@ var FAQ_EN = [
 			"secure",
 			"private"
 		],
-		a: "Tag editing happens entirely in your browser; the audio files you pick are never uploaded.\n\nOnly YouTube and Spotify link lookups send the pasted URL to retrieve public metadata and cover thumbnails (sometimes through public relay services such as allorigins / corsproxy)."
+		a: "Tag and cover editing happen in your browser; those files are not uploaded.\n\nFiles selected in the converter are sent to the server temporarily for conversion and deleted when processing finishes. YouTube and Spotify lookups send only the pasted link to retrieve public metadata."
 	},
 	{
 		q: "What is Opus?",
@@ -14510,7 +14510,7 @@ var FAQ_EN = [
 			"mp3",
 			"format"
 		],
-		a: "• Audio tags: .opus, .ogg, and .mp3\n• Cover art: common image files (JPG, PNG, WebP)"
+		a: "• Audio tags: .opus, .ogg, and .mp3\n• Converter input: MP4, WebM, and common audio files\n• Converter output: MP3, Opus, or OGG\n• Cover art: common image files (JPG, PNG, WebP)"
 	}
 ];
 function matchFaqReply(query, lang) {
@@ -15942,6 +15942,7 @@ function TopNav({ activeView, onNavigate, onOpenSheet, lang, onChangeLang, darkM
 	const t = {
 		home: lang === "en" ? "Home" : "หน้าแรก",
 		tag: lang === "en" ? "Tag Music" : "แท็กเพลง",
+convert: lang === "en" ? "Convert" : "แปลงไฟล์",
 		yt: lang === "en" ? "YouTube Info" : "ข้อมูล YouTube",
 		faq: lang === "en" ? "FAQ" : "คำถามที่พบบ่อย",
 		credit: lang === "en" ? "Credits" : "เครดิต",
@@ -15996,6 +15997,12 @@ function TopNav({ activeView, onNavigate, onOpenSheet, lang, onChangeLang, darkM
 							className: navLinkClass(activeView === "tag"),
 							children: t.tag
 						}),
+/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+type: "button",
+onClick: () => onNavigate("convert"),
+className: navLinkClass(activeView === "convert"),
+children: t.convert
+}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 							type: "button",
 							onClick: () => onNavigate("yt"),
@@ -16091,6 +16098,15 @@ function TopNav({ activeView, onNavigate, onOpenSheet, lang, onChangeLang, darkM
 							className: "min-h-[44px] px-3 rounded-xl text-left font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/10",
 							children: t.tag
 						}),
+/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+type: "button",
+onClick: () => {
+onNavigate("convert");
+setDrawerOpen(false);
+},
+className: "min-h-[44px] px-3 rounded-xl text-left font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/10",
+children: t.convert
+}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 							type: "button",
 							onClick: () => {
@@ -16149,15 +16165,15 @@ function WelcomeScreen({ lang, onStart, onOpenYoutube, onOpenCredits }) {
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-sm font-semibold text-[#e5303f] dark:text-[#ff6b78] mb-3",
-							children: isEn ? "Opus Studio · Audio Metadata & Clip Info" : "Opus Studio · เครื่องมือจัดการแท็กเพลงและข้อมูลคลิป"
+				children: isEn ? "Opus Studio · Audio Tags, Conversion & Clip Info" : "Opus Studio · แท็กเพลง แปลงไฟล์ และข้อมูลคลิป"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "font-display text-3xl sm:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight [text-wrap:balance]",
-							children: isEn ? "Edit Opus & MP3 tags and look up YouTube clips in one place" : "แท็กเพลงและดึงข้อมูลคลิป YouTube ครบจบในที่เดียว"
+				children: isEn ? "Edit audio tags, convert video and audio, and look up YouTube clips" : "แท็กเพลง แปลงไฟล์วิดีโอและเสียง พร้อมดูข้อมูลคลิป YouTube"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl",
-							children: isEn ? "Update song titles, artists, albums, and cover artwork right in your browser, or extract clip details from YouTube and Spotify effortlessly." : "แก้ไขชื่อเพลง ชื่อศิลปิน อัลบั้ม และภาพปกสำหรับไฟล์ .opus, .ogg และ .mp3 ได้ทันทีบนเบราว์เซอร์ พร้อมดึงข้อมูลจาก YouTube และ Spotify อย่างรวดเร็ว"
+				children: isEn ? "Edit .opus, .ogg, and .mp3 tags in your browser, convert MP4 and WebM into MP3, Opus, or OGG, and look up YouTube or Spotify details." : "แก้ไขแท็ก .opus, .ogg และ .mp3 ในเบราว์เซอร์ แปลง MP4 และ WebM เป็น MP3, Opus หรือ OGG และดูข้อมูลจาก YouTube หรือ Spotify"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "mt-8 flex flex-wrap items-center gap-3",
@@ -16206,7 +16222,7 @@ function WelcomeScreen({ lang, onStart, onOpenYoutube, onOpenCredits }) {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "mt-7 flex flex-wrap items-center justify-between gap-4 pt-5 border-t border-slate-200/70 dark:border-white/10 text-sm text-slate-500 dark:text-slate-400",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: isEn ? "Supports .opus, .ogg, .mp3 and cover images (JPG / PNG / WebP)" : "รองรับไฟล์เสียง .opus, .ogg, .mp3 และรูปปกเพลงทั่วไป" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: isEn ? "Convert MP4 and WebM to MP3, Opus, or OGG · Edit .opus, .ogg, and .mp3 tags" : "แปลง MP4 และ WebM เป็น MP3, Opus หรือ OGG · แก้แท็ก .opus, .ogg และ .mp3" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 								type: "button",
 								onClick: onOpenCredits,
 								className: "inline-flex items-center gap-1.5 font-semibold text-[#e5303f] dark:text-[#ff6b78] hover:underline py-1",
@@ -16455,9 +16471,10 @@ function YoutubeInfoTab({ lang, onUseInTagEditor }) {
 function App() {
 	const [activeView, setActiveView] = (0, import_react.useState)(() => {
 		try {
-			const params = new URLSearchParams(window.location.search);
-			if (params.get("autostart") === "1") return "tag";
-			if (params.get("tab") === "yt") return "yt";
+		const params = new URLSearchParams(window.location.search);
+		if (params.get("autostart") === "1") return "tag";
+		if (params.get("tab") === "yt") return "yt";
+		if (params.get("tab") === "convert") return "convert";
 		} catch {}
 		return "welcome";
 	});
@@ -16537,10 +16554,10 @@ function App() {
 						className: "mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "font-display text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white",
-							children: activeView === "tag" ? isEn ? "Audio Tag Editor" : "แก้ไขแท็กเพลง" : isEn ? "YouTube Clip Info" : "ดึงข้อมูลคลิป YouTube"
+							children: activeView === "tag" ? isEn ? "Audio Tag Editor" : "แก้ไขแท็กเพลง" : activeView === "convert" ? isEn ? "Audio Converter" : "แปลงไฟล์เสียง" : isEn ? "YouTube Clip Info" : "ดึงข้อมูลคลิป YouTube"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-sm text-slate-600 dark:text-slate-300 mt-1",
-							children: activeView === "tag" ? isEn ? "Edit .opus, .ogg, and .mp3 metadata and cover artwork directly in your browser." : "แก้ชื่อเพลง ศิลปิน อัลบั้ม และภาพปกสำหรับไฟล์ .opus, .ogg และ .mp3" : isEn ? "Look up clip titles, channels, and thumbnails, then send them to the tag editor." : "ดูชื่อคลิป ชื่อช่อง ภาพปก และส่งต่อไปใส่แท็กเพลงได้ในคลิกเดียว"
+							children: activeView === "tag" ? isEn ? "Edit .opus, .ogg, and .mp3 metadata and cover artwork directly in your browser." : "แก้ชื่อเพลง ศิลปิน อัลบั้ม และภาพปกสำหรับไฟล์ .opus, .ogg และ .mp3" : activeView === "convert" ? isEn ? "Convert MP4, WebM, and audio files into MP3, Opus, or OGG." : "แปลงไฟล์ MP4, WebM และเสียงเป็น MP3, Opus หรือ OGG" : isEn ? "Look up clip titles, channels, and thumbnails, then send them to the tag editor." : "ดูชื่อคลิป ชื่อช่อง ภาพปก และส่งต่อไปใส่แท็กเพลงได้ในคลิกเดียว"
 						})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							role: "tablist",
 							"aria-label": isEn ? "Studio tools" : "เครื่องมือ",
@@ -16559,6 +16576,13 @@ function App() {
 								onClick: () => navigateTo("yt"),
 								className: `min-h-[40px] px-4 py-1.5 rounded-xl text-sm font-display font-semibold transition-all whitespace-nowrap shrink-0 ${activeView === "yt" ? "bg-gradient-to-r from-[#e5303f] to-[#ff7a45] text-white shadow-xs" : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"}`,
 								children: isEn ? "YouTube Info" : "ข้อมูล YouTube"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "button",
+								role: "tab",
+								"aria-selected": activeView === "convert",
+								onClick: () => navigateTo("convert"),
+								className: `min-h-[40px] px-4 py-1.5 rounded-xl text-sm font-display font-semibold transition-all whitespace-nowrap shrink-0 ${activeView === "convert" ? "bg-gradient-to-r from-[#e5303f] to-[#ff7a45] text-white shadow-xs" : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"}`,
+								children: isEn ? "Convert" : "แปลงไฟล์"
 							})]
 						})]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -16574,6 +16598,9 @@ function App() {
 							lang,
 							onUseInTagEditor: handleUseYoutubeInTags
 						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						hidden: activeView !== "convert",
+						id: "opusConverterMount"
 					})]
 				})]
 			}),
@@ -16581,7 +16608,7 @@ function App() {
 				className: "border-t border-slate-200/80 dark:border-white/10 py-6 px-4 sm:px-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Opus Studio · ", isEn ? "Audio Tag & YouTube Info Tool" : "แท็กเพลงและข้อมูลคลิป YouTube"] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: ["Opus Studio · ", isEn ? "Audio Tags, Converter & YouTube Info" : "แท็กเพลง แปลงไฟล์ และข้อมูลคลิป YouTube"] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "flex items-center gap-4",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 							type: "button",
@@ -16741,23 +16768,34 @@ function App() {
   var root = document.getElementById('root');
   if (!root) return;
 
+  var EQ_BANDS = [
+    { key: 'hz60', freq: 60, label: '60 Hz' },
+    { key: 'hz100', freq: 100, label: '100 Hz' },
+    { key: 'hz300', freq: 300, label: '300 Hz' },
+    { key: 'hz1k', freq: 1000, label: '1 kHz' },
+    { key: 'hz3k', freq: 3000, label: '3 kHz' },
+    { key: 'hz6k', freq: 6000, label: '6 kHz' },
+    { key: 'hz10k', freq: 10000, label: '10 kHz' },
+    { key: 'hz14k', freq: 14000, label: '14 kHz' }
+  ];
+  var initialEq = {};
+  EQ_BANDS.forEach(function (band) { initialEq[band.key] = 0; });
   var state = {
     buf: null, name: 'song',
     ctx: null, chain: null,
     src: null, playing: false,
     startAt: 0, offset: 0, raf: 0,
     lameLoading: null,
-    eq: { bass: 0, vocal: 0, treble: 0 },
+    eq: initialEq,
     fnameMode: 'empty', fnameDuration: null
   };
-  var FREQ = { bass: 180, vocal: 1500, treble: 8000 };
 
   var DICT = {
     th: {
-      docTitle: 'Opus Studio — แท็กเพลงและข้อมูลคลิป YouTube',
+      docTitle: 'Opus Studio — แท็กเพลง แปลงไฟล์ และข้อมูล YouTube',
       ariaCard: 'ปรับแต่งเสียง EQ และดาวน์โหลด',
       title: 'ปรับแต่งเสียง EQ <small style="font-weight:500;color:#94a3b8">/ Equalizer</small>',
-      sub: 'ปรับเบส เสียงร้อง และเสียงแหลม แล้วดาวน์โหลดเป็นไฟล์ MP3',
+      sub: 'ปรับแต่งเสียงได้ 8 ย่านความถี่ แล้วดาวน์โหลดไฟล์ MP3',
       pickFile: 'เลือกไฟล์เพลง',
       useLoaded: 'ใช้ไฟล์ล่าสุดจากแท็บแท็ก',
       noFile: 'ยังไม่เลือกไฟล์ — เลือก .opus .ogg หรือ .mp3',
@@ -16771,7 +16809,7 @@ function App() {
       tagFileLabel: 'ไฟล์ล่าสุดจากแท็บแท็ก',
       note: 'หมายเหตุ: ไฟล์ที่ดาวน์โหลดผ่านส่วนนี้คือ MP3 ใหม่ที่ผ่านการปรับ EQ แล้ว (ไม่รวมแท็กเดิม) เข้ารหัสด้วย LAME ในเบราว์เซอร์ของคุณ ต้องเชื่อมต่ออินเทอร์เน็ตในครั้งแรกเพื่อโหลดตัวเข้ารหัส และถ้าเสียงหลังปรับดังเกินระดับ ระบบจะลดระดับโดยรวมลงเล็กน้อยเพื่อไม่ให้เสียงแตก',
       readingFile: 'กำลังอ่านไฟล์เสียง…',
-      ready: 'พร้อมแล้ว — ปรับเบส เสียงร้อง เสียงแหลม แล้วกดดาวน์โหลดได้เลย',
+      ready: 'พร้อมแล้ว — ปรับระดับแต่ละย่านเสียง แล้วกดดาวน์โหลดได้เลย',
       fileOpenErr: 'ไม่สามารถเปิดไฟล์นี้ได้: ',
       noLoaded: 'ยังไม่มีไฟล์ในแท็บแท็ก — โหลดเพลงในแท็ก "แท็กเพลง" ก่อน',
       importing: 'กำลังนำไฟล์จากแท็บแท็กมาใช้…',
@@ -16786,10 +16824,10 @@ function App() {
       mp3Fail: 'MP3 ใช้งานไม่ได้ในเบราว์เซอร์นี้ (ต้องเชื่อมต่ออินเทอร์เน็ตครั้งแรกเพื่อโหลดตัวเข้ารหัส): '
     },
     en: {
-      docTitle: 'Opus Studio — Music Tags & YouTube Clip Info',
+      docTitle: 'Opus Studio — Music Tags, Converter & YouTube Info',
       ariaCard: 'Adjust sound EQ and download',
       title: 'Sound EQ <small style="font-weight:500;color:#94a3b8">/ Equalizer</small>',
-      sub: 'Tweak bass, vocal, and treble, then download as an MP3 file',
+      sub: 'Tune eight frequency bands, then download the processed MP3',
       pickFile: 'Choose song file',
       useLoaded: 'Use latest file from Tag tab',
       noFile: 'No file yet — pick .opus, .ogg, or .mp3',
@@ -16803,7 +16841,7 @@ function App() {
       tagFileLabel: 'Latest file from Tag tab',
       note: 'Note: the file exported from this section is a new MP3 processed through EQ (original tags are not included), encoded with LAME in your browser. An internet connection is needed the first time to load the encoder. If the adjusted sound would clip, the overall level is lowered slightly to avoid distortion.',
       readingFile: 'Reading audio file…',
-      ready: 'Ready — adjust bass, vocal, and treble, then download',
+      ready: 'Ready — tune each band, then download the processed audio',
       fileOpenErr: 'Could not open this file: ',
       noLoaded: 'No file in the Tag tab yet — load a song in the Tag Music tab first',
       importing: 'Importing the latest file from the Tag tab…',
@@ -16849,15 +16887,13 @@ function App() {
         '<div class="eq-track" id="eqProgTrack"><div class="eq-fill" id="eqProgFill"></div></div>' +
         '<span class="eq-time" id="eqTime">0:00 / 0:00</span>' +
       '</div>' +
-      '<div class="eq-sliders">' +
-        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label"><span id="eqLabBass"></span> <small id="eqFxBass"></small></span><span class="eq-val" id="eqValBass">0.0 dB</span></div>' +
-          '<input type="range" class="eq-slider" id="eqBass" min="-12" max="12" step="0.5" value="0" /></div>' +
-        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label"><span id="eqLabVocal"></span> <small id="eqFxVocal"></small></span><span class="eq-val" id="eqValVocal">0.0 dB</span></div>' +
-          '<input type="range" class="eq-slider" id="eqVocal" min="-12" max="12" step="0.5" value="0" /></div>' +
-        '<div class="eq-row"><div class="eq-row-head"><span class="eq-label"><span id="eqLabTreble"></span> <small id="eqFxTreble"></small></span><span class="eq-val" id="eqValTreble">0.0 dB</span></div>' +
-          '<input type="range" class="eq-slider" id="eqTreble" min="-12" max="12" step="0.5" value="0" /></div>' +
+      '<div class="eq-sliders"><div class="eq-band-grid">' +
+        EQ_BANDS.map(function (band) {
+          return '<div class="eq-row"><div class="eq-row-head"><label class="eq-label" for="eq-' + band.key + '">' + band.label + '</label><span class="eq-val" id="eq-val-' + band.key + '">0.0 dB</span></div>' +
+            '<input type="range" class="eq-slider" id="eq-' + band.key + '" min="-12" max="12" step="0.5" value="0" aria-label="' + band.label + '" /></div>';
+        }).join('') +
         '<div class="eq-row-actions"><button type="button" class="eq-mini" id="eqReset"></button></div>' +
-      '</div>' +
+      '</div></div>' +
       '<div class="eq-dl">' +
         '<div class="eq-dl-title" id="eqDlTitle"></div>' +
         '<div class="eq-dl-grid">' +
@@ -16874,8 +16910,11 @@ function App() {
       fname = $('eqFname'), transport = $('eqTransport'), playBtn = $('eqPlay'),
       progTrack = $('eqProgTrack'), progFill = $('eqProgFill'), timeLab = $('eqTime'),
       statusEl = $('eqStatus'), resetBtn = $('eqReset');
-  var sliders = { bass: $('eqBass'), vocal: $('eqVocal'), treble: $('eqTreble') };
-  var valEls = { bass: $('eqValBass'), vocal: $('eqValVocal'), treble: $('eqValTreble') };
+  var sliders = {}, valEls = {};
+  EQ_BANDS.forEach(function (band) {
+    sliders[band.key] = $('eq-' + band.key);
+    valEls[band.key] = $('eq-val-' + band.key);
+  });
   var dlBtns = Array.prototype.slice.call(document.querySelectorAll('.eq-dl-btn'));
   var lastStatus = null;
 
@@ -16896,12 +16935,9 @@ function App() {
     $('eqUseLabel').textContent = t('useLoaded');
     renderFname();
     playBtn.setAttribute('aria-label', t('playPause'));
-    $('eqLabBass').textContent = t('bass'); $('eqFxBass').textContent = t('fxBass');
-    $('eqLabVocal').textContent = t('vocal'); $('eqFxVocal').textContent = t('fxVocal');
-    $('eqLabTreble').textContent = t('treble'); $('eqFxTreble').textContent = t('fxTreble');
-    sliders.bass.setAttribute('aria-label', t('ariaBass'));
-    sliders.vocal.setAttribute('aria-label', t('ariaVocal'));
-    sliders.treble.setAttribute('aria-label', t('ariaTreble'));
+    EQ_BANDS.forEach(function (band) {
+      sliders[band.key].setAttribute('aria-label', band.label);
+    });
     resetBtn.textContent = t('reset');
     $('eqDlTitle').textContent = t('dlTitle');
     $('eqCapMp3').textContent = t('capMp3');
@@ -16939,19 +16975,25 @@ function App() {
     if (state.ctx) return state.ctx;
     var AC = window.AudioContext || window.webkitAudioContext;
     var ctx = new AC();
-    var bass = ctx.createBiquadFilter(); bass.type = 'lowshelf'; bass.frequency.value = FREQ.bass; bass.Q.value = 0.7;
-    var vocal = ctx.createBiquadFilter(); vocal.type = 'peaking'; vocal.frequency.value = FREQ.vocal; vocal.Q.value = 1.1;
-    var treble = ctx.createBiquadFilter(); treble.type = 'highshelf'; treble.frequency.value = FREQ.treble; treble.Q.value = 0.7;
-    bass.connect(vocal); vocal.connect(treble); treble.connect(ctx.destination);
-    state.ctx = ctx; state.chain = { bass: bass, vocal: vocal, treble: treble };
+    var filters = EQ_BANDS.map(function (band) {
+      var filter = ctx.createBiquadFilter();
+      filter.type = 'peaking';
+      filter.frequency.value = band.freq;
+      filter.Q.value = 1.1;
+      return filter;
+    });
+    filters.forEach(function (filter, index) {
+      filter.connect(filters[index + 1] || ctx.destination);
+    });
+    state.ctx = ctx; state.chain = filters;
     applyGains();
     return ctx;
   }
   function applyGains() {
     if (!state.chain) return;
-    state.chain.bass.gain.value = state.eq.bass;
-    state.chain.vocal.gain.value = state.eq.vocal;
-    state.chain.treble.gain.value = state.eq.treble;
+    state.chain.forEach(function (filter, index) {
+      filter.gain.value = state.eq[EQ_BANDS[index].key];
+    });
   }
 
   /* ---------- sliders ---------- */
@@ -17053,7 +17095,7 @@ function App() {
     stopSource();
     var src = ctx.createBufferSource();
     src.buffer = state.buf;
-    src.connect(state.chain.bass);
+    src.connect(state.chain[0]);
     document.querySelectorAll('audio').forEach(function (a) { try { a.pause(); } catch (e) {} });
     src.onended = function () {
       if (state.src !== src) return;
@@ -17094,10 +17136,18 @@ function App() {
     var rate = Math.min(48000, state.buf.sampleRate);
     var off = new OfflineAudioContext(chs, Math.max(1, Math.ceil(state.buf.duration * rate)), rate);
     var src = off.createBufferSource(); src.buffer = state.buf;
-    var b = off.createBiquadFilter(); b.type = 'lowshelf'; b.frequency.value = FREQ.bass; b.gain.value = state.eq.bass;
-    var v = off.createBiquadFilter(); v.type = 'peaking'; v.frequency.value = FREQ.vocal; v.Q.value = 1.1; v.gain.value = state.eq.vocal;
-    var tr = off.createBiquadFilter(); tr.type = 'highshelf'; tr.frequency.value = FREQ.treble; tr.gain.value = state.eq.treble;
-    src.connect(b); b.connect(v); v.connect(tr); tr.connect(off.destination);
+    var filters = EQ_BANDS.map(function (band) {
+      var filter = off.createBiquadFilter();
+      filter.type = 'peaking';
+      filter.frequency.value = band.freq;
+      filter.Q.value = 1.1;
+      filter.gain.value = state.eq[band.key];
+      return filter;
+    });
+    src.connect(filters[0]);
+    filters.forEach(function (filter, index) {
+      filter.connect(filters[index + 1] || off.destination);
+    });
     src.start(0);
     return await off.startRendering();
   }
@@ -17199,13 +17249,17 @@ function App() {
   }
   function refreshVisibility() {
     var pick = findTagInput();
-    var host = pick ? pick.closest('[hidden]') : null;
-    var visible = !!pick && !(host && host.hasAttribute('hidden'));
+    var editor = pick ? pick.closest('.space-y-4') : null;
+    var host = editor ? editor.parentNode : null;
+    var hiddenHost = pick ? pick.closest('[hidden]') : null;
+    var visible = !!pick && !(hiddenHost && hiddenHost.hasAttribute('hidden'));
     if (!document.getElementById('opusEqCard')) {
-      if (host && host.parentNode) host.parentNode.insertBefore(card, host.nextSibling);
+      if (host) host.insertBefore(card, editor.nextSibling);
       else root.appendChild(card);
-    } else if (host && host.parentNode && card.parentNode !== host.parentNode) {
-      try { host.parentNode.insertBefore(card, host.nextSibling); } catch (e) {}
+    } else if (host && card.parentNode !== host) {
+      try { host.insertBefore(card, editor.nextSibling); } catch (e) {}
+    } else if (host && card.previousElementSibling !== editor) {
+      try { host.insertBefore(card, editor.nextSibling); } catch (e) {}
     }
     card.classList.toggle('eq-hidden', !visible);
     useLoadedBtn.classList.toggle('eq-hidden', !visible);
@@ -17219,6 +17273,354 @@ function App() {
   refreshVisibility();
 })();
 
+</script>
+
+<style id="opus-update-style">
+  :root{--studio-primary:#6861f5;--studio-secondary:#9b7cfb;--opus-brand:#6861f5;--opus-brand-2:#9b7cfb;}
+  ::selection{background:rgba(104,97,245,.22);}
+  header::after{background:linear-gradient(90deg,transparent,rgba(104,97,245,.65),rgba(155,124,251,.85),rgba(104,97,245,.65),transparent)!important;}
+  nav[aria-label="Main navigation"] button::after{background:linear-gradient(90deg,#6861f5,#9b7cfb)!important;}
+  nav[aria-label="Main navigation"] button[class*="e5303f"],nav[aria-label="Main navigation"] button[class*="ff5d6c"]{border-color:#6861f5!important;color:#6861f5!important;}
+  #opus-scroll{background:linear-gradient(90deg,#6861f5,#9b7cfb,#b5a5ff)!important;box-shadow:0 0 14px rgba(104,97,245,.55)!important;}
+  input:focus,textarea:focus,select:focus{border-color:rgba(104,97,245,.55)!important;box-shadow:0 0 0 4px rgba(104,97,245,.1)!important;}
+  :where(button,a):focus-visible{outline-color:rgba(104,97,245,.7)!important;}
+  [class*="text-orange-"]{color:#6861f5!important;}
+  [class*="dark:text-orange-"]{color:#b8a8ff!important;}
+  [class*="border-orange-"]{border-color:rgba(104,97,245,.3)!important;}
+  [class*="bg-orange-"]{background-color:#6861f5!important;color:#fff!important;}
+  [class*="hover:bg-orange-"]:hover{background-color:#5144cf!important;}
+  @keyframes opus-breathe{0%,100%{transform:translateY(0) rotate(0);box-shadow:0 6px 16px -10px rgba(104,97,245,.75)}50%{transform:translateY(-1px) rotate(-4deg);box-shadow:0 14px 28px -10px rgba(155,124,251,.85)}}
+  main section>div[class*="rounded-3xl"]::before{background:radial-gradient(circle at 35% 35%,rgba(155,124,251,.2),transparent 68%)!important;}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    main h1{background-image:linear-gradient(102deg,#101828 0%,#6256a8 42%,#6861f5 100%)!important;}
+    .dark main h1{background-image:linear-gradient(102deg,#fff 0%,#c9c1ff 42%,#9b7cfb 100%)!important;}
+  }
+  main div[class*="rounded-2xl"][class*="shadow-xs"]:hover{box-shadow:0 22px 48px -30px rgba(104,97,245,.55)!important;}
+  [class*="from-[#e5303f]"]{--tw-gradient-from:var(--studio-primary)!important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)!important;}
+  [class*="to-[#ff7a45]"]{--tw-gradient-to:var(--studio-secondary)!important;}
+  [class*="from-[#f97316]"],[class*="from-[#f43f5e]"]{--tw-gradient-from:var(--studio-primary)!important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)!important;}
+  [class*="to-[#ea580c]"],[class*="to-[#f97316]"]{--tw-gradient-to:var(--studio-secondary)!important;}
+  [class*="text-[#e5303f]"],[class*="dark:text-[#ff6b78]"],[class*="dark:text-[#ff5d6c]"]{color:var(--studio-primary)!important;}
+  [class*="hover:text-[#e5303f]"]:hover,[class*="dark:hover:text-[#ff6b78]"]:hover{color:var(--studio-primary)!important;}
+  [class*="border-[#e5303f]"],[class*="hover:border-[#e5303f]"]:hover,[class*="border-[#f97316]"]{border-color:var(--studio-primary)!important;}
+  [class*="focus-visible:outline-[#e5303f]"]:focus-visible{outline-color:var(--studio-primary)!important;}
+  [class*="shadow-[#e5303f]"],[class*="shadow-orange-500/30"]{--tw-shadow-color:rgba(104,97,245,.25)!important;}
+  [class*="bg-[#faf8f9]"]{background-color:#f8f8ff!important;}
+  html.dark [class*="dark:bg-[#120f17]"]{background-color:#111225!important;}
+  html.dark [class*="dark:bg-[#1a1522]"],html.dark [class*="dark:bg-[#1c1724]"]{background-color:#1a1930!important;}
+  html.opus-anim [role="tablist"]>.opus-pill{background:linear-gradient(120deg,#6861f5,#9b7cfb 58%,#b5a5ff);box-shadow:0 12px 26px -12px rgba(104,97,245,.7),inset 0 1px 0 rgba(255,255,255,.35);}
+  ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#6861f5,#9b7cfb);background-clip:padding-box;}
+  #opusEqCard{--eq-accent:#6861f5;--eq-accent2:#9b7cfb;}
+  .eq-btn-primary{box-shadow:0 6px 16px rgba(104,97,245,.25);}
+  .eq-play{border-color:rgba(104,97,245,.35);background:linear-gradient(135deg,#fff,#f7f6ff);}
+  .eq-slider{background:linear-gradient(90deg,rgba(104,97,245,.22),rgba(155,124,251,.22));}
+  .eq-dl-btn:hover{border-color:rgba(104,97,245,.55);}
+  .eq-band-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem 1.1rem;}
+  .eq-row-actions{grid-column:1/-1;}
+  html.dark .eq-play{color:#b8a8ff;}
+  html.dark .eq-card{background:#1a1930;}
+  @media(max-width:560px){.eq-band-grid{grid-template-columns:1fr;}}
+
+  #opusConverter{padding-bottom:2rem;}
+  .convert-card{border:1px solid #e2e8f0;border-radius:1.25rem;background:#fff;padding:clamp(1rem,3vw,1.5rem);box-shadow:0 8px 30px rgba(38,31,92,.07);}
+  html.dark .convert-card{background:#1a1522;border-color:rgba(255,255,255,.1);}
+  .convert-head{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1.25rem;}
+  .convert-icon{width:2.75rem;height:2.75rem;flex:0 0 2.75rem;display:grid;place-items:center;border-radius:1rem;background:linear-gradient(135deg,#6861f5,#9b7cfb);color:#fff;}
+  .convert-title{font-family:Prompt,Sarabun,system-ui,sans-serif;font-size:1.25rem;line-height:1.3;font-weight:700;color:#1c1822;}
+  html.dark .convert-title{color:#f4eff8;}
+  .convert-subtitle{margin-top:.25rem;font-size:.86rem;color:#64748b;line-height:1.55;}
+  html.dark .convert-subtitle{color:#aeb6c4;}
+  .convert-section-label{display:block;margin:1.15rem 0 .55rem;font-size:.9rem;font-weight:700;color:#334155;}
+  html.dark .convert-section-label{color:#dbe3ee;}
+  .convert-drop{display:grid;justify-items:center;gap:.5rem;width:100%;min-height:150px;padding:1.25rem;border:1.5px dashed #aaa4fb;border-radius:1rem;background:#f8f7ff;text-align:center;transition:background .16s,border-color .16s;}
+  .convert-drop:hover,.convert-drop.is-dragging{border-color:#6861f5;background:#f0efff;}
+  html.dark .convert-drop{background:rgba(104,97,245,.1);border-color:rgba(155,124,251,.55);}
+  html.dark .convert-drop:hover,html.dark .convert-drop.is-dragging{background:rgba(104,97,245,.18);}
+  .convert-drop strong{font-size:.98rem;color:#29234d;}
+  html.dark .convert-drop strong{color:#f4eff8;}
+  .convert-drop small{font-size:.78rem;color:#64748b;}
+  html.dark .convert-drop small{color:#aeb6c4;}
+  .convert-file-name{max-width:100%;overflow-wrap:anywhere;font-size:.85rem;font-weight:600;color:#5144cf;}
+  .convert-formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem;}
+  .convert-format{min-height:72px;border:1px solid #e2e8f0;border-radius:.9rem;background:#fff;color:#334155;font-weight:700;cursor:pointer;transition:border-color .15s,background .15s,transform .15s;}
+  .convert-format:hover{border-color:#a9a3fb;}
+  .convert-format[aria-pressed="true"]{border-color:#6861f5;background:#f2f1ff;color:#5144cf;box-shadow:0 0 0 2px rgba(104,97,245,.12);}
+  html.dark .convert-format{background:#211c2d;border-color:rgba(255,255,255,.12);color:#dbe3ee;}
+  html.dark .convert-format[aria-pressed="true"]{background:rgba(104,97,245,.18);border-color:#9b7cfb;color:#d0c6ff;}
+  .convert-format span{display:block;margin-top:.2rem;font-size:.7rem;font-weight:500;opacity:.76;}
+  .convert-bitrates{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .convert-bitrate{min-height:40px;padding:.45rem .9rem;border:1px solid #e2e8f0;border-radius:.7rem;background:#fff;color:#334155;font-weight:600;cursor:pointer;}
+  .convert-bitrate[aria-pressed="true"]{border-color:#6861f5;background:#f2f1ff;color:#5144cf;}
+  html.dark .convert-bitrate{background:#211c2d;border-color:rgba(255,255,255,.12);color:#dbe3ee;}
+  html.dark .convert-bitrate[aria-pressed="true"]{background:rgba(104,97,245,.18);border-color:#9b7cfb;color:#d0c6ff;}
+  .convert-privacy{margin-top:1rem;padding:.75rem .85rem;border-radius:.75rem;background:#f7f6ff;color:#5a5680;font-size:.78rem;line-height:1.55;}
+  html.dark .convert-privacy{background:rgba(255,255,255,.05);color:#b8b2d8;}
+  .convert-action{display:flex;flex-wrap:wrap;align-items:center;gap:.85rem;margin-top:1rem;}
+  .convert-submit{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.7rem 1.15rem;border:0;border-radius:.85rem;background:linear-gradient(100deg,#6861f5,#9b7cfb);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(104,97,245,.22);transition:transform .12s,opacity .12s;}
+  .convert-submit:hover:not(:disabled){transform:translateY(-1px);}
+  .convert-submit:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;}
+  .convert-status{min-height:1.4rem;margin-top:.85rem;font-size:.84rem;color:#64748b;}
+  .convert-status[data-kind="success"]{color:#087c56;font-weight:600;}
+  .convert-status[data-kind="error"]{color:#c2415d;font-weight:600;}
+  .convert-status[data-kind="info"]{color:#5144cf;}
+  html.dark .convert-status[data-kind="info"]{color:#b8a8ff;}
+  .convert-spinner{width:1rem;height:1rem;border:2px solid rgba(255,255,255,.55);border-top-color:#fff;border-radius:50%;animation:convert-spin .7s linear infinite;}
+  @keyframes convert-spin{to{transform:rotate(360deg);}}
+  @media(max-width:480px){.convert-formats{gap:.4rem}.convert-format{min-height:64px;font-size:.88rem}.convert-action .convert-submit{width:100%;}}
+  @media(prefers-reduced-motion:reduce){.convert-spinner{animation-duration:1.8s}.convert-format,.convert-drop,.convert-submit{transition:none}}
+</style>
+<script id="opus-converter-app">
+(function () {
+  'use strict';
+  var maxBytes = 250 * 1024 * 1024;
+  var rates = { mp3: ['128', '256', '320'], opus: ['96', '128', '160'], ogg: ['96', '128', '160'] };
+  var state = { file: null, format: 'mp3', bitrate: '128', busy: false };
+  var mountObserver;
+
+  function isEnglish() { return document.documentElement.lang === 'en'; }
+  function text(th, en) { return isEnglish() ? en : th; }
+  function formatBytes(bytes) {
+    if (!bytes) return '0 B';
+    var units = ['B', 'KB', 'MB', 'GB'];
+    var index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+    return (bytes / Math.pow(1024, index)).toFixed(index ? 1 : 0) + ' ' + units[index];
+  }
+  function setStatus(message, kind) {
+    var status = document.getElementById('convertStatus');
+    if (!status) return;
+    status.textContent = message || '';
+    status.dataset.kind = kind || 'info';
+  }
+  function renderBitrates() {
+    var container = document.getElementById('convertBitrates');
+    if (!container) return;
+    container.innerHTML = rates[state.format].map(function (rate) {
+      var selected = state.bitrate === rate;
+      return '<button type="button" class="convert-bitrate" data-bitrate="' + rate + '" aria-pressed="' + selected + '">' + rate + ' kbps</button>';
+    }).join('');
+    container.querySelectorAll('[data-bitrate]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (state.busy) return;
+        state.bitrate = button.dataset.bitrate;
+        renderBitrates();
+      });
+    });
+  }
+  function renderFileName() {
+    var label = document.getElementById('convertFileName');
+    if (!label) return;
+    label.textContent = state.file
+      ? state.file.name + ' · ' + formatBytes(state.file.size)
+      : text('ยังไม่ได้เลือกไฟล์', 'No file selected');
+    document.getElementById('convertSubmit').disabled = !state.file || state.busy;
+  }
+  function applyLanguage() {
+    var panel = document.getElementById('opusConverter');
+    if (!panel) return;
+    panel.setAttribute('aria-label', text('แปลงไฟล์เสียงและวิดีโอ', 'Convert audio and video files'));
+    document.getElementById('convertTitle').textContent = text('แปลงไฟล์วิดีโอและเสียง', 'Convert video and audio');
+    document.getElementById('convertSubtitle').textContent = text(
+      'เลือกไฟล์ MP4, WebM หรือไฟล์เสียง จากนั้นเลือกรูปแบบและคุณภาพที่ต้องการ',
+      'Choose an MP4, WebM, or audio file, then select the format and quality you want.'
+    );
+    document.getElementById('convertPickText').textContent = text('เลือกไฟล์ หรือลากมาวางที่นี่', 'Choose a file or drag it here');
+    document.getElementById('convertSupportText').textContent = text(
+      'รองรับ MP4, WebM และไฟล์เสียง · ขนาดไม่เกิน 250 MB',
+      'MP4, WebM, and audio files · up to 250 MB'
+    );
+    document.getElementById('convertFormatLabel').textContent = text('เลือกรูปแบบไฟล์', 'Choose output format');
+    document.getElementById('convertBitrateLabel').textContent = text('เลือกบิตเรต', 'Choose bitrate');
+    document.getElementById('convertPrivacy').textContent = text(
+      'ไฟล์จะถูกส่งไปยังเซิร์ฟเวอร์เพื่อแปลงชั่วคราว และลบออกเมื่อแปลงเสร็จ',
+      'Your file is sent to the server for temporary conversion and deleted when processing finishes.'
+    );
+    document.getElementById('convertSubmitText').textContent = state.busy
+      ? text('กำลังแปลงไฟล์…', 'Converting…')
+      : text('แปลงและดาวน์โหลด', 'Convert and download');
+    document.querySelectorAll('.convert-format').forEach(function (button) {
+      button.setAttribute('aria-label', text('เลือกรูปแบบ ' + button.dataset.format.toUpperCase(), 'Choose ' + button.dataset.format.toUpperCase() + ' format'));
+    });
+    renderFileName();
+  }
+  function setBusy(busy) {
+    state.busy = busy;
+    document.querySelectorAll('.convert-format,.convert-bitrate,#convertPickFile').forEach(function (button) {
+      button.disabled = busy;
+    });
+    var spinner = document.getElementById('convertSpinner');
+    if (spinner) spinner.hidden = !busy;
+    document.getElementById('convertSubmitText').textContent = busy
+      ? text('กำลังแปลงไฟล์…', 'Converting…')
+      : text('แปลงและดาวน์โหลด', 'Convert and download');
+    renderFileName();
+  }
+  function chooseFile(file) {
+    if (!file) return;
+    var extension = file.name.split('.').pop().toLowerCase();
+    var allowed = ['mp4', 'webm', 'm4v', 'mov', 'mkv', 'mp3', 'ogg', 'opus', 'm4a', 'aac', 'wav', 'flac'];
+    if (!allowed.includes(extension)) {
+      state.file = null;
+      renderFileName();
+      setStatus(text('ไฟล์ชนิดนี้ยังไม่รองรับ กรุณาเลือก MP4, WebM หรือไฟล์เสียง', 'This file type is not supported. Choose MP4, WebM, or an audio file.'), 'error');
+      return;
+    }
+    if (!file.size) {
+      state.file = null;
+      renderFileName();
+      setStatus(text('ไฟล์ว่างเปล่า กรุณาเลือกไฟล์อื่น', 'The selected file is empty. Choose another file.'), 'error');
+      return;
+    }
+    if (file.size > maxBytes) {
+      state.file = null;
+      renderFileName();
+      setStatus(text('ไฟล์มีขนาดเกิน 250 MB', 'The file is larger than 250 MB.'), 'error');
+      return;
+    }
+    state.file = file;
+    renderFileName();
+    setStatus(text('เลือกไฟล์แล้ว พร้อมแปลงได้เลย', 'File selected. Ready to convert.'), 'success');
+  }
+  function downloadResult(blob, filename) {
+    var objectUrl = URL.createObjectURL(blob);
+    var anchor = document.createElement('a');
+    anchor.href = objectUrl;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 60000);
+  }
+  function outputFilename(xhr) {
+    var header = xhr.getResponseHeader('Content-Disposition') || '';
+    var encoded = header.match(/filename\*=UTF-8''([^;]+)/i);
+    if (encoded) {
+      try { return decodeURIComponent(encoded[1]); } catch (error) {}
+    }
+    var stem = state.file.name.replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]+/g, '').slice(0, 80) || 'audio';
+    return stem + '.' + state.format;
+  }
+  function readError(blob) {
+    return blob.text().then(function (content) {
+      try {
+        var payload = JSON.parse(content);
+        return (isEnglish() ? payload.errorEn : payload.error) || text('แปลงไฟล์ไม่สำเร็จ กรุณาลองอีกครั้ง', 'Conversion failed. Please try again.');
+      } catch (error) {
+        return text('แปลงไฟล์ไม่สำเร็จ กรุณาลองอีกครั้ง', 'Conversion failed. Please try again.');
+      }
+    });
+  }
+  function convert() {
+    if (!state.file || state.busy) return;
+    setBusy(true);
+    setStatus(text('กำลังส่งไฟล์…', 'Uploading file…'), 'info');
+    var query = new URLSearchParams({
+      format: state.format,
+      bitrate: state.bitrate,
+      filename: state.file.name
+    });
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/convert?' + query.toString());
+    xhr.responseType = 'blob';
+    xhr.timeout = 10 * 60 * 1000;
+    xhr.setRequestHeader('Content-Type', state.file.type || 'application/octet-stream');
+    xhr.setRequestHeader('Accept-Language', isEnglish() ? 'en' : 'th');
+    xhr.upload.addEventListener('progress', function (event) {
+      if (event.lengthComputable && event.total) {
+        setStatus(text('กำลังส่งไฟล์… ', 'Uploading… ') + Math.round(event.loaded / event.total * 100) + '%', 'info');
+      }
+    });
+    xhr.upload.addEventListener('load', function () {
+      setStatus(text('รับไฟล์แล้ว กำลังแปลงเสียง…', 'Upload complete. Converting audio…'), 'info');
+    });
+    xhr.addEventListener('load', function () {
+      if (xhr.status >= 200 && xhr.status < 300 && xhr.response && xhr.response.size) {
+        downloadResult(xhr.response, outputFilename(xhr));
+        setStatus(text('แปลงเสร็จแล้ว เริ่มดาวน์โหลดไฟล์ให้แล้ว', 'Conversion complete. Your download has started.'), 'success');
+      } else {
+        readError(xhr.response || new Blob()).then(function (message) { setStatus(message, 'error'); });
+      }
+      setBusy(false);
+    });
+    xhr.addEventListener('error', function () {
+      setStatus(text('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาตรวจสอบการเชื่อมต่อแล้วลองใหม่', 'Could not reach the server. Check your connection and try again.'), 'error');
+      setBusy(false);
+    });
+    xhr.addEventListener('timeout', function () {
+      setStatus(text('ใช้เวลาแปลงนานเกินไป กรุณาลองใช้ไฟล์ที่สั้นลง', 'Conversion timed out. Try a shorter file.'), 'error');
+      setBusy(false);
+    });
+    xhr.send(state.file);
+  }
+  function mount() {
+    var container = document.getElementById('opusConverterMount');
+    if (!container || container.dataset.mounted) return false;
+    container.dataset.mounted = 'true';
+    container.innerHTML =
+      '<section id="opusConverter" class="max-w-3xl mx-auto" aria-live="polite">' +
+        '<div class="convert-card">' +
+          '<div class="convert-head"><div class="convert-icon" aria-hidden="true">⇄</div><div><h2 class="convert-title" id="convertTitle"></h2><p class="convert-subtitle" id="convertSubtitle"></p></div></div>' +
+          '<input type="file" id="convertInput" class="eq-hidden" accept=".mp4,.webm,.m4v,.mov,.mkv,.mp3,.ogg,.opus,.m4a,.aac,.wav,.flac,video/mp4,video/webm,audio/*" />' +
+          '<button type="button" class="convert-drop" id="convertPickFile"><strong id="convertPickText"></strong><small id="convertSupportText"></small><span class="convert-file-name" id="convertFileName"></span></button>' +
+          '<span class="convert-section-label" id="convertFormatLabel"></span>' +
+          '<div class="convert-formats" role="group" aria-label="Output format">' +
+            '<button type="button" class="convert-format" data-format="mp3" aria-pressed="true">MP3<span>128 / 256 / 320 kbps</span></button>' +
+            '<button type="button" class="convert-format" data-format="opus" aria-pressed="false">Opus<span>96 / 128 / 160 kbps</span></button>' +
+            '<button type="button" class="convert-format" data-format="ogg" aria-pressed="false">OGG<span>96 / 128 / 160 kbps</span></button>' +
+          '</div>' +
+          '<span class="convert-section-label" id="convertBitrateLabel"></span>' +
+          '<div class="convert-bitrates" id="convertBitrates" role="group"></div>' +
+          '<p class="convert-privacy" id="convertPrivacy"></p>' +
+          '<div class="convert-action"><button type="button" class="convert-submit" id="convertSubmit" disabled><span class="convert-spinner" id="convertSpinner" hidden></span><span id="convertSubmitText"></span></button></div>' +
+          '<p class="convert-status" id="convertStatus" role="status" aria-live="polite"></p>' +
+        '</div>' +
+      '</section>';
+    var fileInput = document.getElementById('convertInput');
+    var dropZone = document.getElementById('convertPickFile');
+    dropZone.addEventListener('click', function () { if (!state.busy) fileInput.click(); });
+    fileInput.addEventListener('change', function () {
+      chooseFile(fileInput.files && fileInput.files[0]);
+      fileInput.value = '';
+    });
+    document.querySelectorAll('.convert-format').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (state.busy) return;
+        state.format = button.dataset.format;
+        state.bitrate = '128';
+        document.querySelectorAll('.convert-format').forEach(function (item) {
+          item.setAttribute('aria-pressed', String(item === button));
+        });
+        renderBitrates();
+      });
+    });
+    document.getElementById('convertSubmit').addEventListener('click', convert);
+    ['dragenter', 'dragover'].forEach(function (type) {
+      dropZone.addEventListener(type, function (event) {
+        event.preventDefault();
+        if (!state.busy) dropZone.classList.add('is-dragging');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (type) {
+      dropZone.addEventListener(type, function (event) {
+        event.preventDefault();
+        dropZone.classList.remove('is-dragging');
+      });
+    });
+    dropZone.addEventListener('drop', function (event) {
+      if (!state.busy && event.dataTransfer && event.dataTransfer.files[0]) chooseFile(event.dataTransfer.files[0]);
+    });
+    renderBitrates();
+    applyLanguage();
+    return true;
+  }
+
+  if (!mount()) {
+    mountObserver = new MutationObserver(function () {
+      if (mount()) mountObserver.disconnect();
+    });
+    mountObserver.observe(document.getElementById('root'), { childList: true, subtree: true });
+  }
+  new MutationObserver(applyLanguage).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+})();
 </script>
 
 </body>
